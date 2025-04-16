@@ -1,0 +1,3 @@
+# priority_queue
+
+A priority queue is an [abstract data type](/data_md/computer_science/definitions/data_structure/abstract_data_type.md) that operates similarly to a regular [queue](/data_md/computer_science/definitions/data_structure/collection/queue.md) but with an added feature: each element in the priority queue has a "priority" associated with it. Elements with higher priority are served before elements with lower priority. If two elements have the same priority, they are served according to their order in the queue (FIFO - First In, First Out).
