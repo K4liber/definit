@@ -14,3 +14,13 @@ class TestDataParserMD:
         # Then
         assert dag is not None
         assert len([edge for edge in dag.edges]) == 13
+
+    def test_parse_all_definitions(self) -> None:
+        # Given
+        data_parser = DataParserMd(data_md_path=CONST.PACKAGE_ROOT_DIR.parent / "data_md")
+        # When
+        index = data_parser.get_index()
+        # Then
+        assert index is not None
+        assert len(index) == 41
+        [data_parser.get_dag(definition=definition) for definition in index]

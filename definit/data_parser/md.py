@@ -12,6 +12,10 @@ class DataParserMdException(Exception):
 
 
 class DataParserMd(DataParserAbstract):
+    """
+    Data parser for markdown files.
+    """
+
     def __init__(self, data_md_path: Path) -> None:
         self._data_md_path = data_md_path
         self._index_cache: dict[Field, dict[str, Path]] = dict()
@@ -23,6 +27,20 @@ class DataParserMd(DataParserAbstract):
         definition_file_path = self._index_cache[definition.field][definition.name]
         self._update_dag_in_place(definition=definition, dag=dag, definition_path=definition_file_path)
         return dag
+
+    def get_index(self, field: Field | None = None) -> set[Definition]:
+        fields = [field for field in Field] if field is None else [field]
+
+        for field in fields:
+            self._load_index_cache(field=field)
+
+        index: set[Definition] = set()
+
+        for field, field_definitions in self._index_cache.items():
+            for definition_name in field_definitions.keys():
+                index.add(Definition(name=definition_name, field=field))
+
+        return index
 
     def _load_index_cache(self, field: Field) -> None:
         if field in self._index_cache:
@@ -44,10 +62,20 @@ class DataParserMd(DataParserAbstract):
                     definition_path = self._get_field_path(field=field).joinpath(definition_relative_path)
                     self._index_cache[field][definition_name] = definition_path
 
-    def _update_dag_in_place(self, definition: Definition, dag: DAG, definition_path: Path) -> None:
+    def _update_dag_in_place(
+        self, definition: Definition, dag: DAG, definition_path: Path, parent_definition: Definition | None = None
+    ) -> None:
         if definition in self._definition_cache:
             lines = self._definition_cache[definition]
         else:
+            if not definition_path.exists():
+                if parent_definition is None:
+                    raise DataParserMdException(f"Root definition file {definition_path} does not exist.")
+                else:
+                    raise DataParserMdException(
+                        f"Child definition file {definition_path} inside definition {parent_definition} does not exist."
+                    )
+
             with open(definition_path) as definition_file:
                 lines = "\n".join(definition_file.readlines())
 
@@ -61,7 +89,12 @@ class DataParserMd(DataParserAbstract):
             child_definition_name = child_definition_path.stem
             child_definition = Definition(name=child_definition_name, field=child_definition_field)
             dag.add_edge(node_from=definition, node_to=child_definition)
-            self._update_dag_in_place(definition=child_definition, dag=dag, definition_path=child_definition_path)
+            self._update_dag_in_place(
+                definition=child_definition,
+                dag=dag,
+                definition_path=child_definition_path,
+                parent_definition=definition,
+            )
 
     def _get_field_path(self, field: Field) -> Path:
         return self._data_md_path / field.value
