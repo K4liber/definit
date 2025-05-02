@@ -21,19 +21,25 @@ class DataParserMd(DataParserAbstract):
         self._index_cache: dict[Field, dict[str, Path]] = dict()
         self._definition_cache: dict[Definition, str] = dict()
 
-    def get_dag(self, definition: Definition) -> DAG:
+    def get_dag(self, definition: Definition | None = None) -> DAG:
         dag = DAG()
-        self._load_index_cache(field=definition.field)
-        definition_file_path = self._index_cache[definition.field][definition.name]
-        self._update_dag_in_place(definition=definition, dag=dag, definition_path=definition_file_path)
+
+        if definition is not None:
+            self._load_index_cache(field=definition.field)
+
+        if definition is None:
+            definitions = self.get_index()
+        else:
+            definitions = {definition}
+
+        for _definition in definitions:
+            definition_file_path = self._index_cache[_definition.field][_definition.name]
+            self._update_dag_in_place(definition=_definition, dag=dag, definition_path=definition_file_path)
+
         return dag
 
     def get_index(self, field: Field | None = None) -> set[Definition]:
-        fields = [field for field in Field] if field is None else [field]
-
-        for field in fields:
-            self._load_index_cache(field=field)
-
+        self._cache_index(field=field)
         index: set[Definition] = set()
 
         for field, field_definitions in self._index_cache.items():
@@ -41,6 +47,12 @@ class DataParserMd(DataParserAbstract):
                 index.add(Definition(name=definition_name, field=field))
 
         return index
+
+    def _cache_index(self, field: Field | None = None) -> None:
+        fields = [field for field in Field] if field is None else [field]
+
+        for field in fields:
+            self._load_index_cache(field=field)
 
     def _load_index_cache(self, field: Field) -> None:
         if field in self._index_cache:

@@ -61,7 +61,7 @@ Going down in the hierarchy we reach a low level definitions that are more gener
 Climping up on the DAG we learn more specific, high level concepts 
 (see 'stack' dependencies DAG on Figure 1. as an example).
 
-!['list' dependencies DAG](./dag_stack.png)  
+!['stack' dependencies DAG](./dag_stack.png)  
 Figure 1. 'stack' dependencies DAG.
 
 The DAG is going to be precise and well arranged knowledge representation. 
@@ -69,6 +69,9 @@ It can be used by humans for example to learn a new field of knowledge.
 Specyfing an unambiguous language that experts in a field use to communicate with each other 
 will improve the quality and clarity of the communication.
 It can also be used by LLMs (Language Models) as a solid training/tuning data or part of prompting.
+
+![All definitions DAG](./dag_all.png)  
+Figure 2. All definitions DAG.
 
 ## How?
 

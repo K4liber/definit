@@ -16,6 +16,18 @@ class TestNetworkx:
         dag = data_parser.get_dag(definition=definition)
         dag_visualization = DAGVisualizationNetworkX()
         # When
-        dag_visualization.show(root=definition, dag=dag)
+        dag_visualization.show(dag=dag, root=definition)
+        # Then
+        pass
+
+    @pytest.mark.skip("manual test")
+    def test_all_definitions_circle(self) -> None:
+        # Given
+        data_parser = DataParserMd(data_md_path=CONST.PACKAGE_ROOT_DIR.parent / "data_md")
+        data_parser._cache_index()
+        dag = data_parser.get_dag()
+        dag_visualization = DAGVisualizationNetworkX()
+        # When
+        dag_visualization.show_circle(dag=dag)
         # Then
         pass
