@@ -1,0 +1,3 @@
+# tree
+
+An [abstract data type](/data_md/computer_science/definitions/data_structure/abstract_data_type.md) that represents a [directed acyclic graph](/data_md/mathematics/definitions/graph/directed_acyclic_graph.md) with the restriction that a child can only have one parent. Each tree has a root [node](/data_md/mathematics/definitions/graph/node.md), which is the topmost node in the hierarchy, and each node can have zero or more child nodes. Each node has only one parent node, except for the root node, which has no parent.

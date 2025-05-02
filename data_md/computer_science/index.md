@@ -17,3 +17,6 @@
 - [priority_queue](./definitions/data_structure/collection/priority_queue.md)
 - [bag](./definitions/data_structure/collection/bag.md)
 - [set](./definitions/data_structure/collection/set.md)
+- [array](./definitions/data_structure/collection/list/array.md)
+- [linked_list](./definitions/data_structure/collection/list/linked_list.md)
+- [associative_array](./definitions/data_structure/collection/associative_array.md)

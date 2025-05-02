@@ -1,0 +1,4 @@
+# associative_array
+
+An [abstract data type](/data_md/computer_science/definitions/data_structure/abstract_data_type.md) that [maps](/data_md/computer_science/definitions/data_structure/map.md) keys to values. It is a [collection](/data_md/computer_science/definitions/data_structure/collection.md) of key-value pairs, where each key is unique and is used to access the corresponding value. Associative arrays are also known as maps, dictionaries, or hash tables.
+Associative arrays allow for efficient [operations](/data_md/computer_science/definitions/foundamental/operation.md): retrieval, insertion, and deletion of values based on their keys.
