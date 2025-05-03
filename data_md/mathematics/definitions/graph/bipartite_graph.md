@@ -1,0 +1,3 @@
+# bipartite_graph
+
+A [graph](/data_md/mathematics/definitions/graph/graph.md) whose [nodes](/data_md/mathematics/definitions/graph/node.md) can be divided into two disjoint [sets](/data_md/mathematics/definitions/foundamental/set.md) such that every [edge](/data_md/mathematics/definitions/graph/edge.md) connects a node in one set to a node in the other set. In other words, there are no edges connecting nodes within the same set.

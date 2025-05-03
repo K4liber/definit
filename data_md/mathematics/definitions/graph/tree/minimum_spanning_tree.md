@@ -1,0 +1,3 @@
+# minimum_spanning_tree
+
+A [tree](/data_md/mathematics/definitions/graph/tree/tree.md) that connects all the [nodes](/data_md/mathematics/definitions/graph/node.md) in a [graph](/data_md/mathematics/definitions/graph/graph.md) with the minimum possible total [edge](/data_md/mathematics/definitions/graph/edge.md) weight. In other words, it is a subset of the edges of the graph that forms a tree and includes every node, such that the sum of the weights of the edges is minimized.

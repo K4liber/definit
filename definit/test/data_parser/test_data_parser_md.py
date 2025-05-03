@@ -13,7 +13,7 @@ class TestDataParserMD:
         dag = data_parser.get_dag(definition=definition_list)
         # Then
         assert dag is not None
-        assert len([edge for edge in dag.edges]) == 13
+        assert len([edge for edge in dag.edges]) == 15
 
     def test_parse_all_definitions(self) -> None:
         # Given
@@ -22,5 +22,5 @@ class TestDataParserMD:
         index = data_parser.get_index()
         # Then
         assert index is not None
-        assert len(index) == 41
+        assert len(index) == 62
         [data_parser.get_dag(definition=definition) for definition in index]

@@ -1,0 +1,3 @@
+# utf-8
+
+A [utf](/data_md/computer_science/definitions/data_structure/collection/string/utf.md) [character encoding](/data_md/computer_science/definitions/data_structure/collection/string/character_encoding.md) scheme that uses 1 to 4 bytes to represent [Unicode](/data_md/computer_science/definitions/data_structure/collection/string/unicode.md) characters. It is backward compatible with ASCII and can represent any character in the Unicode standard.

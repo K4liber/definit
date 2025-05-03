@@ -1,3 +1,5 @@
+from typing import Any
+
 import matplotlib.pyplot as plt
 import networkx as nx
 import numpy as np
@@ -17,26 +19,11 @@ class DAGVisualizationNetworkX(DAGVisualizationAbstract):
         edges = [edge for edge in dag.edges]
         graph.add_edges_from(edges)
 
-        # Calculate level for each node based on maximum level of children
+        # Calculate level for each node
         levels = {}
 
-        def get_node_level(node):
-            if node in levels:
-                return levels[node]
-
-            children = list(graph.successors(node))
-            if not children:  # leaf node
-                levels[node] = 0
-                return 0
-
-            # Node's level is max level of children + 1
-            max_child_level = max(get_node_level(child) for child in children)
-            levels[node] = max_child_level + 1
-            return levels[node]
-
-        # Calculate levels for all nodes
         for node in graph.nodes():
-            get_node_level(node)
+            DAGVisualizationNetworkX.get_node_level(graph=graph, node=node, node_levels=levels)
 
         # Group nodes by level
         nodes_by_level = {}
@@ -152,19 +139,28 @@ class DAGVisualizationNetworkX(DAGVisualizationAbstract):
         no_levels = 0
         no_nodes = 0
         # calculate positions
-        for layer, nodes in enumerate(reversed(tuple(nx.topological_generations(graph)))):
+        levels = {}
+
+        for node in graph.nodes():
+            level = DAGVisualizationNetworkX.get_node_level(graph=graph, node=node, node_levels=levels)
             # `multipartite_layout` expects the layer as a node attribute, so add the
             # numeric layer value as a node attribute
-            for node in nodes:
-                graph.nodes[node]["layer"] = layer
-
-            no_levels += 1
-            no_nodes += len(nodes)
+            graph.nodes[node]["layer"] = level
+            no_levels = max(no_levels, level + 1)  # +1 because levels are 0-indexed
+            no_nodes += 1
 
         pos = nx.multipartite_layout(graph, subset_key="layer", align="horizontal")
         fig, ax = plt.subplots(figsize=(8, 6))
         nx.draw_networkx_edges(graph, pos, ax=ax, arrows=False)
 
+        # Get unique y-coordinates representing each level
+        y_levels = sorted(set(y for _, y in pos.values()))
+
+        # Draw horizontal level lines
+        for y in y_levels:
+            ax.axhline(y=y, color="gray", linestyle="--", alpha=0.2)
+
+        # Draw nodes
         handles = []
         labels = []
         node_to_position: dict[Definition, tuple[float, float]] = {node: position for node, position in pos.items()}
@@ -200,3 +196,21 @@ class DAGVisualizationNetworkX(DAGVisualizationAbstract):
         ax.legend(handles=handles, labels=labels, title="Knowledge fields", loc="upper right")
         fig.tight_layout()
         plt.show()
+
+    @staticmethod
+    def get_node_level(graph: nx.DiGraph, node: Any, node_levels: dict[Any, int]) -> int:
+        if node in node_levels:
+            return node_levels[node]
+
+        children = list(graph.successors(node))
+        if not children:  # leaf node
+            node_levels[node] = 0
+            return 0
+
+        # Node's level is max level of children + 1
+        max_child_level = max(
+            DAGVisualizationNetworkX.get_node_level(graph=graph, node=child, node_levels=node_levels)
+            for child in children
+        )
+        node_levels[node] = max_child_level + 1
+        return node_levels[node]

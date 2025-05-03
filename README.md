@@ -59,10 +59,10 @@ Keeping the DAG structure enforce us to build a definition on top of the more ge
 It makes it clear how specific is the concept of our interest. 
 Going down in the hierarchy we reach a low level definitions that are more general and fundamental. 
 Climping up on the DAG we learn more specific, high level concepts 
-(see 'stack' dependencies DAG on Figure 1. as an example).
+(see 'trie' dependencies DAG on Figure 1. as an example).
 
-!['stack' dependencies DAG](./dag_stack.png)  
-Figure 1. 'stack' dependencies DAG.
+!['trie' dependencies DAG](./dag_trie.png)  
+Figure 1. 'trie' dependencies DAG.
 
 The DAG is going to be precise and well arranged knowledge representation. 
 It can be used by humans for example to learn a new field of knowledge.

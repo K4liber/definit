@@ -1,0 +1,3 @@
+# avl_tree
+
+A type of [self-balancing](/data_md/mathematics/definitions/graph/tree/b_tree.md) [binary search tree](/data_md/mathematics/definitions/graph/tree/binary_search_tree.md) where the difference in heights between the left and right [subtrees](/data_md/mathematics/definitions/graph/tree/subtree.md) of any [node](/data_md/mathematics/definitions/graph/node.md) is at most one. This property ensures that the tree remains approximately balanced, allowing for efficient search, insertion, and deletion operations. The AVL tree is named after its inventors, Georgy Adelson-Velsky and Evgenii Landis.

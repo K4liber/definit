@@ -1,0 +1,3 @@
+# interval_tree
+
+A type of [binary search tree](/data_md/mathematics/definitions/graph/tree/binary_search_tree.md) that stores intervals as its keys. Each [node](/data_md/mathematics/definitions/graph/node.md) in the interval tree represents an interval, and the tree is structured in such a way that it allows for efficient searching of all intervals that overlap with a given interval or point. The intervals are typically represented by their start and end points, and the [tree](/data_md/mathematics/definitions/graph/tree/tree.md) is [balanced](/data_md/mathematics/definitions/graph/tree/balanced_binary_tree.md) to ensure efficient search operations.
