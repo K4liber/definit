@@ -6,7 +6,7 @@ import numpy as np
 from matplotlib.patches import Ellipse
 
 from definit.dag.dag import DAG
-from definit.dag.dag import Definition
+from definit.dag.dag import DefinitionKey
 from definit.field import Field
 from definit.track import Track
 from definit.visualization.dag.interface import DAGVisualizationAbstract
@@ -133,7 +133,7 @@ class DAGVisualizationNetworkX(DAGVisualizationAbstract):
         fig.tight_layout()
         plt.show()
 
-    def show(self, dag: DAG, root: Definition | None = None) -> None:
+    def show(self, dag: DAG, root: DefinitionKey | None = None) -> None:
         graph = nx.DiGraph()
         edges = [edge for edge in dag.edges]
         graph.add_edges_from(edges)
@@ -164,7 +164,7 @@ class DAGVisualizationNetworkX(DAGVisualizationAbstract):
         # Draw nodes
         handles = []
         labels = []
-        node_to_position: dict[Definition, tuple[float, float]] = {node: position for node, position in pos.items()}
+        node_to_position: dict[DefinitionKey, tuple[float, float]] = {node: position for node, position in pos.items()}
 
         for node, (x, y) in node_to_position.items():
             node_field = node.field
