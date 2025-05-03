@@ -61,7 +61,7 @@ Going down in the hierarchy we reach a low level definitions that are more gener
 Climping up on the DAG we learn more specific, high level concepts 
 (see 'trie' dependencies DAG on Figure 1. as an example).
 
-!['trie' dependencies DAG](./dag_trie.png)  
+!['trie' dependencies DAG](./dag_definition_trie.png)  
 Figure 1. 'trie' dependencies DAG.
 
 The DAG is going to be precise and well arranged knowledge representation. 
@@ -70,8 +70,11 @@ Specyfing an unambiguous language that experts in a field use to communicate wit
 will improve the quality and clarity of the communication.
 It can also be used by LLMs (Language Models) as a solid training/tuning data or part of prompting.
 
-![All definitions DAG](./dag_all.png)  
-Figure 2. All definitions DAG.
+If one would like to learn a specific part of the knowledge,
+the "Track" concept can be used. Figure 2. shows an example of a "Track" for data structures.
+
+!['data_structures' DAG](./dag_track_data_structures.png)  
+Figure 2. Circular DAG visualization of 'data_structures' track.
 
 ## How?
 

@@ -8,13 +8,14 @@ from matplotlib.patches import Ellipse
 from definit.dag.dag import DAG
 from definit.dag.dag import Definition
 from definit.field import Field
+from definit.track import Track
 from definit.visualization.dag.interface import DAGVisualizationAbstract
 
 _node_colors = {Field.COMPUTER_SCIENCE: "lightblue", Field.MATHEMATICS: "yellow"}
 
 
 class DAGVisualizationNetworkX(DAGVisualizationAbstract):
-    def show_circle(self, dag: DAG, root: Definition | None = None) -> None:
+    def show_circle(self, dag: DAG, track: Track | None = None) -> None:
         graph = nx.DiGraph()
         edges = [edge for edge in dag.edges]
         graph.add_edges_from(edges)
@@ -89,7 +90,7 @@ class DAGVisualizationNetworkX(DAGVisualizationAbstract):
                 angle=angle,  # Apply rotation to ellipse
                 facecolor=node_color,
                 edgecolor="black",
-                linewidth=(2 if node == root else 0),
+                linewidth=0,
             )
             ax.add_patch(ellipse)
             ax.text(
@@ -116,7 +117,7 @@ class DAGVisualizationNetworkX(DAGVisualizationAbstract):
 
         no_nodes = len(graph.nodes())
         no_dependencies = len(graph.edges())
-        root_name = f"'{root}'" if root else "All definitions"
+        root_name = f"'{track}'" if track else "All definitions"
         ax.set_title(
             f"{root_name} DAG (definitions={no_nodes}, dependencies={no_dependencies}, levels={max_level + 1})"
         )

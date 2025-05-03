@@ -1,0 +1,250 @@
+[
+    {
+        "name": "set",
+        "field": "mathematics"
+    },
+    {
+        "name": "multiset",
+        "field": "mathematics"
+    },
+    {
+        "name": "finite_set",
+        "field": "mathematics"
+    },
+    {
+        "name": "function",
+        "field": "mathematics"
+    },
+    {
+        "name": "relation",
+        "field": "mathematics"
+    },
+    {
+        "name": "object",
+        "field": "mathematics"
+    },
+    {
+        "name": "graph",
+        "field": "mathematics"
+    },
+    {
+        "name": "node",
+        "field": "mathematics"
+    },
+    {
+        "name": "edge",
+        "field": "mathematics"
+    },
+    {
+        "name": "path",
+        "field": "mathematics"
+    },
+    {
+        "name": "cycle",
+        "field": "mathematics"
+    },
+    {
+        "name": "graph distance",
+        "field": "mathematics"
+    },
+    {
+        "name": "adjacency list",
+        "field": "mathematics"
+    },
+    {
+        "name": "bipartite graph",
+        "field": "mathematics"
+    },
+    {
+        "name": "directed_graph",
+        "field": "mathematics"
+    },
+    {
+        "name": "directed_acyclic_graph",
+        "field": "mathematics"
+    },
+    {
+        "name": "tree",
+        "field": "mathematics"
+    },
+    {
+        "name": "leaf",
+        "field": "mathematics"
+    },
+    {
+        "name": "subtree",
+        "field": "mathematics"
+    },
+    {
+        "name": "minimum_spanning_tree",
+        "field": "mathematics"
+    },
+    {
+        "name": "k_ary_tree",
+        "field": "mathematics"
+    },
+    {
+        "name": "binary_tree",
+        "field": "mathematics"
+    },
+    {
+        "name": "balanced_binary_tree",
+        "field": "mathematics"
+    },
+    {
+        "name": "unbalanced_binary_tree",
+        "field": "mathematics"
+    },
+    {
+        "name": "complete_binary_tree",
+        "field": "mathematics"
+    },
+    {
+        "name": "b-tree",
+        "field": "mathematics"
+    },
+    {
+        "name": "binary_search_tree",
+        "field": "mathematics"
+    },
+    {
+        "name": "interval_tree",
+        "field": "mathematics"
+    },
+    {
+        "name": "avl_tree",
+        "field": "mathematics"
+    },
+    {
+        "name": "red_black_tree",
+        "field": "mathematics"
+    },
+    {
+        "name": "information",
+        "field": "computer_science"
+    },
+    {
+        "name": "data",
+        "field": "computer_science"
+    },
+    {
+        "name": "bit",
+        "field": "computer_science"
+    },
+    {
+        "name": "data_structure",
+        "field": "computer_science"
+    },
+    {
+        "name": "bit_field",
+        "field": "computer_science"
+    },
+    {
+        "name": "object",
+        "field": "computer_science"
+    },
+    {
+        "name": "data_type",
+        "field": "computer_science"
+    },
+    {
+        "name": "operation",
+        "field": "computer_science"
+    },
+    {
+        "name": "abstract_data_type",
+        "field": "computer_science"
+    },
+    {
+        "name": "primitive_data_type",
+        "field": "computer_science"
+    },
+    {
+        "name": "map",
+        "field": "computer_science"
+    },
+    {
+        "name": "boolean",
+        "field": "computer_science"
+    },
+    {
+        "name": "collection",
+        "field": "computer_science"
+    },
+    {
+        "name": "list",
+        "field": "computer_science"
+    },
+    {
+        "name": "queue",
+        "field": "computer_science"
+    },
+    {
+        "name": "stack",
+        "field": "computer_science"
+    },
+    {
+        "name": "priority_queue",
+        "field": "computer_science"
+    },
+    {
+        "name": "bag",
+        "field": "computer_science"
+    },
+    {
+        "name": "set",
+        "field": "computer_science"
+    },
+    {
+        "name": "heap_tree",
+        "field": "computer_science"
+    },
+    {
+        "name": "array",
+        "field": "computer_science"
+    },
+    {
+        "name": "linked_list",
+        "field": "computer_science"
+    },
+    {
+        "name": "associative_array",
+        "field": "computer_science"
+    },
+    {
+        "name": "hash_table",
+        "field": "computer_science"
+    },
+    {
+        "name": "character_encoding",
+        "field": "computer_science"
+    },
+    {
+        "name": "utf",
+        "field": "computer_science"
+    },
+    {
+        "name": "utf_8",
+        "field": "computer_science"
+    },
+    {
+        "name": "string",
+        "field": "computer_science"
+    },
+    {
+        "name": "unicode",
+        "field": "computer_science"
+    },
+    {
+        "name": "ascii",
+        "field": "computer_science"
+    },
+    {
+        "name": "extended_ascii",
+        "field": "computer_science"
+    },
+    {
+        "name": "trie",
+        "field": "computer_science"
+    }
+]
