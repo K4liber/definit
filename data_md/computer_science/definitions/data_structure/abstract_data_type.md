@@ -1,3 +1,0 @@
-# abstract_data_type
-
-Abstract data type (ADT) is a mathematical model for [data type](/data_md/computer_science/definitions/foundamental/data_type.md), defined by its behavior from the point of view of a user of the [data](/data_md/computer_science/definitions/foundamental/data.md), specifically in terms of possible values, possible [operations](/data_md/computer_science/definitions/foundamental/operation.md) on data of this [data type](/data_md/computer_science/definitions/foundamental/data_type.md), and the behavior of these [operations](/data_md/computer_science/definitions/foundamental/operation.md).

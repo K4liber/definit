@@ -3,6 +3,8 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
+from definit_db_md import CONFIG
+
 from definit.dag.dag import DAG
 from definit.dag.dag import Definition
 from definit.dag.dag import DefinitionKey
@@ -17,7 +19,9 @@ class DataParserMdException(Exception):
 
 @dataclass(frozen=True)
 class _Const:
+    FIELD_DIR = "field"
     TRACK_DIR = "track"
+    INDEX_FILE_NAME = "index.md"
 
 
 _CONTS = _Const()
@@ -28,7 +32,7 @@ class DataParserMd(DataParserAbstract):
     Data parser for markdown files.
     """
 
-    def __init__(self, data_md_path: Path) -> None:
+    def __init__(self, data_md_path: Path = CONFIG.DATA_PATH) -> None:
         self._data_md_path = data_md_path
         self._index_cache: dict[Field, dict[str, Path]] = dict()
         self._definition_cache: dict[DefinitionKey, str] = dict()
@@ -116,7 +120,7 @@ class DataParserMd(DataParserAbstract):
             self._index_cache[field] = {}
 
         field_path = self._get_field_path(field=field)
-        index_file_path = field_path / self._index_file_name
+        index_file_path = field_path / _CONTS.INDEX_FILE_NAME
 
         with open(index_file_path) as index_file:
             lines = index_file.readlines()
@@ -168,7 +172,7 @@ class DataParserMd(DataParserAbstract):
         for child_definition_name, child_definition_relative_path in matches:
             path_parts = Path(child_definition_relative_path).parts
             child_definition_field = Field(path_parts[2])
-            child_definition_path = self._data_md_path.joinpath(Path(*path_parts[2:]))
+            child_definition_path = self._fields_path.joinpath(Path(*path_parts[2:]))
             # definition name could have a different form, we can get the correct form from the path
             child_definition_name = child_definition_path.stem
             child_definition_key = DefinitionKey(name=child_definition_name, field=child_definition_field)
@@ -185,9 +189,9 @@ class DataParserMd(DataParserAbstract):
                 parent_definition_key=definition_key,
             )
 
-    def _get_field_path(self, field: Field) -> Path:
-        return self._data_md_path / field.value
-
     @property
-    def _index_file_name(self) -> str:
-        return "index.md"
+    def _fields_path(self) -> Path:
+        return self._data_md_path / _CONTS.FIELD_DIR
+
+    def _get_field_path(self, field: Field) -> Path:
+        return self._fields_path / field.value

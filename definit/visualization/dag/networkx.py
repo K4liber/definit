@@ -19,18 +19,14 @@ class DAGVisualizationNetworkX(DAGVisualizationAbstract):
         graph = nx.DiGraph()
         edges = [edge for edge in dag.edges]
         graph.add_edges_from(edges)
-
-        # Calculate level for each node
-        levels = {}
-
-        for node in graph.nodes():
-            DAGVisualizationNetworkX.get_node_level(graph=graph, node=node, node_levels=levels)
+        node_to_level = DAGVisualizationNetworkX.get_node_levels(graph=graph)
 
         # Group nodes by level
         nodes_by_level = {}
-        max_level = max(levels.values()) if levels else 0
+        max_level = max(node_to_level.values()) if node_to_level else 0
+
         for level in range(max_level + 1):
-            nodes_by_level[level] = [node for node, node_level in levels.items() if node_level == level]
+            nodes_by_level[level] = [node for node, node_level in node_to_level.items() if node_level == level]
 
         # Calculate positions in orbital layout
         pos = {}
@@ -72,7 +68,6 @@ class DAGVisualizationNetworkX(DAGVisualizationAbstract):
         for node, (x, y) in pos.items():
             node_field = node.field
             node_color = _node_colors[node_field]
-            level = levels[node]
 
             # Calculate rotation angle based on position
             angle = np.degrees(np.arctan2(y, x))
@@ -140,10 +135,9 @@ class DAGVisualizationNetworkX(DAGVisualizationAbstract):
         no_levels = 0
         no_nodes = 0
         # calculate positions
-        levels = {}
+        node_to_level = DAGVisualizationNetworkX.get_node_levels(graph=graph)
 
-        for node in graph.nodes():
-            level = DAGVisualizationNetworkX.get_node_level(graph=graph, node=node, node_levels=levels)
+        for node, level in node_to_level.items():
             # `multipartite_layout` expects the layer as a node attribute, so add the
             # numeric layer value as a node attribute
             graph.nodes[node]["layer"] = level
@@ -199,19 +193,27 @@ class DAGVisualizationNetworkX(DAGVisualizationAbstract):
         plt.show()
 
     @staticmethod
-    def get_node_level(graph: nx.DiGraph, node: Any, node_levels: dict[Any, int]) -> int:
-        if node in node_levels:
-            return node_levels[node]
+    def get_node_levels(graph: nx.DiGraph) -> dict[DefinitionKey, int]:
+        node_levels: dict[Any, int] = {}
 
-        children = list(graph.successors(node))
-        if not children:  # leaf node
-            node_levels[node] = 0
-            return 0
+        def update_node_level(node: Any) -> None:
+            if node in node_levels:
+                return
 
-        # Node's level is max level of children + 1
-        max_child_level = max(
-            DAGVisualizationNetworkX.get_node_level(graph=graph, node=child, node_levels=node_levels)
-            for child in children
-        )
-        node_levels[node] = max_child_level + 1
-        return node_levels[node]
+            children = list(graph.successors(node))
+
+            if not children:  # leaf node
+                node_levels[node] = 0
+                return
+
+            for child in children:
+                update_node_level(node=child)
+
+            # Node's level is max level of children + 1
+            max_child_level = max((node_levels[child] for child in children))
+            node_levels[node] = max_child_level + 1
+
+        for node in graph.nodes():
+            update_node_level(node=node)
+
+        return node_levels

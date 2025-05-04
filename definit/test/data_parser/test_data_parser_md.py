@@ -1,13 +1,12 @@
 from definit.dag.dag import DefinitionKey
 from definit.data_parser.md import DataParserMd
 from definit.field import Field
-from definit.test.common import CONST
 
 
 class TestDataParserMD:
     def test_list_definition(self) -> None:
         # Given
-        data_parser = DataParserMd(data_md_path=CONST.PACKAGE_ROOT_DIR.parent / "data_md")
+        data_parser = DataParserMd()
         definition_key_list = DefinitionKey(name="list", field=Field.COMPUTER_SCIENCE)
         # When
         dag = data_parser.get_dag_for_definition(root=definition_key_list)
@@ -18,7 +17,7 @@ class TestDataParserMD:
 
     def test_parse_all_definitions(self) -> None:
         # Given
-        data_parser = DataParserMd(data_md_path=CONST.PACKAGE_ROOT_DIR.parent / "data_md")
+        data_parser = DataParserMd()
         # When
         index = data_parser.get_index()
         # Then
