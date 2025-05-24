@@ -7,7 +7,7 @@ requires-python = ">=3.12"
 dependencies = [
     "networkx",
     "matplotlib",
-    "definit-db-md==0.5.0"
+    "definit-db==0.1.0"
 ]
 
 [tool.setuptools.packages.find]

@@ -39,6 +39,9 @@ class DAG:
             for node_to in nodes_to:
                 yield node_from, node_to
 
+    def get_node(self, node_key: DefinitionKey) -> Definition:
+        return self._definitions[node_key]
+
     @property
     def nodes(self) -> set[Definition]:
         return set(self._definitions.values())

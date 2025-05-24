@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from typing import Any
 
 import matplotlib.pyplot as plt
@@ -6,27 +7,89 @@ import numpy as np
 from matplotlib.patches import Ellipse
 
 from definit.dag.dag import DAG
+from definit.dag.dag import Definition
 from definit.dag.dag import DefinitionKey
+from definit.db import get_database
 from definit.field import Field
 from definit.track import Track
 from definit.visualization.dag.interface import DAGVisualizationAbstract
 
-_node_colors = {Field.COMPUTER_SCIENCE: "lightblue", Field.MATHEMATICS: "yellow"}
+_field_to_color = {Field.COMPUTER_SCIENCE: "lightblue", Field.MATHEMATICS: "yellow"}
+_track_to_color = {
+    Track.ALGORITHMS: "lightgreen",
+    Track.DATA_STRUCTURES: "red",
+}
+
+
+@dataclass(frozen=True)
+class DefinitionWithTrack(Definition):
+    track: Track
+
+
+def _get_dag_with_rolled_definitions(dag: DAG, rolled_definitions: dict[Definition, Track]) -> DAG:
+    """
+    Create a new DAG with rolled definitions replaced by their tracks.
+    This function creates a new DAG where each rolled definition is replaced by its corresponding track.
+    If a definition is rolled, it will be replaced by its track in the new DAG.
+    If a definition is not rolled, it will remain unchanged."""
+    # Create a new DAG to avoid modifying the original
+    new_dag = DAG()
+    rolled_key_to_definition = {definition.key for definition in rolled_definitions}
+
+    for node_from, node_to in dag.edges:
+        node_from_definition = dag.get_node(node_from)
+
+        if node_from_definition.key in rolled_key_to_definition:
+            track = rolled_definitions[node_from_definition]
+            node_from_key = DefinitionKey(name=str(track), field=Field.MATHEMATICS)
+            node_from_definition = DefinitionWithTrack(key=node_from_key, content="", track=track)
+
+        node_to_definition = dag.get_node(node_to)
+
+        if node_to_definition.key in rolled_key_to_definition:
+            track = rolled_definitions[node_to_definition]
+            node_to_key = DefinitionKey(name=str(track), field=Field.MATHEMATICS)
+            node_to_definition = DefinitionWithTrack(key=node_to_key, content="", track=track)
+
+        if node_from_definition.key != node_to_definition.key:
+            # Add the edge only if the nodes are not the same
+            new_dag.add_edge(node_from_definition, node_to_definition)
+
+    return new_dag
 
 
 class DAGVisualizationNetworkX(DAGVisualizationAbstract):
-    def show_circle(self, dag: DAG, track: Track | None = None) -> None:
+    def show_circle(
+        self,
+        dag: DAG,
+        track: Track | None = None,
+        unrolled_tracks: set[Track] | None = None,
+    ) -> None:
+        if unrolled_tracks is not None:
+            db = get_database()
+            all_tracks: set[Track] = {track for track in Track}
+            rolled_tracks: set[Track] = all_tracks - unrolled_tracks
+            rolled_definitions: dict[Definition, Track] = {}
+
+            for rolled_track in rolled_tracks:
+                track_rolled_definition_keys = db.get_track(track=rolled_track)
+
+                for track_rolled_definition_key in track_rolled_definition_keys:
+                    rolled_definitions[db.get_definition(track_rolled_definition_key)] = rolled_track
+
+            dag = _get_dag_with_rolled_definitions(dag=dag, rolled_definitions=rolled_definitions)
+
         graph = nx.DiGraph()
-        edges = [edge for edge in dag.edges]
-        graph.add_edges_from(edges)
-        node_to_level = DAGVisualizationNetworkX.get_node_levels(graph=graph)
+        edges = [(dag.get_node(node_from_key), dag.get_node(node_to_key)) for (node_from_key, node_to_key) in dag.edges]
+        graph.add_edges_from(edges)  # type: ignore , networkx typing issue
+        node_key_to_level = DAGVisualizationNetworkX.get_node_levels(graph=graph)
 
         # Group nodes by level
-        nodes_by_level = {}
-        max_level = max(node_to_level.values()) if node_to_level else 0
+        nodes_by_level: dict[int, list[Definition]] = {}
+        max_level = max(node_key_to_level.values()) if node_key_to_level else 0
 
         for level in range(max_level + 1):
-            nodes_by_level[level] = [node for node, node_level in node_to_level.items() if node_level == level]
+            nodes_by_level[level] = [node for node, node_level in node_key_to_level.items() if node_level == level]
 
         # Calculate positions in orbital layout
         pos = {}
@@ -66,8 +129,12 @@ class DAGVisualizationNetworkX(DAGVisualizationAbstract):
 
         # Draw nodes
         for node, (x, y) in pos.items():
-            node_field = node.field
-            node_color = _node_colors[node_field]
+            if isinstance(node, DefinitionWithTrack):
+                node_category = f"[TRACK] {node.track}"
+                node_color = _track_to_color[node.track]
+            elif isinstance(node, Definition):
+                node_category = f"[FIELD] {node.key.field}"
+                node_color = _field_to_color[node.key.field]
 
             # Calculate rotation angle based on position
             angle = np.degrees(np.arctan2(y, x))
@@ -91,7 +158,7 @@ class DAGVisualizationNetworkX(DAGVisualizationAbstract):
             ax.text(
                 x,
                 y,
-                str(node),
+                str(node.key.name),
                 fontsize=8,
                 ha="center",
                 va="center",
@@ -100,9 +167,9 @@ class DAGVisualizationNetworkX(DAGVisualizationAbstract):
                 color="black",
             )
 
-            if node_field not in labels:
+            if node_category not in labels:
                 handles.append(plt.Line2D([0], [0], marker="o", color="w", markerfacecolor=node_color, markersize=10))
-                labels.append(node_field)
+                labels.append(node_category)
 
         # Add level circles (optional visual guide)
         for level in range(max_level + 1):
@@ -122,9 +189,7 @@ class DAGVisualizationNetworkX(DAGVisualizationAbstract):
         ax.set_ylim(-1.2, 1.2)
         ax.axis("off")
 
-        ax.legend(
-            handles=handles, labels=labels, title="Knowledge fields", loc="upper right", bbox_to_anchor=(1.1, 1.1)
-        )
+        ax.legend(handles=handles, labels=labels, title="Legend", loc="upper right", bbox_to_anchor=(1.1, 1.1))
         fig.tight_layout()
         plt.show()
 
@@ -162,7 +227,7 @@ class DAGVisualizationNetworkX(DAGVisualizationAbstract):
 
         for node, (x, y) in node_to_position.items():
             node_field = node.field
-            node_color = _node_colors[node_field]
+            node_color = _field_to_color[node_field]
             ellipse = Ellipse(
                 (x, y),
                 width=0.2,
@@ -193,8 +258,8 @@ class DAGVisualizationNetworkX(DAGVisualizationAbstract):
         plt.show()
 
     @staticmethod
-    def get_node_levels(graph: nx.DiGraph) -> dict[DefinitionKey, int]:
-        node_levels: dict[Any, int] = {}
+    def get_node_levels(graph: nx.DiGraph) -> dict[Definition, int]:
+        node_levels: dict[Definition, int] = {}
 
         def update_node_level(node: Any) -> None:
             if node in node_levels:
