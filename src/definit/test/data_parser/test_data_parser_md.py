@@ -1,12 +1,12 @@
 from definit.dag.dag import DefinitionKey
-from definit.data_parser.md import DataParserMd
+from definit.db.md import DatabaseMd
 from definit.field import Field
 
 
 class TestDataParserMD:
     def test_list_definition(self) -> None:
         # Given
-        data_parser = DataParserMd()
+        data_parser = DatabaseMd(load_cache=True)
         definition_key_list = DefinitionKey(name="list", field=Field.COMPUTER_SCIENCE)
         # When
         dag = data_parser.get_dag_for_definition(root=definition_key_list)
@@ -17,10 +17,10 @@ class TestDataParserMD:
 
     def test_parse_all_definitions(self) -> None:
         # Given
-        data_parser = DataParserMd()
+        data_parser = DatabaseMd(load_cache=True)
         # When
         index = data_parser.get_index()
         # Then
         assert index is not None
-        assert len(index) == 62
+        assert len(index) == 89
         [data_parser.get_dag_for_definition(root=definition) for definition in index]

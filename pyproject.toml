@@ -1,13 +1,13 @@
 [project]
 name = "definit"
-version = "0.2.0"
+version = "0.2.1"
 description = "Hierarchy of precise definitions."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "networkx",
     "matplotlib",
-    "definit-db-md==0.5.0"
+    "definit-db==0.2.1"
 ]
 
 [tool.setuptools.packages.find]
