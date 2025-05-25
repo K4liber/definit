@@ -31,10 +31,13 @@ class DatabaseMd(DatabaseAbstract):
     Database with markdown files as a source.
     """
 
-    def __init__(self, data_md_path: Path = CONFIG.DATA_PATH_MD) -> None:
+    def __init__(self, data_md_path: Path = CONFIG.DATA_PATH_MD, load_cache: bool = False) -> None:
         self._data_md_path = data_md_path
         self._index_cache: dict[Field, dict[str, Path]] = dict()
         self._definition_cache: dict[DefinitionKey, str] = dict()
+
+        if load_cache:
+            self.load_cache()
 
     def get_dag(self, track: Track | None = None) -> DAG:
         if track is None:
@@ -47,12 +50,12 @@ class DatabaseMd(DatabaseAbstract):
         return self._get_dag(definitions=definitions)
 
     def get_dag_for_definition(self, root: DefinitionKey) -> DAG:
-        self._load_index_cache(field=root.field)
+        self._load_field_cache(field=root.field)
         definitions = {root}
         return self._get_dag(definitions=definitions)
 
     def get_index(self, field: Field | None = None) -> set[DefinitionKey]:
-        self._cache_index(field=field)
+        self.load_cache(field=field)
         index: set[DefinitionKey] = set()
 
         for field, field_definitions in self._index_cache.items():
@@ -65,7 +68,7 @@ class DatabaseMd(DatabaseAbstract):
         """
         Get the definition for a given key.
         """
-        self._load_index_cache(field=definition_key.field)
+        self._load_field_cache(field=definition_key.field)
         return self._get_definition(
             definition_key=definition_key,
             parent_definition_key=None,
@@ -114,13 +117,13 @@ class DatabaseMd(DatabaseAbstract):
 
         return dag
 
-    def _cache_index(self, field: Field | None = None) -> None:
+    def load_cache(self, field: Field | None = None) -> None:
         fields = [field for field in Field] if field is None else [field]
 
         for field in fields:
-            self._load_index_cache(field=field)
+            self._load_field_cache(field=field)
 
-    def _load_index_cache(self, field: Field) -> None:
+    def _load_field_cache(self, field: Field) -> None:
         if field in self._index_cache:
             return
 
@@ -143,6 +146,11 @@ class DatabaseMd(DatabaseAbstract):
                         .with_suffix(".md")
                     )
                     self._index_cache[field][definition_name] = definition_path
+                    # cache the definition for quick access
+                    self._get_definition(
+                        definition_key=DefinitionKey(name=definition_name, field=field),
+                        parent_definition_key=None,
+                    )
 
     def _get_definition(
         self,

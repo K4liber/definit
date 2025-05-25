@@ -71,10 +71,13 @@ will improve the quality and clarity of the communication.
 It can also be used by LLMs (Language Models) as a solid training/tuning data or part of prompting.
 
 If one would like to learn a specific part of the knowledge,
-the "Track" concept can be used. Figure 2. shows an example of a "Track" for data structures.
+the "Track" concept can be used. Figure 2-3. show DAG representation of track's definitions.
 
 !['data_structures' DAG](./dag_track_data_structures.png)  
 Figure 2. Circular DAG visualization of 'data_structures' track.
+
+!['algorithms' DAG](./dag_track_algorithms.png)  
+Figure 3. Circular DAG visualization of 'algorithms' track.
 
 ## How?
 

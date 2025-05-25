@@ -13,7 +13,7 @@ class TestNetworkx:
         # Given
         definition_key = DefinitionKey(name="trie", field=Field.COMPUTER_SCIENCE)
         data_parser = DatabaseMd()
-        data_parser._cache_index()
+        data_parser.load_cache()
         dag = data_parser.get_dag_for_definition(root=definition_key)
         dag_visualization = DAGVisualizationNetworkX()
         # When
@@ -25,8 +25,8 @@ class TestNetworkx:
     def test_selected_track_circle_visualization(self) -> None:
         # Given
         data_parser = DatabaseMd()
-        data_parser._cache_index()
-        track = Track.DATA_STRUCTURES
+        data_parser.load_cache()
+        track = Track.ALGORITHMS
         dag = data_parser.get_dag(track=track)
         dag_visualization = DAGVisualizationNetworkX()
         # When
