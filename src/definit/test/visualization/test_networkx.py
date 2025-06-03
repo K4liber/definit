@@ -26,7 +26,7 @@ class TestNetworkx:
         # Given
         data_parser = DatabaseMd()
         data_parser.load_cache()
-        track = Track.ALGORITHMS
+        track = Track.DATA_STRUCTURES
         dag = data_parser.get_dag(track=track)
         dag_visualization = DAGVisualizationNetworkX()
         # When

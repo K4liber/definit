@@ -22,5 +22,5 @@ class TestDataParserMD:
         index = data_parser.get_index()
         # Then
         assert index is not None
-        assert len(index) == 89
+        assert len(index) == 92
         [data_parser.get_dag_for_definition(root=definition) for definition in index]

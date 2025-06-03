@@ -2,7 +2,7 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
-from definit_db import CONFIG
+from definit_db import CONFIG  # type: ignore
 
 from definit.dag.dag import DAG
 from definit.dag.dag import Definition

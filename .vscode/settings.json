@@ -16,4 +16,5 @@
     },
     // other
     "editor.formatOnSave": true,
+    "python.analysis.typeCheckingMode": "strict",
 }

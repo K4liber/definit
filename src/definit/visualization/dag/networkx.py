@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from typing import Any
 
+import definit_db  # type: ignore
 import matplotlib.pyplot as plt
 import networkx as nx
 import numpy as np
@@ -181,7 +182,8 @@ class DAGVisualizationNetworkX(DAGVisualizationAbstract):
         no_dependencies = len(graph.edges())
         root_name = f"'{track}'" if track else "All definitions"
         ax.set_title(
-            f"{root_name} DAG (definitions={no_nodes}, dependencies={no_dependencies}, levels={max_level + 1})"
+            f"{root_name} DAG (definitions={no_nodes}, dependencies={no_dependencies}, levels={max_level + 1}). "
+            f"DB version: {definit_db.__version__}"
         )
 
         ax.set_aspect("equal")
@@ -189,8 +191,8 @@ class DAGVisualizationNetworkX(DAGVisualizationAbstract):
         ax.set_ylim(-1.2, 1.2)
         ax.axis("off")
 
-        ax.legend(handles=handles, labels=labels, title="Legend", loc="upper right", bbox_to_anchor=(1.1, 1.1))
-        fig.tight_layout()
+        ax.legend(handles=handles, labels=labels, title="Legend", loc="lower left")
+        fig.tight_layout(rect=(0.25, 0, 0.75, 1))
         plt.show()
 
     def show(self, dag: DAG, root: DefinitionKey | None = None) -> None:
