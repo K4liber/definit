@@ -16,4 +16,10 @@
     },
     // other
     "editor.formatOnSave": true,
+    "python.analysis.typeCheckingMode": "strict",
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#470E69",
+        "titleBar.activeBackground": "#641493",
+        "titleBar.activeForeground": "#FCF9FE"
+    },
 }

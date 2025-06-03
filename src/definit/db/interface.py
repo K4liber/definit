@@ -4,8 +4,8 @@ from abc import abstractmethod
 from definit.dag.dag import DAG
 from definit.dag.dag import Definition
 from definit.dag.dag import DefinitionKey
-from definit.field import Field
-from definit.track import Track
+from definit.definition.field import Field
+from definit.definition.track import Track
 
 
 class DatabaseAbstract(ABC):
@@ -34,12 +34,5 @@ class DatabaseAbstract(ABC):
     def get_definition(self, definition_key: DefinitionKey) -> Definition:
         """
         Get the definition for a given key.
-        """
-        ...
-
-    @abstractmethod
-    def get_track(self, track: Track) -> set[DefinitionKey]:
-        """
-        Get the set of all definitions.
         """
         ...

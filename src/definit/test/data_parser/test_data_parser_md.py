@@ -1,6 +1,6 @@
 from definit.dag.dag import DefinitionKey
 from definit.db.md import DatabaseMd
-from definit.field import Field
+from definit.definition.field import Field
 
 
 class TestDataParserMD:
@@ -22,5 +22,5 @@ class TestDataParserMD:
         index = data_parser.get_index()
         # Then
         assert index is not None
-        assert len(index) == 89
+        assert len(index) == 108
         [data_parser.get_dag_for_definition(root=definition) for definition in index]

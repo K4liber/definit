@@ -19,7 +19,7 @@ The higher a concept is placed in the hierarchy, the higher level definitions it
 A definition can only reference to another definition from a lower level. 
 
 Over time, the DAG can be updated with more precise and better placed definitions. 
-It is a kind of living, systematic knowledge representation of a specific field of knowledge.
+It is a kind of living, systematic creation of scientific terminology for a specific field.
 
 ## Why?
 
@@ -117,3 +117,7 @@ VI. "KBpedia", https://kbpedia.org/
 VII. "Charles Sanders Peirce", wikipedia, https://en.wikipedia.org/wiki/Charles_Sanders_Peirce
 
 VIII. "A Knowledge Representation Practionary", Michael K. Bergman, https://www.mkbergman.com/a-knowledge-representation-practionary/
+
+## Installation
+
+`uv sync --group dev`

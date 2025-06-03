@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 from typing import Any
 
 import matplotlib.pyplot as plt
@@ -10,20 +9,35 @@ from definit.dag.dag import DAG
 from definit.dag.dag import Definition
 from definit.dag.dag import DefinitionKey
 from definit.db import get_database
-from definit.field import Field
-from definit.track import Track
+from definit.definition.field import Field
+from definit.definition.track import Track
 from definit.visualization.dag.interface import DAGVisualizationAbstract
 
-_field_to_color = {Field.COMPUTER_SCIENCE: "lightblue", Field.MATHEMATICS: "yellow"}
-_track_to_color = {
-    Track.ALGORITHMS: "lightgreen",
-    Track.DATA_STRUCTURES: "red",
-}
+_field_to_color: dict[Field, str] = {}
+_track_to_color: dict[Track, str] = {}
 
 
-@dataclass(frozen=True)
+def _get_color_for_track(track: Track) -> str:
+    if track not in _track_to_color:
+        _track_to_color[track] = f"#{np.random.randint(0, 0xFFFFFF):06x}"
+
+    return _track_to_color[track]
+
+def _get_color_for_field(field: Field) -> str:
+    if field not in _field_to_color:
+        _field_to_color[field] = f"#{np.random.randint(0, 0xFFFFFF):06x}"
+
+    return _field_to_color[field]
+
 class DefinitionWithTrack(Definition):
-    track: Track
+    
+    def __init__(self, key: DefinitionKey, content: str, track: Track) -> None:
+        super().__init__(key=key, content=content)
+        self._track = track
+        
+    @property
+    def track(self) -> Track:
+        return self._track
 
 
 def _get_dag_with_rolled_definitions(dag: DAG, rolled_definitions: dict[Definition, Track]) -> DAG:
@@ -41,14 +55,14 @@ def _get_dag_with_rolled_definitions(dag: DAG, rolled_definitions: dict[Definiti
 
         if node_from_definition.key in rolled_key_to_definition:
             track = rolled_definitions[node_from_definition]
-            node_from_key = DefinitionKey(name=str(track), field=Field.MATHEMATICS)
+            node_from_key = DefinitionKey(name=str(track), field=track)
             node_from_definition = DefinitionWithTrack(key=node_from_key, content="", track=track)
 
         node_to_definition = dag.get_node(node_to)
 
         if node_to_definition.key in rolled_key_to_definition:
             track = rolled_definitions[node_to_definition]
-            node_to_key = DefinitionKey(name=str(track), field=Field.MATHEMATICS)
+            node_to_key = DefinitionKey(name=str(track), field=track)
             node_to_definition = DefinitionWithTrack(key=node_to_key, content="", track=track)
 
         if node_from_definition.key != node_to_definition.key:
@@ -131,10 +145,10 @@ class DAGVisualizationNetworkX(DAGVisualizationAbstract):
         for node, (x, y) in pos.items():
             if isinstance(node, DefinitionWithTrack):
                 node_category = f"[TRACK] {node.track}"
-                node_color = _track_to_color[node.track]
+                node_color = _get_color_for_track(track=node.track)
             elif isinstance(node, Definition):
                 node_category = f"[FIELD] {node.key.field}"
-                node_color = _field_to_color[node.key.field]
+                node_color = _get_color_for_field(field=node.key.field)
 
             # Calculate rotation angle based on position
             angle = np.degrees(np.arctan2(y, x))
@@ -181,7 +195,7 @@ class DAGVisualizationNetworkX(DAGVisualizationAbstract):
         no_dependencies = len(graph.edges())
         root_name = f"'{track}'" if track else "All definitions"
         ax.set_title(
-            f"{root_name} DAG (definitions={no_nodes}, dependencies={no_dependencies}, levels={max_level + 1})"
+            f"{root_name} DAG (definitions={no_nodes}, dependencies={no_dependencies}, levels={max_level + 1}). "
         )
 
         ax.set_aspect("equal")
@@ -189,8 +203,8 @@ class DAGVisualizationNetworkX(DAGVisualizationAbstract):
         ax.set_ylim(-1.2, 1.2)
         ax.axis("off")
 
-        ax.legend(handles=handles, labels=labels, title="Legend", loc="upper right", bbox_to_anchor=(1.1, 1.1))
-        fig.tight_layout()
+        ax.legend(handles=handles, labels=labels, title="Legend", loc="lower left")
+        fig.tight_layout(rect=(0.25, 0, 0.75, 1))
         plt.show()
 
     def show(self, dag: DAG, root: DefinitionKey | None = None) -> None:
@@ -227,7 +241,7 @@ class DAGVisualizationNetworkX(DAGVisualizationAbstract):
 
         for node, (x, y) in node_to_position.items():
             node_field = node.field
-            node_color = _field_to_color[node_field]
+            node_color = _get_color_for_field(field=node_field)
             ellipse = Ellipse(
                 (x, y),
                 width=0.2,

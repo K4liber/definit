@@ -2,8 +2,8 @@ import pytest
 
 from definit.dag.dag import DefinitionKey
 from definit.db.md import DatabaseMd
-from definit.field import Field
-from definit.track import Track
+from definit.definition.field import Field
+from definit.definition.track import Track
 from definit.visualization.dag.networkx import DAGVisualizationNetworkX
 
 
@@ -26,7 +26,7 @@ class TestNetworkx:
         # Given
         data_parser = DatabaseMd()
         data_parser.load_cache()
-        track = Track.ALGORITHMS
+        track = Track.DATA_STRUCTURES
         dag = data_parser.get_dag(track=track)
         dag_visualization = DAGVisualizationNetworkX()
         # When

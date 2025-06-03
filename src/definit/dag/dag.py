@@ -1,22 +1,7 @@
-from dataclasses import dataclass
 from typing import Iterator
 
-from definit.field import Field
-
-
-@dataclass(frozen=True)
-class DefinitionKey:
-    name: str
-    field: Field
-
-    def __str__(self) -> str:
-        return self.name
-
-
-@dataclass(frozen=True)
-class Definition:
-    key: DefinitionKey
-    content: str
+from definit.definition.definition import Definition
+from definit.definition.definition_key import DefinitionKey
 
 
 class DAG:
