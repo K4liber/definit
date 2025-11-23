@@ -1,3 +1,4 @@
+import logging
 import re
 from dataclasses import dataclass
 from pathlib import Path
@@ -10,6 +11,8 @@ from definit.dag.dag import DefinitionKey
 from definit.db.interface import DatabaseAbstract
 from definit.field import Field
 from definit.track import Track
+
+_logger = logging.getLogger(__name__)
 
 
 class DataParserMdException(Exception):
@@ -100,6 +103,7 @@ class DatabaseMd(DatabaseAbstract):
 
             for line in track_data:
                 matches = re.findall(r"\[(.*?)\]\((.*?)\)", line)
+                assert len(matches) == 1, f"Invalid track line format: {line}"
 
                 for _, definition_key_str in matches:
                     field_name, definition_name = definition_key_str.split("/")
@@ -114,6 +118,13 @@ class DatabaseMd(DatabaseAbstract):
 
         for definition in definitions:
             self._update_dag_in_place(definition_key=definition, dag=dag)
+
+        definition_keys = {key for key in definitions}
+        dag_definition_keys = {definition.key for definition in dag.nodes}
+        missing_definition_keys = definition_keys - dag_definition_keys
+
+        if missing_definition_keys:
+            _logger.warning(f"Following definitions are not a part of DAG: {missing_definition_keys}")
 
         return dag
 
