@@ -5,17 +5,9 @@ from definit.dag.dag import DAG
 from definit.dag.dag import Definition
 from definit.dag.dag import DefinitionKey
 from definit.definition.field import Field
-from definit.definition.track import Track
 
 
 class DatabaseAbstract(ABC):
-    @abstractmethod
-    def get_dag(self, track: Track | None = None) -> DAG:
-        """
-        Get the DAG for a given track if specified, otherwise returns the full DAG.
-        """
-        ...
-
     @abstractmethod
     def get_dag_for_definition(self, root: DefinitionKey) -> DAG:
         """

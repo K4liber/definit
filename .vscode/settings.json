@@ -2,7 +2,6 @@
     // python testing
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
-    "python.testing.cwd": "${workspaceFolder}/src",
     // python general
     "[python]": {
         "editor.codeActionsOnSave": {

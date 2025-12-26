@@ -18,3 +18,12 @@ class Definition:
 
     @abstractmethod
     def _get_content(self) -> str: ...
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Definition):
+            return NotImplemented
+
+        return self.key.uid == other.key.uid and self.content == other.content
+
+    def __hash__(self) -> int:
+        return hash((self.key.uid, self.content))
