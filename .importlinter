@@ -1,0 +1,8 @@
+[importlinter]
+root_package = definit
+
+[importlinter:contract:1]
+name=AcyclicDependencies
+type=acyclic_siblings
+ancestors = 
+    definit

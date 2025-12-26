@@ -1,6 +1,6 @@
 [project]
 name = "definit"
-version = "0.4.0"
+version = "0.4.1"
 description = "Hierarchy of precise definitions."
 readme = "README.md"
 requires-python = ">=3.12"
@@ -9,7 +9,7 @@ dependencies = []
 [project.optional-dependencies]
 dev = [
     "pytest",
-    "import-linter==2.9"
+    "import-linter==2.9",
 ]
 
 [dependency-groups]

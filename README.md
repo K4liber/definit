@@ -120,4 +120,8 @@ VIII. "A Knowledge Representation Practionary", Michael K. Bergman, https://www.
 
 ## Installation
 
-`uv sync --group dev`
+`uv sync --extra dev`
+
+## Build
+
+`uv build`
