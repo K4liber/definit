@@ -31,7 +31,8 @@ class DatabaseMd(DatabaseAbstract):
 
     def __init__(self, data_md_path: Path, load_cache: bool = False) -> None:
         self._data_md_path = data_md_path
-        self._definition_uid_to_path: dict[str, Path] = dict()
+        self._definitions_path = data_md_path / "definitions"
+        self._definition_uid_to_absolute_path: dict[str, Path] = dict()
         self._definition_cache: dict[DefinitionKey, str] = dict()
 
         if load_cache:
@@ -47,8 +48,9 @@ class DatabaseMd(DatabaseAbstract):
     def get_index(self, field: Field | None = None) -> set[DefinitionKey]:
         index: set[DefinitionKey] = set()
 
-        for uid in self._definition_uid_to_path.keys():
-            definition_key = DefinitionKey.from_uid(uid=uid)
+        for absolute_path in self._definition_uid_to_absolute_path.values():
+            full_path = self._get_full_path(absolute_path=absolute_path).removesuffix(".md")
+            definition_key = DefinitionKey.from_full_path(full_path=full_path)
 
             if field is None or definition_key.field == field:
                 index.add(definition_key)
@@ -83,6 +85,9 @@ class DatabaseMd(DatabaseAbstract):
 
     ##### Internal methods #####
 
+    def _get_full_path(self, absolute_path: Path) -> str:
+        return absolute_path.relative_to(self._definitions_path).as_posix()
+
     def _get_dag(self, definitions: set[DefinitionKey]) -> DAG:
         dag = DAG()
 
@@ -96,10 +101,14 @@ class DatabaseMd(DatabaseAbstract):
         if missing_definition_keys:
             _logger.warning(f"Following definitions are not a part of DAG: {missing_definition_keys}")
 
+        if not dag.has_dag_structure():
+            msg = f"DAG has an invalid structure: {dag.edges}"
+            raise DataParserMdException(msg)
+
         return dag
 
     def _assure_cache_loaded(self) -> None:
-        if self._definition_uid_to_path:
+        if self._definition_uid_to_absolute_path:
             return  # cache already loaded
 
         index_file_path = self._data_md_path / _CONST.INDEX_FILE_NAME
@@ -110,10 +119,10 @@ class DatabaseMd(DatabaseAbstract):
             for line in lines:
                 matches = re.findall(r"\[(.*?)\]\((.*?)\)", line)
 
-                for _, uid in matches:
-                    definition_path = self._data_md_path.joinpath("definitions", uid).with_suffix(".md")
-                    self._definition_uid_to_path[uid] = definition_path
-                    definition_key = DefinitionKey.from_uid(uid=uid)
+                for _, full_path in matches:
+                    definition_key = DefinitionKey.from_full_path(full_path=full_path)
+                    absolute_path = self._data_md_path.joinpath("definitions", full_path).with_suffix(".md")
+                    self._definition_uid_to_absolute_path[definition_key.uid] = absolute_path
                     # cache the definition for quick access
                     self._get_definition(
                         definition_key=definition_key,
@@ -128,18 +137,18 @@ class DatabaseMd(DatabaseAbstract):
         if definition_key in self._definition_cache:
             content_md = self._definition_cache[definition_key]
         else:
-            definition_path = self._definition_uid_to_path[definition_key.uid]
+            definition_absolute_path = self._definition_uid_to_absolute_path[definition_key.uid]
 
-            if not definition_path.exists():
+            if not definition_absolute_path.exists():
                 if parent_definition_key is None:
-                    raise DataParserMdException(f"Root definition file {definition_path} does not exist.")
+                    raise DataParserMdException(f"Root definition file {definition_absolute_path} does not exist.")
                 else:
                     raise DataParserMdException(
-                        f"Child definition file {definition_path} inside definition "
+                        f"Child definition file {definition_absolute_path} inside definition "
                         f"'{parent_definition_key}' does not exist."
                     )
 
-            with open(definition_path) as definition_file:
+            with open(definition_absolute_path) as definition_file:
                 content_md = "\n".join(definition_file.readlines())
                 self._definition_cache[definition_key] = content_md
 
@@ -158,7 +167,7 @@ class DatabaseMd(DatabaseAbstract):
         matches = re.findall(r"\[(.*?)\]\((.*?)\)", definition.content)
 
         for _, child_uid in matches:
-            child_definition_key = DefinitionKey.from_uid(child_uid)
+            child_definition_key = DefinitionKey.from_full_path(child_uid)
             child_definition = self._get_definition(
                 definition_key=child_definition_key,
                 parent_definition_key=definition_key,
@@ -175,7 +184,7 @@ def _write_index_md(db_path: Path, definitions: list[Definition]) -> None:
     lines: list[str] = []
 
     for definition in definitions:
-        lines.append(f"- {definition.key.get_reference()}")
+        lines.append(f"- {definition.key.get_index_reference()}")
 
     index_path = db_path / _CONST.INDEX_FILE_NAME
 
@@ -184,7 +193,7 @@ def _write_index_md(db_path: Path, definitions: list[Definition]) -> None:
 
 
 def _get_definition_file_path(definition: Definition, definitions_path: Path) -> Path:
-    definition_file_path = definitions_path / (definition.key.uid + ".md")
+    definition_file_path = definitions_path / (definition.key.full_path + ".md")
     definition_file_path.parent.mkdir(parents=True, exist_ok=True)
     return definition_file_path
 

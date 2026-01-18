@@ -30,3 +30,30 @@ class DAG:
     @property
     def nodes(self) -> set[Definition]:
         return set(self._definitions.values())
+
+    def has_dag_structure(self) -> bool:
+        """Check if the DAG has a valid structure (i.e., no cycles)."""
+        visited: set[DefinitionKey] = set()
+        rec_stack: set[DefinitionKey] = set()
+
+        def visit(node_key: DefinitionKey) -> bool:
+            if node_key in rec_stack:
+                return True
+            if node_key in visited:
+                return False
+
+            visited.add(node_key)
+            rec_stack.add(node_key)
+
+            for neighbor in self._edges.get(node_key, []):
+                if visit(neighbor):
+                    return True
+
+            rec_stack.remove(node_key)
+            return False
+
+        for node_key in self._definitions.keys():
+            if visit(node_key):
+                return False
+
+        return True

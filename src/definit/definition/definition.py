@@ -25,5 +25,8 @@ class Definition:
 
         return self.key.uid == other.key.uid and self.content == other.content
 
+    def __lt__(self, other: "Definition") -> bool:
+        return (self.key.uid, self.content) < (other.key.uid, other.content)
+
     def __hash__(self) -> int:
-        return hash((self.key.uid, self.content))
+        return hash((self.key.__hash__(), self.content))

@@ -125,3 +125,7 @@ VIII. "A Knowledge Representation Practionary", Michael K. Bergman, https://www.
 ## Build
 
 `uv build`
+
+## Deploy
+
+`uv publish --token <pypi_token>`
