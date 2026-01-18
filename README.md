@@ -13,13 +13,20 @@ between definitions.
 
 The most fundamental concepts make up the very bottom of the hierarchy of definitions. 
 The ground level definitions do not have any references to other definitions. 
-The are purely describe without usage of other concepts. 
+They can be clearly described without usage of other concepts. 
 
 The higher a concept is placed in the hierarchy, the higher level definitions it can reference to. 
 A definition can only reference to another definition from a lower level. 
 
 Over time, the DAG can be updated with more precise and better placed definitions. 
 It is a kind of living, systematic creation of scientific terminology for a specific field.
+
+The definition name and definition field together form a unique identifier for each definition. The content of a definition can be updated over time to reflect new knowledge or changes in understanding. Since the field is part of the unique identifier, we can have multiple definitions with the same name but different fields e.g. "number" in mathematics and "number" in computer science may be understood differently.
+
+Each definition can also have subcategories. The field is the main, and only required category. The remaining subcategories are optional and are used for grouping and navigating through definitions (see the `mathematics/fundamental` category DAG visualized on Figure 1. as an example).
+
+!['mathematics/fundamental' DAG](./mathematics_fundamental.png)  
+Figure 1. Circular DAG visualization of `mathematics/fundamental` category.
 
 ## Why?
 
@@ -59,30 +66,24 @@ Keeping the DAG structure enforce us to build a definition on top of the more ge
 It makes it clear how specific is the concept of our interest. 
 Going down in the hierarchy we reach a low level definitions that are more general and fundamental. 
 Climping up on the DAG we learn more specific, high level concepts 
-(see 'trie' dependencies DAG on Figure 1. as an example).
+(see 'trie' dependencies DAG on Figure 2. as an example).
 
 !['trie' dependencies DAG](./dag_definition_trie.png)  
-Figure 1. 'trie' dependencies DAG.
+Figure 2. 'trie' dependencies DAG.
 
-The DAG is going to be precise and well arranged knowledge representation. 
-It can be used by humans for example to learn a new field of knowledge.
-Specyfing an unambiguous language that experts in a field use to communicate with each other 
-will improve the quality and clarity of the communication.
-It can also be used by LLMs (Language Models) as a solid training/tuning data or part of prompting.
+The DAG is going to be precise and well arranged knowledge representation.
 
-If one would like to learn a specific part of the knowledge,
-the "Track" concept can be used. Figure 2-3. show DAG representation of track's definitions.
-
-!['data_structures' DAG](./dag_track_data_structures.png)  
-Figure 2. Circular DAG visualization of 'data_structures' track.
-
-!['algorithms' DAG](./dag_track_algorithms.png)  
-Figure 3. Circular DAG visualization of 'algorithms' track.
+It can be used for:
+- Learning a new field of knowledge.
+- Studying all specialized terms and concepts within a specific book (as a pre-reading exercise).
+- Learning all specific terms and concepts within a presentation (to be better prepared for a lecture).
+- Specifying an unambiguous language that experts in a field use to communicate with each other, improving the quality and clarity of communication.
+- Enhancing training or tuning data, or parts of prompts, for LLM-based systems.
 
 ## How?
 
-It is a tedious process to create such knowledge structure since one need to have 
-a good undestanding of an abstraction level for each definition. 
+It is a tedious process to create such knowledge structure since one need to have
+a good understanding of an abstraction level for each definition.
 AI language models can automate some part of the work. 
 On the other hand, the creation process allows for a deep understanding 
 of the concepts and their unambiguous definitions.
@@ -118,14 +119,18 @@ VII. "Charles Sanders Peirce", wikipedia, https://en.wikipedia.org/wiki/Charles_
 
 VIII. "A Knowledge Representation Practionary", Michael K. Bergman, https://www.mkbergman.com/a-knowledge-representation-practionary/
 
-## Installation
+## For developers
+
+## Python package
+
+### Installation
 
 `uv sync --extra dev`
 
-## Build
+### Build
 
 `uv build`
 
-## Deploy
+### Deploy
 
 `uv publish --token <pypi_token>`
