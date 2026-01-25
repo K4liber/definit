@@ -1,34 +1,25 @@
 # DefinIT
 
-## What?
+## What the project is about?
 
-DefinIT is a way of representing knowledge as a hierarchy of precise (unambiguous) definitions (or concepts).
+*DefinIT* project aims to create a hierarchy of precise and unambiguous definitions. It is an ontology engineering exercise that creates terminologies for knowledge fields and academic disciplines.
 
-Hierarchy of definitions is a Knowledge Graph[1] with a DAG (directed acyclic graph) structure.
+#### Definition description
 
-When it comes to knowledge representation type, the definitions have procedural 
-representation (explaining the behaviour) and DAGs have structural representation, 
-showing the relations between different definitions. Dependency is the only kind of relation
-between definitions.
+Definitions have procedural representation aiming to explain behaviors. Each definition is general. It can be a word or a phrase that represent a broad category or concept rather than a specific instance or entity. *Car*, *list*, *human*, *country* are one of many examples of what we call a *general term*. *My car*, *your todo list*, *Albert Einstein*, *Poland* are not what we call general terms. Those are *singular terms* or instances of the terms mentioned. *DefinIT* does not examine *singular terms*. In an analogy to object oriented programming, *DefinIT* examine definitions or classes, but not instances.
 
-The most fundamental concepts make up the very bottom of the hierarchy of definitions. 
-The ground level definitions do not have any references to other definitions. 
-They can be clearly described without usage of other concepts. 
+#### DefinIT structure
 
-The higher a concept is placed in the hierarchy, the higher level definitions it can reference to. 
-A definition can only reference to another definition from a lower level. 
+*DefinIT* can be also defined as a kind of a Knowledge Graph[1] with a directed acyclic graph (DAG) structure. DAG structure constrains the possible relations between different definitions. Directed dependency is the only kind of relation between definitions. The most fundamental definitions (roots) make up the very bottom of the hierarchy. The ground level definitions do not have any dependencies on any other definitions. They can be clearly described without usage of other definitions. The higher a definition is placed in the hierarchy, the higher level definitions it reference to. Definition dependencies define the definition level. Over time, the DAG can be updated with more precise and better placed definitions. It is a kind of living, systematic creation of scientific terminology for a specific field.
 
-Over time, the DAG can be updated with more precise and better placed definitions. 
-It is a kind of living, systematic creation of scientific terminology for a specific field.
+#### Definition properties
 
-The definition name and definition field together form a unique identifier for each definition. The content of a definition can be updated over time to reflect new knowledge or changes in understanding. Since the field is part of the unique identifier, we can have multiple definitions with the same name but different fields e.g. "number" in mathematics and "number" in computer science may be understood differently.
-
-Each definition can also have subcategories. The field is the main, and only required category. The remaining subcategories are optional and are used for grouping and navigating through definitions (see the `mathematics/fundamental` category DAG visualized on Figure 1. as an example).
+The definition name and the definition field together form a unique identifier for each definition. The content of a definition can be updated over time to reflect new knowledge or changes in understanding. Since the field is part of the unique identifier, we can have multiple definitions with the same name but different fields e.g. "number" in mathematics and "number" in computer science may be understood differently. Each definition can also have subcategories. The field is the main, and only required category. The remaining subcategories are optional and are used for grouping and navigating through definitions (see the `mathematics/fundamental` category DAG visualized on Figure 1. as an example).
 
 !['mathematics/fundamental' DAG](./mathematics_fundamental.png)  
 Figure 1. Circular DAG visualization of `mathematics/fundamental` category.
 
-## Why?
+## Project rationalization
 
 First principles thinking is the act of boiling a process down to the 
 fundamental parts that you know are true and building up from there.
