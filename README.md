@@ -21,11 +21,30 @@ Figure 1. Circular DAG visualization of `mathematics/fundamental` category.
 
 ## Project rationalization
 
-First principles thinking is the act of boiling a process down to the 
-fundamental parts that you know are true and building up from there.
-It is a way of understanding the world by breaking down complex problems into their most basic elements.
+#### Where the idea comes from?
 
-The original idea behind "DefinIT" was to create a knowledge representation for the field of computer science. 
+The original idea behind "DefinIT" was to create a knowledge representation for the field of computer science. But the idea was not to just write a book or create a glossary, or a tutorial. How to make it in a way that will allow to easily learn the computer science? How to ensure that what I have already learned I do not repeat learning again? The efficient way will be to divide and conquer the knowledge into smaller, more manageable pieces. What is the smallest piece of knowledge we can identify? Such pieces could be individual concepts, terms, or definitions. 
+
+First principles thinking is the act of boiling a process down to the fundamental parts that you know are true and building up from there. It is a way of understanding the world by breaking down complex problems into their most basic elements.
+
+Then why do we need "DefinIT"? What new thing does it bring to the current state of affairs? The target is to build a knowledge model when one can start learning from 
+foundamental concepts and easily climb to higher levels in hierarchy. 
+Picking a single definition, the descendent nodes indicate what should be 
+firstly understood to fully understand the chosen definition.
+
+Keeping the DAG structure enforce us to build a definition on top of the more general concepts. 
+It makes it clear how specific is the concept of our interest. 
+Going down in the hierarchy we reach a low level definitions that are more general and fundamental. 
+Climping up on the DAG we learn more specific, high level concepts 
+(see 'trie' dependencies DAG on Figure 2. as an example).
+
+!['trie' dependencies DAG](./dag_definition_trie.png)  
+Figure 2. 'trie' dependencies DAG.
+
+The DAG is going to be precise and well arranged knowledge representation.
+
+#### Literature Review
+
 In the early stages of the field, the importance of a unambiguous expert language has been highlighted. 
 In 1954, Grace Hopper, a pioneer in computer programming, wrote a "First Glossary of Programming Terminology"[2].
 She was working on first programming language to express operations using English-like statements. The language was later called FLOW-MATIC, originally known as B-0 (Business Language version 0). She recognized the need for a standardized vocabulary
@@ -48,30 +67,15 @@ In the 2000s and beyond, the rise of the internet and online resources led to th
 Many universities and organizations began to publish their own glossaries and dictionaries,
 and online platforms like Wikipedia became valuable resources for finding definitions and explanations of computer science terms.
 
-Then why do we need "DefinIT"? What new thing does it bring to the current state of affairs? The target is to build a knowledge model when one can start learning from 
-foundamental concepts and easily climb to higher levels in hierarchy. 
-Picking a single definition, the descendent nodes indicate what should be 
-firstly understood to fully understand the chosen definition.
+#### Applications of DefinIT
 
-Keeping the DAG structure enforce us to build a definition on top of the more general concepts. 
-It makes it clear how specific is the concept of our interest. 
-Going down in the hierarchy we reach a low level definitions that are more general and fundamental. 
-Climping up on the DAG we learn more specific, high level concepts 
-(see 'trie' dependencies DAG on Figure 2. as an example).
-
-!['trie' dependencies DAG](./dag_definition_trie.png)  
-Figure 2. 'trie' dependencies DAG.
-
-The DAG is going to be precise and well arranged knowledge representation.
-
-It can be used for:
 - Learning a new field of knowledge.
 - Studying all specialized terms and concepts within a specific book (as a pre-reading exercise).
 - Learning all specific terms and concepts within a presentation (to be better prepared for a lecture).
 - Specifying an unambiguous language that experts in a field use to communicate with each other, improving the quality and clarity of communication.
 - Enhancing training or tuning data, or parts of prompts, for LLM-based systems.
 
-## How?
+## How to create definitions?
 
 It is a tedious process to create such knowledge structure since one need to have
 a good understanding of an abstraction level for each definition.
