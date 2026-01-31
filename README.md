@@ -1,20 +1,30 @@
 # DefinIT
 
-## What the project is about?
+## What is the project about?
 
-*DefinIT* project aims to create a hierarchy of precise and unambiguous definitions. It is an ontology engineering exercise that creates terminologies for knowledge fields and academic disciplines.
+*DefinIT* project aims to create a hierarchy of precise and unambiguous definitions. It is a nomenclature exercise that creates terminologies for knowledge fields and academic disciplines. DefinIT removes ambiguity and redundancy in how concepts are defined across domains.
 
 #### Definition description
 
-Definitions have procedural representation aiming to explain behaviors. Each definition is general. It can be a word or a phrase that represent a broad category or concept rather than a specific instance or entity. *Car*, *list*, *human*, *country* are one of many examples of what we call a *general term*. *My car*, *your todo list*, *Albert Einstein*, *Poland* are not what we call general terms. Those are *singular terms* or instances of the terms mentioned. *DefinIT* does not examine *singular terms*. In an analogy to object oriented programming, *DefinIT* examine definitions or classes, but not instances.
+Definitions have procedural representation aiming to explain behaviors. Each definition is general. It can be a word or a phrase that represent a broad category or concept rather than a specific instance or entity. For instance, *car*, *list*, *human*, *country* represent *general terms*. *My car*, *your todo list*, *Albert Einstein*, *Poland* are singular instances of these general terms or so called *singular terms*[6]. *DefinIT* does not examine *singular terms*. In an analogy to object oriented programming, *DefinIT* examine definitions or classes, but not instances.
 
 #### DefinIT structure
 
-*DefinIT* can be also defined as a kind of a Knowledge Graph[1] with a directed acyclic graph (DAG) structure. DAG structure constrains the possible relations between different definitions. Directed dependency is the only kind of relation between definitions. The most fundamental definitions (roots) make up the very bottom of the hierarchy. The ground level definitions do not have any dependencies on any other definitions. They can be clearly described without usage of other definitions. The higher a definition is placed in the hierarchy, the higher level definitions it reference to. Definition dependencies define the definition level. Over time, the DAG can be updated with more precise and better placed definitions. It is a kind of living, systematic creation of scientific terminology for a specific field.
+*DefinIT* can be also defined as a kind of a Knowledge Graph[1] with a directed acyclic graph (DAG) structure. DAG structure constrains the possible connections between definitions. Directed “is based on” relation is the only kind of connection between definitions. The most fundamental definitions (roots) form the foundation of the hierarchy and are independent of any other terms. They can be clearly described without usage of other definitions. The higher a definition is placed in the hierarchy, the higher level definitions it reference to. Definition dependencies define the definition level. Over time, the DAG can be updated with more precise and better placed definitions. It is a kind of living, systematic creation of a terminology for a specific field.
 
 #### Definition properties
 
-The definition name and the definition field together form a unique identifier for each definition. The content of a definition can be updated over time to reflect new knowledge or changes in understanding. Since the field is part of the unique identifier, we can have multiple definitions with the same name but different fields e.g. "number" in mathematics and "number" in computer science may be understood differently. Each definition can also have subcategories. The field is the main, and only required category. The remaining subcategories are optional and are used for grouping and navigating through definitions (see the `mathematics/fundamental` category DAG visualized on Figure 1. as an example).
+##### ID
+
+The definition name and the definition field together form a unique identifier for each definition (`definition_id = <field>/<name>`). Since the field is part of the unique identifier, we can have multiple definitions with the same name but different fields e.g. "number" in mathematics and "number" in computer science may be understood differently. 
+
+##### Subcategories
+
+Each definition can also have subcategories. The *field* is the main, and only required category. The remaining subcategories are optional and are used for grouping and navigating through definitions (see the `mathematics/fundamental` category DAG visualized on Figure 1. as an example).
+
+##### Content
+
+The main part of the definition is its content, which provides the actual explanation or description of the concept. It also includes references to other definitions. A definition content can and should be updated (by contributors, experts, LLM-assisted tools, etc.) over time to reflect new knowledge or improve clarity.
 
 !['mathematics/fundamental' DAG](./mathematics_fundamental.png)  
 Figure 1. Circular DAG visualization of `mathematics/fundamental` category.
@@ -23,25 +33,15 @@ Figure 1. Circular DAG visualization of `mathematics/fundamental` category.
 
 #### Where the idea comes from?
 
-The original idea behind "DefinIT" was to create a knowledge representation for the field of computer science. But the idea was not to just write a book or create a glossary, or a tutorial. How to make it in a way that will allow to easily learn the computer science? How to ensure that what I have already learned I do not repeat learning again? The efficient way will be to divide and conquer the knowledge into smaller, more manageable pieces. What is the smallest piece of knowledge we can identify? Such pieces could be individual concepts, terms, or definitions. 
-
 First principles thinking is the act of boiling a process down to the fundamental parts that you know are true and building up from there. It is a way of understanding the world by breaking down complex problems into their most basic elements.
 
-Then why do we need "DefinIT"? What new thing does it bring to the current state of affairs? The target is to build a knowledge model when one can start learning from 
-foundamental concepts and easily climb to higher levels in hierarchy. 
-Picking a single definition, the descendent nodes indicate what should be 
+The idea for DefinIT emerged from a desire to represent computer science knowledge in a structured, non-redundant way where each concept builds upon clearly defined, smaller elements. Inspired by first principles thinking, the project seeks to create a hierarchy of definitions that enables learners to progress logically from foundational ideas to advanced concepts. Picking a single definition, the descendent nodes indicate what should be 
 firstly understood to fully understand the chosen definition.
 
-Keeping the DAG structure enforce us to build a definition on top of the more general concepts. 
-It makes it clear how specific is the concept of our interest. 
-Going down in the hierarchy we reach a low level definitions that are more general and fundamental. 
-Climping up on the DAG we learn more specific, high level concepts 
-(see 'trie' dependencies DAG on Figure 2. as an example).
+Keeping the DAG structure enforce us to build a definition on top of the more general concepts. It makes it clear how specific is the concept of our interest. Going down in the hierarchy we reach a low level definitions that are more general and fundamental. Climbing up on the DAG we learn more specific, high level concepts (see 'trie' dependencies DAG on Figure 2. as an example).
 
 !['trie' dependencies DAG](./dag_definition_trie.png)  
 Figure 2. 'trie' dependencies DAG.
-
-The DAG is going to be precise and well arranged knowledge representation.
 
 #### Literature Review
 
@@ -67,21 +67,20 @@ In the 2000s and beyond, the rise of the internet and online resources led to th
 Many universities and organizations began to publish their own glossaries and dictionaries,
 and online platforms like Wikipedia became valuable resources for finding definitions and explanations of computer science terms.
 
+While earlier projects focused on nomenclature within a single field, DefinIT generalizes this approach across disciplines and formalizes the relationships between definitions themselves.
+
 #### Applications of DefinIT
 
 - Learning a new field of knowledge.
-- Studying all specialized terms and concepts within a specific book (as a pre-reading exercise).
-- Learning all specific terms and concepts within a presentation (to be better prepared for a lecture).
+- Deepening understanding of a specific topic/term.
 - Specifying an unambiguous language that experts in a field use to communicate with each other, improving the quality and clarity of communication.
 - Enhancing training or tuning data, or parts of prompts, for LLM-based systems.
+- Studying all specialized terms and concepts within a specific book (as a pre-reading exercise).
+- Learning all specific terms and concepts within a presentation (to be better prepared for a lecture).
 
 ## How to create definitions?
 
-It is a tedious process to create such knowledge structure since one need to have
-a good understanding of an abstraction level for each definition.
-AI language models can automate some part of the work. 
-On the other hand, the creation process allows for a deep understanding 
-of the concepts and their unambiguous definitions.
+It is a tedious process to create such knowledge structure. A solid understanding of an abstraction level for each definition is needed. The creation process forces a deep understanding of the concepts and their unambiguous definitions. LLM based tools can automate some part of the work.
 
 ## Mentioned materials
 
@@ -94,6 +93,8 @@ of the concepts and their unambiguous definitions.
 4. "IEEE Standard Glossary of Software Engineering Terminology", IEEE, https://ieeexplore.ieee.org/document/159342
 
 5. "Unified Modeling Language", Object Management Group, https://www.omg.org/spec/UML
+
+6. "Singular term", Wikipedia, https://en.wikipedia.org/wiki/Singular_term
 
 ## Related materials
 
