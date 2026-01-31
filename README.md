@@ -2,7 +2,7 @@
 
 ## What is the project about?
 
-*DefinIT* project aims to create a hierarchy of precise and unambiguous definitions. It is a nomenclature exercise that creates terminologies for knowledge fields and academic disciplines. DefinIT removes ambiguity and redundancy in how concepts are defined across domains.
+*DefinIT* is a terminology structured into a directed acyclic graph (DAG). The project aims to create a hierarchy of precise and unambiguous terminologies for knowledge fields and academic disciplines. DefinIT removes ambiguity and redundancy in how concepts are defined across domains.
 
 #### Definition description
 
@@ -10,7 +10,7 @@ Definitions have procedural representation aiming to explain behaviors. Each def
 
 #### DefinIT structure
 
-*DefinIT* can be also defined as a kind of a Knowledge Graph[1] with a directed acyclic graph (DAG) structure. DAG structure constrains the possible connections between definitions. Directed “is based on” relation is the only kind of connection between definitions. The most fundamental definitions (roots) form the foundation of the hierarchy and are independent of any other terms. They can be clearly described without usage of other definitions. The higher a definition is placed in the hierarchy, the higher level definitions it reference to. Definition dependencies define the definition level. Over time, the DAG can be updated with more precise and better placed definitions. It is a kind of living, systematic creation of a terminology for a specific field.
+*DefinIT* can be also defined as a kind of a Knowledge Graph[1]. DAG structure constrains the possible connections between definitions. Directed “is based on” relation is the only kind of connection between definitions. The most fundamental definitions (roots) form the foundation of the hierarchy and are independent of any other terms. They can be clearly described without usage of other definitions. Definition dependencies define the definition level. Over time, the DAG can be updated with more precise and better placed definitions. It is a kind of living, systematic creation of a terminology for a specific field.
 
 #### Definition properties
 
