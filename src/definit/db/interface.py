@@ -9,6 +9,13 @@ from definit.definition.field import Field
 
 class DatabaseAbstract(ABC):
     @abstractmethod
+    def get_dag(self, definition_keys: set[DefinitionKey]) -> DAG:
+        """
+        Get the DAG for a set of definition keys.
+        """
+        ...
+
+    @abstractmethod
     def get_dag_for_definition(self, root: DefinitionKey) -> DAG:
         """
         Get the DAG with a given definition as root.

@@ -28,17 +28,23 @@ class DefinitionKey:
 
     def get_reference(self, phrase: str | None = None) -> str:
         if phrase is None:
-            phrase = self.name
+            phrase = self._fixed_name
 
         return f"[{phrase}]({self.uid})"
 
     def get_index_reference(self) -> str:
-        return f"[{self.name}]({self.full_path})"
+        return f"[{self._fixed_name}]({self.full_path})"
 
     # Internal methods
 
     def __hash__(self) -> int:
         return hash(self.uid)
+
+    def __eq__(self, value: object) -> bool:
+        if not isinstance(value, DefinitionKey):
+            return NotImplemented
+
+        return self.__hash__() == hash(value)
 
     @cached_property
     def _fixed_name(self) -> str:
