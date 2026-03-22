@@ -43,7 +43,7 @@ class DatabaseMd(DatabaseAbstract):
     def get_dag_for_definition(self, root: DefinitionKey) -> DAG:
         self._assure_cache_loaded()
         definitions = {root}
-        return self._get_dag(definitions=definitions)
+        return self.get_dag(definition_keys=definitions)
 
     def get_index(self, field: Field | None = None) -> set[DefinitionKey]:
         index: set[DefinitionKey] = set()
@@ -67,6 +67,31 @@ class DatabaseMd(DatabaseAbstract):
             parent_definition_key=None,
         )
 
+    def get_dag(self, definition_keys: set[DefinitionKey]) -> DAG:
+        dag = DAG()
+
+        for definition_key in definition_keys:
+            self._update_dag_in_place(definition_key=definition_key, dag=dag)
+
+        definition_keys = {key for key in definition_keys}
+        dag_definition_keys = {definition.key for definition in dag.nodes}
+        missing_definition_keys = definition_keys - dag_definition_keys
+
+        if missing_definition_keys:
+            _logger.warning(f"Following definitions are not a part of DAG: {missing_definition_keys}")
+
+        additional_definition_keys = dag_definition_keys - definition_keys
+
+        if additional_definition_keys:
+            msg = f"Following definitions are part of DAG but not requested: {additional_definition_keys}"
+            raise DataParserMdException(msg)
+
+        if not dag.has_dag_structure():
+            msg = f"DAG has an invalid structure: {dag.edges}"
+            raise DataParserMdException(msg)
+
+        return dag
+
     ##### Static methods #####
 
     @staticmethod
@@ -87,25 +112,6 @@ class DatabaseMd(DatabaseAbstract):
 
     def _get_full_path(self, absolute_path: Path) -> str:
         return absolute_path.relative_to(self._definitions_path).as_posix()
-
-    def _get_dag(self, definitions: set[DefinitionKey]) -> DAG:
-        dag = DAG()
-
-        for definition in definitions:
-            self._update_dag_in_place(definition_key=definition, dag=dag)
-
-        definition_keys = {key for key in definitions}
-        dag_definition_keys = {definition.key for definition in dag.nodes}
-        missing_definition_keys = definition_keys - dag_definition_keys
-
-        if missing_definition_keys:
-            _logger.warning(f"Following definitions are not a part of DAG: {missing_definition_keys}")
-
-        if not dag.has_dag_structure():
-            msg = f"DAG has an invalid structure: {dag.edges}"
-            raise DataParserMdException(msg)
-
-        return dag
 
     def _assure_cache_loaded(self) -> None:
         if self._definition_uid_to_absolute_path:
@@ -167,7 +173,13 @@ class DatabaseMd(DatabaseAbstract):
         matches = re.findall(r"\[(.*?)\]\((.*?)\)", definition.content)
 
         for _, child_uid in matches:
-            child_definition_key = DefinitionKey.from_full_path(child_uid)
+            absolute_path = self._definition_uid_to_absolute_path[child_uid]
+            full_path = self._get_full_path(absolute_path=absolute_path).removesuffix(".md")
+            child_definition_key = DefinitionKey.from_full_path(full_path=full_path)
+
+            if child_definition_key == definition_key:
+                continue  # Skip self-references
+
             child_definition = self._get_definition(
                 definition_key=child_definition_key,
                 parent_definition_key=definition_key,

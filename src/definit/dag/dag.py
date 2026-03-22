@@ -57,3 +57,38 @@ class DAG:
                 return False
 
         return True
+
+    def get_definition_levels(self) -> list[tuple[Definition, int]]:
+        """Return the definition levels.
+
+        Each definition is paired with its level in the DAG.
+        Level 0 corresponds to definitions with no dependencies.
+        """
+        visited: set[DefinitionKey] = set()
+        added: set[DefinitionKey] = set()
+        levels: dict[DefinitionKey, int] = {}
+        definitions_with_levels: list[tuple[Definition, int]] = []
+
+        def visit(node_key: DefinitionKey) -> int:
+            if node_key in visited:
+                return levels.get(node_key, 0)
+
+            visited.add(node_key)
+            max_level = 0
+
+            for neighbor in self._edges.get(node_key, []):
+                neighbor_level = visit(neighbor)
+                max_level = max(max_level, neighbor_level + 1)
+
+            levels[node_key] = max_level
+
+            if node_key not in added:
+                definitions_with_levels.append((self._definitions[node_key], max_level))
+                added.add(node_key)
+
+            return max_level
+
+        for node_key in self._definitions.keys():
+            visit(node_key)
+
+        return definitions_with_levels
