@@ -6,7 +6,7 @@
 
 #### Definition description
 
-Definitions have procedural representation aiming to explain behaviors. Each definition is general. It can be a word or a phrase that represent a broad category or concept rather than a specific instance or entity. For instance, *car*, *list*, *human*, *country* represent *general terms*. *My car*, *your todo list*, *Albert Einstein*, *Poland* are singular instances of these general terms or so called *singular terms*[6]. *DefinIT* does not examine *singular terms*. In an analogy to object oriented programming, *DefinIT* examine definitions or classes, but not instances.
+Definition can be a word or a phrase that represent a broad category, concept, or a specific instance/entity. For instance, *car*, *list*, *human*, *country* represent *general terms*. *My car*, *your todo list*, *Albert Einstein*, *Poland* are singular instances of these general terms or so called *singular terms*[6]. *DefinIT* mainly focus on *general terms*, but it does not exclude *singular terms*.
 
 #### DefinIT structure
 
@@ -73,7 +73,7 @@ While earlier projects focused on nomenclature within a single field, DefinIT ge
 
 - Learning a new field of knowledge.
 - Deepening understanding of a specific topic/term.
-- Specifying an unambiguous language that experts in a field use to communicate with each other, improving the quality and clarity of communication.
+- Specifying an unambiguous language that experts in a field reference to, improving the quality and clarity of communication.
 - Enhancing training or tuning data, or parts of prompts, for LLM-based systems.
 - Studying all specialized terms and concepts within a specific book (as a pre-reading exercise).
 - Learning all specific terms and concepts within a presentation (to be better prepared for a lecture).
