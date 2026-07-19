@@ -10,13 +10,15 @@ class DAG:
         self._definitions: dict[DefinitionKey, Definition] = {}
 
     def add_edge(self, node_from: Definition, node_to: Definition) -> None:
-        if node_from.key in self._edges:
-            self._edges[node_from.key].add(node_to.key)
-        else:
-            self._edges[node_from.key] = {node_to.key}
+        self.add_node(node_from)
+        self.add_node(node_to)
+        self._edges[node_from.key].add(node_to.key)
 
-        self._definitions[node_from.key] = node_from
-        self._definitions[node_to.key] = node_to
+    def add_node(self, node: Definition) -> None:
+        if node.key not in self._edges:
+            self._edges[node.key] = set()
+
+        self._definitions[node.key] = node
 
     @property
     def edges(self) -> Iterator[tuple[DefinitionKey, DefinitionKey]]:
