@@ -170,6 +170,12 @@ class DatabaseMd(DatabaseAbstract):
         parent_definition_key: DefinitionKey | None = None,
     ) -> None:
         definition = self._get_definition(definition_key=definition_key, parent_definition_key=parent_definition_key)
+
+        if definition in dag.nodes:
+            return  # already processed
+        else:
+            dag.add_node(node=definition)
+
         matches = re.findall(r"\[(.*?)\]\((.*?)\)", definition.content)
 
         for _, child_uid in matches:
@@ -180,16 +186,18 @@ class DatabaseMd(DatabaseAbstract):
             if child_definition_key == definition_key:
                 continue  # Skip self-references
 
-            child_definition = self._get_definition(
-                definition_key=child_definition_key,
-                parent_definition_key=definition_key,
-            )
-            dag.add_edge(node_from=definition, node_to=child_definition)
+            # start the recursion to add the child definition and its edges to the DAG
             self._update_dag_in_place(
                 definition_key=child_definition_key,
                 dag=dag,
                 parent_definition_key=definition_key,
             )
+            # add the edge from the current definition to the child definition in the DAG
+            child_definition = self._get_definition(
+                definition_key=child_definition_key,
+                parent_definition_key=definition_key,
+            )
+            dag.add_edge(node_from=definition, node_to=child_definition)
 
 
 def _write_index_md(db_path: Path, definitions: list[Definition]) -> None:
