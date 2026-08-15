@@ -8,23 +8,21 @@ from definit.definition.field import Field
 class DefinitionKey:
     name: str
     field: Field
-    sub_categories: tuple[str, ...] = ()
 
     @cached_property
     def uid(self) -> str:
-        return "/".join([self.field, self._fixed_name])
+        return f"{self.field}/{self._fixed_name}"
 
     @cached_property
     def full_path(self) -> str:
-        return "/".join([self.field, *self.sub_categories, self._fixed_name])
+        return self.uid
 
     @staticmethod
     def from_full_path(full_path: str) -> "DefinitionKey":
         parts = full_path.split("/")
         field = Field(parts[0])
         name = parts[-1]
-        sub_categories = tuple(parts[1:-1])
-        return DefinitionKey(name=name, field=field, sub_categories=sub_categories)
+        return DefinitionKey(name=name, field=field)
 
     def get_reference(self, phrase: str | None = None) -> str:
         if phrase is None:

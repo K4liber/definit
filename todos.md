@@ -1,6 +1,6 @@
 # DefinIT TODOs
 
-As much as possible, the items should be prioritized in order of importance. We split the items into 4 categories:
+As much as possible, the items should be prioritized in order of importance. We split the items into 4 buckets:
 - IN PROGRESS: Items that are currently being worked on.
 - TODO: Items that are planned to be implemented in the future.
 - DONE: Items that have been completed.
@@ -11,8 +11,6 @@ Each item should have a title, a description, and a list of tasks to be complete
 ## IN PROGRESS
 
 ## TODO
-
-### 1. [FEATURE] Remove the category concept from the definition data model
 
 ### 2. [FEATURE] Introduce definition aliases
 
@@ -25,5 +23,13 @@ When a definition has more than one synonym/alias, we should collect all of them
 ### 4. [DOCS] Update the README to reflect last changes
 
 ## DONE
+
+### 1. [FEATURE] Remove the category (sub-category) concept from the definition data model
+
+The `field` remains the only grouping level of definitions. Definition files are stored directly under `definitions/<field>/`.
+
+- [x] Remove `sub_categories` from `DefinitionKey`.
+- [x] Simplify `full_path` to `field/name` and update `from_full_path`.
+- [x] Update the markdown database and tests.
 
 ## ABANDONED
