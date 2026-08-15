@@ -6,12 +6,9 @@ from definit.definition.definition import Definition
 
 _expected_definitions: list[Definition] = [
     Definition(key=DefinitionKey(name="list", field="1"), content="a_list"),
-    Definition(key=DefinitionKey(name="node", field="1", sub_categories=("a", "b")), content="a_node"),
-    Definition(key=DefinitionKey(name="tree", field="2", sub_categories=("a",)), content="a_tree"),
-    Definition(
-        key=DefinitionKey(name="graph", field="2", sub_categories=("d", "e")),
-        content="a_graph [node](1/node)",
-    ),
+    Definition(key=DefinitionKey(name="node", field="1"), content="a_node"),
+    Definition(key=DefinitionKey(name="tree", field="2"), content="a_tree"),
+    Definition(key=DefinitionKey(name="graph", field="2"), content="a_graph [node](1/node)"),
 ]
 
 

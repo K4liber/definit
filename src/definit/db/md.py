@@ -32,8 +32,8 @@ class DatabaseMd(DatabaseAbstract):
     def __init__(self, data_md_path: Path, load_cache: bool = False) -> None:
         self._data_md_path = data_md_path
         self._definitions_path = data_md_path / "definitions"
-        self._definition_uid_to_absolute_path: dict[str, Path] = dict()
-        self._definition_cache: dict[DefinitionKey, str] = dict()
+        self._definition_uid_to_absolute_path: dict[str, Path] = {}
+        self._definition_cache: dict[DefinitionKey, str] = {}
 
         if load_cache:
             self._assure_cache_loaded()

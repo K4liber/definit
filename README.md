@@ -18,16 +18,16 @@ Definition can be a word or a phrase that represent a broad category, concept, o
 
 The definition name and the definition field together form a unique identifier for each definition (`definition_id = <field>/<name>`). Since the field is part of the unique identifier, we can have multiple definitions with the same name but different fields e.g. "number" in mathematics and "number" in computer science may be understood differently. 
 
-##### Subcategories
+##### Field
 
-Each definition can also have subcategories. The *field* is the main, and only required category. The remaining subcategories are optional and are used for grouping and navigating through definitions (see the `mathematics/fundamental` category DAG visualized on Figure 1. as an example).
+Each definition belongs to exactly one *field* (e.g. `mathematics`, `computer_science`). The field is used for grouping and navigating through definitions (see the `mathematics/fundamental` DAG visualized on Figure 1. as an example).
 
 ##### Content
 
 The main part of the definition is its content, which provides the actual explanation or description of the concept. It also includes references to other definitions. A definition content can and should be updated (by contributors, experts, LLM-assisted tools, etc.) over time to reflect new knowledge or improve clarity.
 
 !['mathematics/fundamental' DAG](./mathematics_fundamental.png)  
-Figure 1. Circular DAG visualization of `mathematics/fundamental` category.
+Figure 1. Circular DAG visualization of `mathematics` definitions.
 
 ## Project rationalization
 

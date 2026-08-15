@@ -1,3 +1,1 @@
-from typing import TypeAlias
-
-Field: TypeAlias = str
+type Field = str
