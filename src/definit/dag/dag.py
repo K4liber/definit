@@ -1,4 +1,4 @@
-from typing import Iterator
+from collections.abc import Iterator
 
 from definit.definition.definition import Definition
 from definit.definition.definition_key import DefinitionKey
@@ -54,7 +54,7 @@ class DAG:
             rec_stack.remove(node_key)
             return False
 
-        for node_key in self._definitions.keys():
+        for node_key in self._definitions:
             if visit(node_key):
                 return False
 
@@ -90,7 +90,7 @@ class DAG:
 
             return max_level
 
-        for node_key in self._definitions.keys():
+        for node_key in self._definitions:
             visit(node_key)
 
         return definitions_with_levels
