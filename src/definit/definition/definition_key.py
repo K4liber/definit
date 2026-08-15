@@ -20,7 +20,7 @@ class DefinitionKey:
     @staticmethod
     def from_full_path(full_path: str) -> "DefinitionKey":
         parts = full_path.split("/")
-        field = Field(parts[0])
+        field = parts[0]
         name = parts[-1]
         return DefinitionKey(name=name, field=field)
 
