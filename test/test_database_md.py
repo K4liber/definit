@@ -5,7 +5,7 @@ from definit.db.md import DatabaseMd
 from definit.definition.definition import Definition
 
 _expected_definitions: list[Definition] = [
-    Definition(key=DefinitionKey(name="list", field="1"), content="a_list"),
+    Definition(key=DefinitionKey(name="list", field="1"), content="a_list", aliases=("array", "sequence")),
     Definition(key=DefinitionKey(name="node", field="1"), content="a_node"),
     Definition(key=DefinitionKey(name="tree", field="2"), content="a_tree"),
     Definition(key=DefinitionKey(name="graph", field="2"), content="a_graph [node](1/node)"),
@@ -33,3 +33,7 @@ class TestDatabaseMd:
             definition.key.full_path == actual_definition.key.full_path
             for definition, actual_definition in zip(expected_definitions_sorted, actual_definitions_sorted)
         ), "Not all definitions have the same full path"
+        assert all(
+            definition.aliases == actual_definition.aliases
+            for definition, actual_definition in zip(expected_definitions_sorted, actual_definitions_sorted)
+        ), "Not all definitions have the same aliases"

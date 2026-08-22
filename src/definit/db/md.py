@@ -161,6 +161,7 @@ class DatabaseMd(DatabaseAbstract):
         return Definition(
             key=definition_key,
             content=_get_pure_content_from_md(content_md=content_md),
+            aliases=_get_aliases_from_md(content_md=content_md),
         )
 
     def _update_dag_in_place(
@@ -219,7 +220,26 @@ def _get_definition_file_path(definition: Definition, definitions_path: Path) ->
 
 
 def _get_md_formatted_content(definition: Definition) -> str:
-    return f"# {definition.key.name}\n\n{definition.content}\n"
+    title = definition.key.name
+
+    if definition.aliases:
+        title += f" ({', '.join(definition.aliases)})"
+
+    return f"# {title}\n\n{definition.content}\n"
+
+
+_TITLE_WITH_ALIASES_PATTERN = re.compile(r"^# .+? \((?P<aliases>.+)\)\s*$")
+
+
+def _get_aliases_from_md(content_md: str) -> tuple[str, ...]:
+    first_line = content_md.splitlines()[0] if content_md else ""
+
+    match = _TITLE_WITH_ALIASES_PATTERN.match(first_line)
+
+    if match is None:
+        return ()
+
+    return tuple(alias.strip() for alias in match.group("aliases").split(","))
 
 
 def _get_pure_content_from_md(content_md: str) -> str:
