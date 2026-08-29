@@ -14,6 +14,10 @@ Each item should have a title, a description, and a list of tasks to be complete
 
 ### 3. [feature] Introduce Definition Groups
 
+Some very simple API to group definitions together. It will be used in the definit-dsa package to group all created definitions into "Data Structures and Algorithms" group that later can be chosen by the user to filter the definitions while learning.
+
+### 7. [docs] Re-do the literature review and update the README with the new references
+
 ### 4. [docs] Update the README to reflect last changes
 
 ### 5. [devops] Github Action to deploy the package to PyPI
