@@ -12,13 +12,11 @@ Each item should have a title, a description, and a list of tasks to be complete
 
 ## TODO
 
-### 2. [feature] Introduce definition aliases
-
-When a definition has more than one synonym/alias, we should collect all of them.
-
-- [ ] Add aliases to the definition data model.
-
 ### 3. [feature] Introduce Definition Groups
+
+Some very simple API to group definitions together. It will be used in the definit-dsa package to group all created definitions into "Data Structures and Algorithms" group that later can be chosen by the user to filter the definitions while learning.
+
+### 7. [docs] Re-do the literature review and update the README with the new references
 
 ### 4. [docs] Update the README to reflect last changes
 
@@ -27,6 +25,12 @@ When a definition has more than one synonym/alias, we should collect all of them
 ### 6. [devops] Github Action to deploy the documentation to GitHub Pages
 
 ## DONE
+
+### 2. [feature] Introduce definition aliases
+
+When a definition has more than one synonym/alias, we should collect all of them.
+
+- [x] Add aliases to the definition data model.
 
 ### 1. [feature] Remove the category (sub-category) concept from the definition data model
 
