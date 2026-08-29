@@ -12,10 +12,6 @@ Each item should have a title, a description, and a list of tasks to be complete
 
 ## TODO
 
-### 3. [feature] Introduce Definition Groups
-
-Some very simple API to group definitions together. It will be used in the definit-dsa package to group all created definitions into "Data Structures and Algorithms" group that later can be chosen by the user to filter the definitions while learning.
-
 ### 7. [docs] Re-do the literature review and update the README with the new references
 
 ### 4. [docs] Update the README to reflect last changes
@@ -25,6 +21,14 @@ Some very simple API to group definitions together. It will be used in the defin
 ### 6. [devops] Github Action to deploy the documentation to GitHub Pages
 
 ## DONE
+
+### 3. [feature] Introduce Definition Groups
+
+Some very simple API to group definitions together. It will be used in the definit-dsa package to group all created definitions into "Data Structures and Algorithms" group that later can be chosen by the user to filter the definitions while learning.
+
+- [x] Add `DefinitionGroup` to the definition data model.
+- [x] Serialize/parse groups in the markdown database (`groups.md`).
+- [x] Filter `get_index` by group.
 
 ### 2. [feature] Introduce definition aliases
 
