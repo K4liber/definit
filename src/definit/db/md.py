@@ -7,6 +7,7 @@ from definit.dag.dag import DAG
 from definit.dag.dag import Definition
 from definit.dag.dag import DefinitionKey
 from definit.db.interface import DatabaseAbstract
+from definit.definition.definition_group import DefinitionGroup
 from definit.definition.field import Field
 
 _logger = logging.getLogger(__name__)
@@ -19,6 +20,7 @@ class DataParserMdException(Exception):
 @dataclass(frozen=True)
 class _Const:
     INDEX_FILE_NAME = "index.md"
+    GROUPS_FILE_NAME = "groups.md"
 
 
 _CONST = _Const()
@@ -34,6 +36,7 @@ class DatabaseMd(DatabaseAbstract):
         self._definitions_path = data_md_path / "definitions"
         self._definition_uid_to_absolute_path: dict[str, Path] = {}
         self._definition_cache: dict[DefinitionKey, str] = {}
+        self._groups: set[DefinitionGroup] = set()
 
         if load_cache:
             self._assure_cache_loaded()
@@ -45,15 +48,35 @@ class DatabaseMd(DatabaseAbstract):
         definitions = {root}
         return self.get_dag(definition_keys=definitions)
 
-    def get_index(self, field: Field | None = None) -> set[DefinitionKey]:
+    def get_index(
+        self,
+        field: Field | None = None,
+        group: DefinitionGroup | None = None,
+    ) -> set[DefinitionKey]:
+        self._assure_cache_loaded()
+
+        group_definition_keys: set[DefinitionKey] | None = None
+
+        if group is not None:
+            group_definition_keys = set()
+
+            for existing_group in self._groups:
+                if existing_group.name == group.name:
+                    group_definition_keys |= existing_group.definition_keys
+
         index: set[DefinitionKey] = set()
 
         for absolute_path in self._definition_uid_to_absolute_path.values():
             full_path = self._get_full_path(absolute_path=absolute_path).removesuffix(".md")
             definition_key = DefinitionKey.from_full_path(full_path=full_path)
 
-            if field is None or definition_key.field == field:
-                index.add(definition_key)
+            if field is not None and definition_key.field != field:
+                continue
+
+            if group_definition_keys is not None and definition_key not in group_definition_keys:
+                continue
+
+            index.add(definition_key)
 
         return index
 
@@ -92,10 +115,18 @@ class DatabaseMd(DatabaseAbstract):
 
         return dag
 
+    def get_groups(self) -> set[DefinitionGroup]:
+        """
+        Get all groups present in the database.
+        """
+        self._assure_cache_loaded()
+
+        return self._groups
+
     ##### Static methods #####
 
     @staticmethod
-    def serialize(definitions: list[Definition], db_path: Path) -> None:
+    def serialize(definitions: list[Definition], db_path: Path, groups: set[DefinitionGroup] | None = None) -> None:
         for definition in definitions:
             definitions_path = db_path / "definitions"
             definition_file_path = _get_definition_file_path(definition=definition, definitions_path=definitions_path)
@@ -106,6 +137,11 @@ class DatabaseMd(DatabaseAbstract):
         _write_index_md(
             db_path=db_path,
             definitions=definitions,
+        )
+        # Write the groups Markdown file (only if groups are provided)
+        _write_groups_md(
+            db_path=db_path,
+            groups=groups or set(),
         )
 
     ##### Internal methods #####
@@ -134,6 +170,26 @@ class DatabaseMd(DatabaseAbstract):
                         definition_key=definition_key,
                         parent_definition_key=None,
                     )
+
+        groups_file_path = self._data_md_path / _CONST.GROUPS_FILE_NAME
+
+        if groups_file_path.exists():
+            with open(groups_file_path) as groups_file:
+                group_name_to_definition_keys = _get_definition_groups_from_md(content_md=groups_file.read())
+
+            self._groups = {
+                DefinitionGroup(
+                    name=group_name,
+                    definitions=(
+                        self._get_definition(
+                            definition_key=definition_key,
+                            parent_definition_key=None,
+                        )
+                        for definition_key in definition_keys
+                    ),
+                )
+                for group_name, definition_keys in group_name_to_definition_keys.items()
+            }
 
     def _get_definition(
         self,
@@ -211,6 +267,54 @@ def _write_index_md(db_path: Path, definitions: list[Definition]) -> None:
 
     with open(index_path, "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
+
+
+def _write_groups_md(db_path: Path, groups: set[DefinitionGroup]) -> None:
+    if not groups:
+        return  # no groups, do not write the file
+
+    lines: list[str] = ["# Definition Groups"]
+
+    for group in sorted(groups):
+        lines.append("")
+        lines.append(f"## {group.name}")
+
+        for definition in sorted(group.definitions):
+            lines.append(f"- {definition.key.get_index_reference()}")
+
+    groups_path = db_path / _CONST.GROUPS_FILE_NAME
+
+    with open(groups_path, "w", encoding="utf-8") as f:
+        f.write("\n".join(lines) + "\n")
+
+
+_GROUP_HEADER_PATTERN = re.compile(r"^##\s+(?P<name>.+?)\s*$")
+
+
+def _get_definition_groups_from_md(content_md: str) -> dict[str, set[DefinitionKey]]:
+    """
+    Parse the groups file and return a mapping from group name to its definition keys.
+    """
+    group_name_to_definition_keys: dict[str, set[DefinitionKey]] = {}
+
+    current_group_name: str | None = None
+
+    for line in content_md.splitlines():
+        header_match = _GROUP_HEADER_PATTERN.match(line)
+
+        if header_match is not None:
+            group_name: str = header_match.group("name")
+            current_group_name = group_name
+            group_name_to_definition_keys.setdefault(group_name, set())
+            continue
+
+        if current_group_name is None:
+            continue
+
+        for _, full_path in re.findall(r"\[(.*?)\]\((.*?)\)", line):
+            group_name_to_definition_keys[current_group_name].add(DefinitionKey.from_full_path(full_path=full_path))
+
+    return group_name_to_definition_keys
 
 
 def _get_definition_file_path(definition: Definition, definitions_path: Path) -> Path:
