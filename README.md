@@ -6,7 +6,7 @@
 
 ### Definition description
 
-Definition can be a word or a phrase that represent a broad category, concept, or a specific instance/entity. For instance, *car*, *list*, *human*, *country* represent *general terms*. *My car*, *your todo list*, *Albert Einstein*, *Poland* are singular instances of these general terms or so called *singular terms*. *DefinIT* mainly focus on *general terms*, but it does not exclude *singular terms*.
+Definition can be a word or a phrase that represent a broad category, concept, or a specific instance/entity. For instance, *car*, *list*, *human*, *country* represent *general terms*. *My car*, *your todo list*, *Albert Einstein*, *Poland* are singular instances of these general terms or so called *singular terms*. *DefinIT* mainly focus on *general terms* (or *classes*, or *universals*), but it does not exclude *singular terms* (or *instances*, or *particulars*).
 
 ### DefinIT structure
 
@@ -89,10 +89,6 @@ Educational research has long emphasized the role of prior knowledge: in Ausubel
 
 Semantic networks date back at least to Porphyry's commentary on Aristotle's categories and were implemented computationally by Richens (1956) and Quillian in the 1960s [17]. WordNet groups words into synsets linked by relations such as hypernymy and hyponymy [18]. SKOS is the W3C recommendation for publishing thesauri, classifications and controlled vocabularies as linked data [19]. The Gene Ontology organizes tens of thousands of terms covering three domains of biology in a directed acyclic graph using a small set of relations (`is_a`, `part_of`) [20]. What distinguishes DefinIT from these systems is the relation discipline and the role of content: there is exactly one relation type ("is based on"), it is enforced to be acyclic, and each node carries a curated, evolvable definition rather than serving as a label for entities.
 
-#### Formal mathematics
-
-The strictest definitional discipline is found in formal mathematics. In Metamath, every theorem is derived from a small set of axioms through explicit, machine-checkable steps, so every statement ultimately traces back to the axioms [21]. DefinIT transfers this pattern — explicit dependencies, no cycles, roots as axioms — to natural-language terminology of arbitrary fields, trading formal provability for breadth and accessibility.
-
 #### Positioning
 
 Earlier efforts concentrated on nomenclature within a single field. DefinIT generalizes the approach across disciplines and makes the dependency structure between definitions itself a first-class, versioned, machine-processable artifact constrained to a single acyclic relation.
@@ -144,8 +140,6 @@ It is a tedious process to create such knowledge structure. A solid understandin
 
 16. J.-P. Doignon, J.-C. Falmagne, "Spaces for the assessment of knowledge", International Journal of Man-Machine Studies 29(2), 1985.
 
-<here>
-
 17. J. F. Sowa, "Semantic Networks", Encyclopedia of Artificial Intelligence, Wiley, 1987.
 
 18. G. A. Miller, "WordNet: A Lexical Database for English", Communications of the ACM 38(11), 1995.
@@ -154,9 +148,7 @@ It is a tedious process to create such knowledge structure. A solid understandin
 
 20. The Gene Ontology Consortium, "Gene ontology: tool for the unification of biology", Nature Genetics 25(1), 2000.
 
-21. N. D. Megill, "Metamath: A Computer Language for Mathematical Proofs", https://us.metamath.org
-
-## Related materials/concepts (not referenced in the text)
+## Related materials/concepts/links (not referenced in the text)
 
 I. "What is Knowledge Representation in Artificial Intelligence?", 
 Sumeet Bansal, https://www.analytixlabs.co.in/blog/what-is-knowledge-representation-in-artificial-intelligence
@@ -224,6 +216,20 @@ XXXI. "Knowledge space", wikipedia, https://en.wikipedia.org/wiki/Knowledge_spac
 XXXII. "Singular term", Wikipedia, https://en.wikipedia.org/wiki/Singular_term
 
 XXXIII. "Terminology", Wikipedia, https://en.wikipedia.org/wiki/Terminology_science
+
+XXXIV. "Semantic Networks", John F. Sowa, https://www.jfsowa.com/pubs/semnet.htm
+
+XXXV. "The GO hierarchy", https://www.geneontology.org/docs/ontology-documentation/
+
+XXXVI. "Ontology relations", https://www.geneontology.org/docs/ontology-relations/
+
+XXXVII. "Theory of descriptions", https://en.wikipedia.org/wiki/Theory_of_descriptions
+
+XXXVIII. "Logical atomism", https://en.wikipedia.org/wiki/Logical_atomism
+
+XXXIX. "Metaphysics", https://en.wikipedia.org/wiki/Metaphysics
+
+XL. 
 
 ## For developers
 
