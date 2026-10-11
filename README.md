@@ -26,6 +26,10 @@ Each definition belongs to exactly one *field* (e.g. `mathematics`, `computer_sc
 
 The main part of the definition is its content, which provides the actual explanation or description of the concept. It also includes references to other definitions. A definition content can and should be updated (by contributors, experts, LLM-assisted tools, etc.) over time to reflect new knowledge or improve clarity.
 
+#### Use case [OPTIONAL]
+
+An real-life example of how the definition is used in practice. It can be a sentence or a paragraph. It should not contain any higher-level definitions. It can be used to illustrate the definition's meaning and provide context for its application.
+
 !['mathematics/fundamental' DAG](./mathematics_fundamental.png)  
 Figure 1. Circular DAG visualization of `mathematics` definitions.
 
