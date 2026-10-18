@@ -106,6 +106,12 @@ https://www.sciencedirect.com/science/article/abs/pii/S1389041708000120
 
 Mind the "abstraction level" of the course, it should be just above the level of DSA course, so it can reuse the same definitions.
 
-### Other applications?
+### Other applications
+
+#### Food for LLMs - maybe finetuning?
+
+#### Reducing the number of books/articles
+
+#### New kind of science
 
 ## Thanks you slide
