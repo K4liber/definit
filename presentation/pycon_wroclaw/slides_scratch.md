@@ -22,37 +22,35 @@ DefinIT learning platform is a web application that allows users to learn specif
 
 Showcase of http://k4liber.github.io/definit-dsa
 
-## About Me
+## About Me (3 slides)
 
-### Technology
-
-#### Senior Full Stack Developer
+### Senior Full Stack Developer
 
 (some senior developer meme)
 
-#### "Any sufficiently advanced technology is indistinguishable from magic." - Arthur C. Clarke
+### Tech enthusiast
+
+"Any sufficiently advanced technology is indistinguishable from magic." - Arthur C. Clarke
+
+Technology/Engineering is kind of a hacking of the universe, a way to understand and manipulate the world around us.
 
 (some wizard meme)
 
-#### Technology/Engineering is kind of a hacking of the universe, a way to understand and manipulate the world around us.
-
-(some hacking meme)
-
-### Music
-
-- Guitar, PR8BL3M, Gorillaz, Coldplay, Pink Floyd
-
-### Sport
+### Monkey
 
 - Running, Calistenics, Ping-pong, Fussball, Snowboarding, Trekking
 
-## About Hans Christian Ørsted (1777 – 1851, Danish: [ˈɶɐ̯steð])
+## About Ørsted (3 slides)
 
-#### Close friend of a Hans Christian Andersen (1805 – 1875, author of many fairy tales, including "The Little Mermaid" and "The Ugly Duckling")
+### Intro
 
-#### First to explicitly describe and name the "thought experiment"
+Hans Christian Ørsted (1777 – 1851, Danish: [ˈɶɐ̯steð])
 
-#### In 1820, Ørsted published his discovery that a compass needle was deflected from magnetic north by a nearby electric current, confirming a direct relationship between electricity and magnetism
+Close friend of a Hans Christian Andersen (1805 – 1875, author of many fairy tales, including "The Little Mermaid" and "The Ugly Duckling")
+
+### First to explicitly describe and name the "thought experiment"
+
+### In 1820, Ørsted published his discovery that a compass needle was deflected from magnetic north by a nearby electric current, confirming a direct relationship between electricity and magnetism
 
 ## DefinIT description
 
