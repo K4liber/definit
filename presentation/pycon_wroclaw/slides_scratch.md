@@ -4,53 +4,81 @@
 
 ### More Philosophy than Python
 
-[philosophers.jpg]
+I: [philosophers.jpg]
 
 ### Learning platform based on DefinIT project
 
-(QR Code to http://k4liber.github.io/definit-dsa)
+I: [qr-platform.svg]
+
+C: k4liber.github.io/definit-dsa
+
+Notes:
 
 DefinIT learning platform is a web application that allows users to learn specific topic in a very structured way. The learning platform is only one of the possible use cases of the DefinIT project. The main goal of the DefinIT project is to create a standardized and unambiguous terminology, which can be used in various applications, including learning platforms.
 
-### Entry quote
+### Learning platform based on DefinIT project
 
-(QR Code to http://k4liber.github.io/definit-dsa)
+I: [qr-platform.svg]
 
-"Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away." - Antoine de Saint-Exupéry
+C: "Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away." ~ Antoine de Saint-Exupéry
 
-### Entry demo
+### Demo
 
-Showcase of http://k4liber.github.io/definit-dsa
+I: [demo.png]
+
+C: Showcase of http://k4liber.github.io/definit-dsa
 
 ## About Me (3 slides)
 
-### Senior Full Stack Developer
+### Senior Full Stack Developer at Ørsted
 
-(some senior developer meme)
+I: [senior-developer.jpeg]
 
 ### Tech enthusiast
 
-"Any sufficiently advanced technology is indistinguishable from magic." - Arthur C. Clarke
+I: [magic.webp]
+
+C: "Any sufficiently advanced technology is indistinguishable from magic." ~ Arthur C. Clarke
+
+Notes:
 
 Technology/Engineering is kind of a hacking of the universe, a way to understand and manipulate the world around us.
 
-(some wizard meme)
-
 ### Monkey
 
-- Running, Calistenics, Ping-pong, Fussball, Snowboarding, Trekking
+ITL: [football.JPG]
+
+ITR: [snowboard.HEIC]
+
+IBL: [ping-pong.jpeg]
+
+IBR: [trekking.jpeg]
+
+C: Football, Fusbal, Foosball, Running, Calistenics, Ping-pong, Trekking, Snowboarding
 
 ## About Ørsted (3 slides)
 
-### Intro
+### Hans Christian Ørsted (1777 – 1851, Danish: [ˈɶɐ̯steð])
 
-Hans Christian Ørsted (1777 – 1851, Danish: [ˈɶɐ̯steð])
+IL: [orsted.jpg]
 
-Close friend of a Hans Christian Andersen (1805 – 1875, author of many fairy tales, including "The Little Mermaid" and "The Ugly Duckling")
+IR: [andersen.jpg]
 
-### First to explicitly describe and name the "thought experiment"
+C: Close friend of a Hans Christian Andersen (1805 – 1875, author of many fairy tales, including "The Little Mermaid" and "The Ugly Duckling")
 
-### In 1820, Ørsted published his discovery that a compass needle was deflected from magnetic north by a nearby electric current, confirming a direct relationship between electricity and magnetism
+### Hans Christian Ørsted (1777 – 1851, Danish: [ˈɶɐ̯steð])
+
+I: [thought-experiment.jpg]
+
+C: First to explicitly describe and name the "thought experiment"
+
+### Hans Christian Ørsted (1777 – 1851, Danish: [ˈɶɐ̯steð])
+
+I: [orsted-experiment.jpg]
+
+C: In 1820, Ørsted published his discovery that a compass needle was deflected from magnetic north by a nearby electric current, confirming a direct relationship between electricity and magnetism.
+
+S: https://subratachak.wordpress.com/2017/12/16/oerstead/
 
 ## DefinIT description
 
