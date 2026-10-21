@@ -30,11 +30,13 @@ C: Showcase of http://k4liber.github.io/definit-dsa
 
 ## About Me (3 slides)
 
-### Senior Full Stack Developer at Ørsted
+### Jan Bielecki (1994 - ?)
 
 I: [senior-developer.jpeg]
 
-### Tech enthusiast
+C: Senior Full Stack Developer at Ørsted
+
+### Jan Bielecki (1994 - ?)
 
 I: [magic.webp]
 
@@ -44,7 +46,7 @@ Notes:
 
 Technology/Engineering is kind of a hacking of the universe, a way to understand and manipulate the world around us.
 
-### Monkey
+### Jan Bielecki (1994 - ?)
 
 ITL: [football.JPG]
 
@@ -58,7 +60,7 @@ C: Football, Fusbal, Foosball, Running, Calistenics, Ping-pong, Trekking, Snowbo
 
 ## About Ørsted (3 slides)
 
-### Hans Christian Ørsted (1777 – 1851, Danish: [ˈɶɐ̯steð])
+### Hans Christian Ørsted (1777 – 1851)
 
 IL: [orsted.jpg]
 
@@ -66,13 +68,13 @@ IR: [andersen.jpg]
 
 C: Close friend of a Hans Christian Andersen (1805 – 1875, author of many fairy tales, including "The Little Mermaid" and "The Ugly Duckling")
 
-### Hans Christian Ørsted (1777 – 1851, Danish: [ˈɶɐ̯steð])
+### Hans Christian Ørsted (1777 – 1851)
 
 I: [thought-experiment.jpg]
 
 C: First to explicitly describe and name the "thought experiment"
 
-### Hans Christian Ørsted (1777 – 1851, Danish: [ˈɶɐ̯steð])
+### Hans Christian Ørsted (1777 – 1851)
 
 I: [orsted-experiment.jpg]
 
@@ -82,13 +84,25 @@ S: https://subratachak.wordpress.com/2017/12/16/oerstead/
 
 ## DefinIT description
 
+### Definitions as "patterns in the universe"
+
+TODO
+
 ### The theory of acyclic references in terminology
 
-### Definitions are "patterns in the universe"
+TODO
 
 ### Naming does not matter
 
+TODO
+
 ### An experiment to "prove the theory"
+
+I: [theory.png]
+
+C: "In theory, there is no difference between theory and practice. But in practice, there is." ~ Benjamin Brewster
+
+N: Just an intro. The full description will be presented in the section "Data Structures and Algorithms course".
 
 ## Literature review
 
@@ -110,6 +124,12 @@ S: https://subratachak.wordpress.com/2017/12/16/oerstead/
 
 #### Logical atomism
 
+#### Mandelbrot set
+
+I: [mandelbrot_set.jpg]
+
+C: Mandelbrot Set, being indisputably complex, uses a simple recursive equation: \(z_{n+1} = z_n^2 + c\), starting with z₀ = 0.
+
 #### Conway's Game of Life
 
 ### Organized hierarchies in Dictionaries
@@ -126,18 +146,26 @@ https://www.sciencedirect.com/science/article/abs/pii/S1389041708000120
 
 ## Further work
 
-### Write a paper
+### [MUST HAVE] Write a paper
 
-### Create the next course
+### [NICE TO HAVE] Create the next course
 
-Mind the "abstraction level" of the course, it should be just above the level of DSA course, so it can reuse the same definitions.
+N: Mind the "abstraction level" of the course, it should be just above the level of DSA course, so it can reuse the same definitions.
 
-### Other applications
+### [NICE TO HAVE] Other applications
 
-#### Food for LLMs - maybe finetuning?
+#### [NICE TO HAVE] Other applications
 
-#### Reducing the number of books/articles
+C: Food for LLMs - maybe finetuning?
 
-#### New kind of science
+N: The definitions are suppose to have a high quality.
 
-## Thanks you slide
+#### [NICE TO HAVE] Other applications
+
+C: Reducing the number of books/articles
+
+#### [NICE TO HAVE] Other applications
+
+C: New kind of science
+
+## Thank you slide
