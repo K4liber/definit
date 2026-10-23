@@ -86,11 +86,33 @@ S: https://subratachak.wordpress.com/2017/12/16/oerstead/
 
 ### Definitions as "patterns in the universe"
 
-TODO
+I: [patterns.jpg]
+
+C: Patterns in math, astronomy, biology.
+
+### Definitions as "patterns in the universe"
+
+I: [patterns.jpg]
+
+C: Patterns in math, astronomy, biology.
+
+R: https://www.myclaritycenter.com/post/sacred-geometry
+
+### Definitions as "patterns in the universe"
+
+I: [adapter.png]
+
+C: Software design patterns.
+
+R: https://thecodinggopher.substack.com/p/the-adapter-design-pattern
 
 ### The theory of acyclic references in terminology
 
-TODO
+I: [cell.jpg]
+
+C: Mitochondria can be described without referring to the cell.
+
+N: Set of definitions is called terminology. A terminology is acyclic if it does not contain any circular references between definitions.
 
 ### Naming does not matter
 
