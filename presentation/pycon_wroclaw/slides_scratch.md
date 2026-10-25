@@ -110,13 +110,23 @@ R: https://thecodinggopher.substack.com/p/the-adapter-design-pattern
 
 I: [cell.jpg]
 
-C: Mitochondria can be described without referring to the cell.
+C: The exercise is to describe mitochondria without referring to the cell.
 
 N: Set of definitions is called terminology. A terminology is acyclic if it does not contain any circular references between definitions.
 
-### Naming does not matter
+### Naming is irrelevant
 
-TODO
+I: [name.jpg]
+
+C: Naming does not matter, or at least is a secondary concern.
+
+N: The naming is a seperate exercise. It seems like we can put a boundary between the naming and the definition. This point of view is shared by Eugen Wüster, terminologist, regarded as "the father of technological standardization".
+
+### Languages are ambiguous
+
+I: [set.jpg]
+
+C: Even single words can have different meanings.
 
 ### An experiment to "prove the theory"
 
@@ -130,7 +140,25 @@ N: Just an intro. The full description will be presented in the section "Data St
 
 ### Standardized vocabularies in computing
 
+I: [dictionary.jpeg]
+
+#### Thomas Edison (1847 – 1931)
+
+I: [edison.jpg]
+
+C: "Bugs" - little faults and difficulties
+
 #### Grace Hopper
+
+I: [bug.jpg]
+
+C: TODO
+
+#### Grace Hopper
+
+I: [bug.jpg]
+
+C: TODO
 
 ### Terminology science
 
