@@ -138,9 +138,11 @@ N: Just an intro. The full description will be presented in the section "Data St
 
 ## Literature review
 
-### Standardized vocabularies in computing
+### Standardized glossary in computing
 
 I: [dictionary.jpeg]
+
+C: A glossary is a focused collection of SPECIALIZED terms and DEFINITIONS tied to a SPECIFIC SUBJECT, book, or document.
 
 #### Thomas Edison (1847 – 1931)
 
@@ -148,17 +150,21 @@ I: [edison.jpg]
 
 C: "Bugs" - little faults and difficulties
 
-#### Grace Hopper
+#### Grace Hopper (1906 – 1992)
 
 I: [bug.jpg]
 
-C: TODO
+C: "First actual case of bug being found"
 
-#### Grace Hopper
+N: A popular story from the 1940s is from Admiral Grace Hopper. While she was working on a Mark II computer at Harvard University, her associates discovered a moth stuck in a relay that impeded operation and wrote in a log book "First actual case of a bug being found". Although probably a joke, conflating the two meanings of bug (biological and defect), the story indicates that the term was used in the computer field at that time. She popularized the term debugging to mean fixing a computer program.
 
-I: [bug.jpg]
+Similarly, the term debugging was used in aeronautics before entering the world of computers. A letter from J. Robert Oppenheimer, director of the WWII atomic bomb Manhattan Project at Los Alamos, used the term in a letter to Dr. Ernest Lawrence at UC Berkeley, dated October 27, 1944,[2] regarding the recruitment of additional technical staff. The Oxford English Dictionary entry for debug uses the term debugging in reference to airplane engine testing in a 1945 article in the Journal of the Royal Aeronautical Society. An article in "Airforce" (June 1945 p. 50) refers to debugging aircraft cameras.
 
-C: TODO
+#### Grace Hopper (1906 – 1992)
+
+I: [hooper.jpg]
+
+C: "First Glossary of Programming Terminology"
 
 ### Terminology science
 
