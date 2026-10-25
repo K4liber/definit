@@ -1,14 +1,14 @@
 # DefinITely, the most boring learning content you will ever see!
 
-## Intro
+C: PyCon Wrocław 2026
 
-### More Philosophy than Python
+## More Philosophy than Python
 
-I: [philosophers.jpg]
+![I](./img/philosophers.jpeg)
 
-### Learning platform based on DefinIT project
+## Learning platform based on DefinIT project
 
-I: [qr-platform.svg]
+![I](./img/qr-platform.svg)
 
 C: k4liber.github.io/definit-dsa
 
@@ -16,29 +16,27 @@ Notes:
 
 DefinIT learning platform is a web application that allows users to learn specific topic in a very structured way. The learning platform is only one of the possible use cases of the DefinIT project. The main goal of the DefinIT project is to create a standardized and unambiguous terminology, which can be used in various applications, including learning platforms.
 
-### Learning platform based on DefinIT project
+## Learning platform based on DefinIT project
 
-I: [qr-platform.svg]
+![I](./img/qr-platform.svg)
 
 C: "Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away." ~ Antoine de Saint-Exupéry
 
-### Demo
+## Demo
 
-I: [demo.png]
+![I](./img/demo.png)
 
 C: Showcase of http://k4liber.github.io/definit-dsa
 
-## About Me (3 slides)
+## Jan Bielecki (1994 - ?)
 
-### Jan Bielecki (1994 - ?)
+![I](./img/senior-developer.jpeg)
 
-I: [senior-developer.jpeg]
+C: Senior Full Stack Developer at Ørsted (2023 - ?)
 
-C: Senior Full Stack Developer at Ørsted
+## Jan Bielecki (1994 - ?)
 
-### Jan Bielecki (1994 - ?)
-
-I: [magic.webp]
+![I](./img/magic.webp)
 
 C: "Any sufficiently advanced technology is indistinguishable from magic." ~ Arthur C. Clarke
 
@@ -46,113 +44,99 @@ Notes:
 
 Technology/Engineering is kind of a hacking of the universe, a way to understand and manipulate the world around us.
 
-### Jan Bielecki (1994 - ?)
+## Jan Bielecki (1994 - ?)
 
-ITL: [football.JPG]
+![ITL](./img/football.JPG)
 
-ITR: [snowboard.HEIC]
+![ITR](./img/snowboard.jpg)
 
-IBL: [ping-pong.jpeg]
+![IBL](./img/ping-pong.jpeg)
 
-IBR: [trekking.jpeg]
+![IBR](./img/trekking.jpeg)
 
 C: Football, Fusbal, Foosball, Running, Calistenics, Ping-pong, Trekking, Snowboarding
 
-## About Ørsted (3 slides)
+## Hans Christian Ørsted (1777 - 1851)
 
-### Hans Christian Ørsted (1777 – 1851)
+![IL](./img/orsted.jpg)
 
-IL: [orsted.jpg]
+![IR](./img/andersen.jpg)
 
-IR: [andersen.jpg]
+C: Close friend of a Hans Christian Andersen (1805 - 1875), author of many fairy tales, including "The Little Mermaid" and "The Ugly Duckling")
 
-C: Close friend of a Hans Christian Andersen (1805 – 1875, author of many fairy tales, including "The Little Mermaid" and "The Ugly Duckling")
+## Hans Christian Ørsted (1777 - 1851)
 
-### Hans Christian Ørsted (1777 – 1851)
-
-I: [thought-experiment.jpg]
+![I](./img/thought-experiment.jpg)
 
 C: First to explicitly describe and name the "thought experiment"
 
-### Hans Christian Ørsted (1777 – 1851)
+## Hans Christian Ørsted (1777 - 1851)
 
-I: [orsted-experiment.jpg]
+![I](./img/orsted-experiment.webp)
 
 C: In 1820, Ørsted published his discovery that a compass needle was deflected from magnetic north by a nearby electric current, confirming a direct relationship between electricity and magnetism.
 
 S: https://subratachak.wordpress.com/2017/12/16/oerstead/
 
-## DefinIT description
+## Definitions as "patterns in the universe"
 
-### Definitions as "patterns in the universe"
-
-I: [patterns.jpg]
+![I](./img/patterns.jpg)
 
 C: Patterns in math, astronomy, biology.
 
-### Definitions as "patterns in the universe"
+## Definitions as "patterns in the universe"
 
-I: [patterns.jpg]
-
-C: Patterns in math, astronomy, biology.
-
-R: https://www.myclaritycenter.com/post/sacred-geometry
-
-### Definitions as "patterns in the universe"
-
-I: [adapter.png]
+![I](./img/adapter.png)
 
 C: Software design patterns.
 
 R: https://thecodinggopher.substack.com/p/the-adapter-design-pattern
 
-### The theory of acyclic references in terminology
+## The theory of acyclic references in terminology
 
-I: [cell.jpg]
+![I](./img/cell.jpg)
 
 C: The exercise is to describe mitochondria without referring to the cell.
 
 N: Set of definitions is called terminology. A terminology is acyclic if it does not contain any circular references between definitions.
 
-### Naming is irrelevant
+## Naming is irrelevant
 
-I: [name.jpg]
+![I](./img/name.jpg)
 
 C: Naming does not matter, or at least is a secondary concern.
 
 N: The naming is a seperate exercise. It seems like we can put a boundary between the naming and the definition. This point of view is shared by Eugen Wüster, terminologist, regarded as "the father of technological standardization".
 
-### Languages are ambiguous
+## Languages are ambiguous
 
-I: [set.jpg]
+![I](./img/set.jpg)
 
 C: Even single words can have different meanings.
 
-### An experiment to "prove the theory"
+## An experiment to "prove the theory"
 
-I: [theory.png]
+![I](./img/theory.png)
 
 C: "In theory, there is no difference between theory and practice. But in practice, there is." ~ Benjamin Brewster
 
 N: Just an intro. The full description will be presented in the section "Data Structures and Algorithms course".
 
-## Literature review
+## Standardized glossary in computing
 
-### Standardized glossary in computing
-
-I: [dictionary.jpeg]
+![I](./img/dictionary.jpeg)
 
 C: A glossary is a focused collection of SPECIALIZED terms and DEFINITIONS tied to a SPECIFIC SUBJECT, book, or document.
 
-#### Thomas Edison (1847 – 1931)
+## Thomas Edison (1847 - 1931)
 
-I: [edison.jpg]
+![I](./img/edison.jpg)
 
 C: "Bugs" - little faults and difficulties
 
-#### Grace Hopper (1906 – 1992)
+## Grace Hopper (1906 - 1992)
 
-I: [bug.jpg]
+![I](./img/bug.jpg)
 
 C: "First actual case of bug being found"
 
@@ -160,67 +144,79 @@ N: A popular story from the 1940s is from Admiral Grace Hopper. While she was wo
 
 Similarly, the term debugging was used in aeronautics before entering the world of computers. A letter from J. Robert Oppenheimer, director of the WWII atomic bomb Manhattan Project at Los Alamos, used the term in a letter to Dr. Ernest Lawrence at UC Berkeley, dated October 27, 1944,[2] regarding the recruitment of additional technical staff. The Oxford English Dictionary entry for debug uses the term debugging in reference to airplane engine testing in a 1945 article in the Journal of the Royal Aeronautical Society. An article in "Airforce" (June 1945 p. 50) refers to debugging aircraft cameras.
 
-#### Grace Hopper (1906 – 1992)
+## Grace Hopper (1906 - 1992)
 
-I: [hooper.jpg]
+![I](./img/hooper.jpg)
 
 C: "First Glossary of Programming Terminology"
 
-### Terminology science
+## Eugen Wüster (1898 - 1977)
 
-#### Eugen Wüster
+![I](./img/eugen.jpg)
 
-##### Naming does not matter
+C: Eugen Wüster is often recognized as the founder of terminology.
 
-##### Esperanto
+N: To eliminate ambiguity from technical languages by means of standardisation of terminology in order to make them efficient tools of communication.
 
-### Philosophy of definitions
+## Eugen Wüster (1898 - 1977)
 
-#### Bertrand Russell
+![I](./img/twitter.jpg)
 
-#### Logical atomism
+C: Concepts (or definitions) exist even before they are named - thus naming and it relevance for the terminology field have been neglected."
 
-#### Mandelbrot set
+## Ludwik Zamenhof (1859 - 1917)
 
-I: [mandelbrot_set.jpg]
+![I](./img/zamenhof.jpg)
+
+C: Wüster was a staunch advocate of a single language for scientific and technical communication.
+
+## Philosophy of definitions
+
+## Bertrand Russell
+
+## Logical atomism
+
+## Mandelbrot set
+
+![I](./img/mandelbrot_set.jpg)
 
 C: Mandelbrot Set, being indisputably complex, uses a simple recursive equation: \(z_{n+1} = z_n^2 + c\), starting with z₀ = 0.
 
-#### Conway's Game of Life
+## Conway's Game of Life
 
-### Organized hierarchies in Dictionaries
+## Organized hierarchies in Dictionaries
 
 https://www.sciencedirect.com/science/article/abs/pii/S1389041708000120
 
 ## Data Structures and Algorithms course
 
-### How it was created
+## How it was created
 
-### Statistics
+## Statistics
 
-### Issues
+## Issues
 
 ## Further work
 
-### [MUST HAVE] Write a paper
+## [MUST HAVE] Write a paper
 
-### [NICE TO HAVE] Create the next course
+## [NICE TO HAVE] Create the next course
 
 N: Mind the "abstraction level" of the course, it should be just above the level of DSA course, so it can reuse the same definitions.
 
-### [NICE TO HAVE] Other applications
+## [NICE TO HAVE] Other applications
 
-#### [NICE TO HAVE] Other applications
+## [NICE TO HAVE] Other applications
 
 C: Food for LLMs - maybe finetuning?
 
 N: The definitions are suppose to have a high quality.
 
-#### [NICE TO HAVE] Other applications
+## [NICE TO HAVE] Other applications
 
 C: Reducing the number of books/articles
 
-#### [NICE TO HAVE] Other applications
+## [NICE TO HAVE] Other applications
 
 C: New kind of science
 
