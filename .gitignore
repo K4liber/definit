@@ -8,3 +8,5 @@ wheels/
 
 # Virtual environments
 .venv
+
+presentation/pycon_wroclaw/slides_marp.md

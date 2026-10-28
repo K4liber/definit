@@ -54,7 +54,7 @@ Technology/Engineering is kind of a hacking of the universe, a way to understand
 
 ![IBR](./img/trekking.jpeg)
 
-C: Football, Fusbal, Foosball, Running, Calistenics, Ping-pong, Trekking, Snowboarding
+C: Running, Calistenics, Ping-pong, Foosball, Trekking, Snowboarding
 
 ## Hans Christian Ørsted (1777 - 1851)
 
@@ -88,7 +88,7 @@ C: Patterns in math, astronomy, biology.
 
 ![I](./img/adapter.png)
 
-C: Software design patterns.
+C: A software design pattern.
 
 R: https://thecodinggopher.substack.com/p/the-adapter-design-pattern
 
@@ -203,8 +203,6 @@ https://www.sciencedirect.com/science/article/abs/pii/S1389041708000120
 ## [NICE TO HAVE] Create the next course
 
 N: Mind the "abstraction level" of the course, it should be just above the level of DSA course, so it can reuse the same definitions.
-
-## [NICE TO HAVE] Other applications
 
 ## [NICE TO HAVE] Other applications
 
