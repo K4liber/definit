@@ -1,338 +1,195 @@
 # /// script
 # requires-python = ">=3.11"
-# dependencies = [
-#   "pillow",
-# ]
+# dependencies = []
 # ///
+"""Convert trusted scratch slides to Marp and render them with Node.js/Chromium."""
 
+import argparse
 import re
+import shutil
 import subprocess
-import xml.etree.ElementTree as ET
+from html import escape
 from pathlib import Path
 
-from PIL import Image
+DEFAULT_SOURCE = Path(__file__).resolve().parent / "pycon_wroclaw" / "slides_scratch.md"
+MARP_PACKAGE = "@marp-team/marp-cli@4.5.1"
+IMAGE_LAYOUTS = (("ITL", "ITR", "IBL", "IBR"), ("IL", "IR"), ("I",))
 
-
-def parse_svg_dimensions(path: str):
-    try:
-        root = ET.parse(path).getroot()
-        width = root.attrib.get("width")
-        height = root.attrib.get("height")
-        viewbox = root.attrib.get("viewBox")
-
-        if width and height:
-            try:
-                return float(width.rstrip("px")), float(height.rstrip("px"))
-            except ValueError:
-                pass
-
-        if viewbox:
-            parts = viewbox.split()
-            if len(parts) == 4:
-                try:
-                    _, _, vb_w, vb_h = [float(p) for p in parts]
-                    if vb_w and vb_h:
-                        return vb_w, vb_h
-                except ValueError:
-                    pass
-    except Exception:
-        pass
-    return None, None
-
-
-def image_fit_style(
-    path: str,
-    default_max_height: int = 520,
-    default_max_width: int = 900,
-    portrait_factor: float = 0.9,
-    slide_width: int = 1280,
-    slide_height: int = 720,
-):
-    usable_width = slide_width - 120
-    usable_height = slide_height - 120
-    max_width_cap = min(default_max_width, usable_width)
-    max_height_cap = min(default_max_height, usable_height)
-
-    try:
-        if path.lower().endswith(".svg"):
-            width, height = parse_svg_dimensions(path)
-            if width and height:
-                ratio = width / height if height else 1.0
-                if ratio >= 1.0:
-                    target_width = min(max_width_cap, int(max_height_cap * ratio))
-                    target_height = int(target_width / ratio)
-                else:
-                    target_height = min(max_height_cap, int(max_width_cap * ratio))
-                    target_width = int(target_height / ratio)
-                return (
-                    f' width="{max(20, int(target_width))}" height="{max(20, int(target_height))}"'
-                    f' style="max-width:{max(20, int(target_width))}px; max-height:{max(20, int(target_height))}px; width:{max(20, int(target_width))}px; height:auto; object-fit:contain;"'
-                )
-
-        with Image.open(path) as img:
-            width, height = img.size
-    except Exception as e:
-        print(f"Error occurred while opening image: {e}")
-        return (
-            f' width="{max_width_cap}" height="{max_height_cap}"'
-            f' style="max-width:{max_width_cap}px; max-height:{max_height_cap}px; width:{max_width_cap}px; height:auto; object-fit:contain;"'
-        )
-
-    ratio = width / height if height else 1.0
-    if ratio >= 1.6:
-        target_width = min(max_width_cap, int(max_height_cap * ratio))
-        target_height = int(target_width / ratio)
-    elif ratio >= 1.0:
-        target_height = min(int(max_height_cap * 0.9), max_height_cap)
-        target_width = min(int(target_height * ratio), max_width_cap)
-    elif ratio >= 0.7:
-        target_height = min(int(max_height_cap * portrait_factor), max_height_cap)
-        target_width = min(int(target_height * ratio), max_width_cap)
-    else:
-        target_height = min(int(max_height_cap * 0.8), max_height_cap)
-        target_width = min(int(target_height * ratio), max_width_cap)
-
-    return (
-        f' width="{max(20, int(target_width))}" height="{max(20, int(target_height))}"'
-        f' style="max-width:{max(20, int(target_width))}px; max-height:{max(20, int(target_height))}px; width:{max(20, int(target_width))}px; height:auto; object-fit:contain;"'
-    )
-
-
-def convert_scratch_to_marp(scratch_text: str) -> str:
-    # Header with Marp theme and styles for custom layouts
-    marp_header = """---
+MARP_HEADER = """---
 marp: true
 theme: default
+size: 16:9
 paginate: true
 math: katex
 style: |
   section {
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    padding: 30px 40px 20px 40px;
+    padding: 30px 40px 30px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    height: 720px;
     box-sizing: border-box;
   }
-  h1 { font-size: 2.2rem; margin-top: auto; margin-bottom: auto; text-align: center; }
-  h2 { font-size: 1.8rem; margin-top: 0; margin-bottom: 10px; flex-shrink: 0; }
-  
-  .img-container {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  section > :not(.images) { flex-shrink: 0; }
+  h1 { font-size: 2.2rem; margin: auto 0; text-align: center; }
+  h2 { font-size: 1.8rem; margin: 0 0 10px; }
+  .images {
+    flex: 1 1 0;
     min-height: 0;
-    width: 100%;
-    height: calc(100% - 55px);
-    margin: 5px 0;
-  }
-
-  .grid-2x2 {
-    flex: 1;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
     gap: 12px;
-    width: 100%;
-    min-height: 0;
-    height: calc(100% - 60px);
     margin: 5px 0;
   }
-  .grid-2x2-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .images-2, .images-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .images-4 { grid-template-rows: repeat(2, minmax(0, 1fr)); }
+  .image-cell { position: relative; min-width: 0; min-height: 0; }
+  .image-cell img {
+    position: absolute;
+    inset: 0;
+    display: block;
     width: 100%;
     height: 100%;
-    min-height: 0;
-    overflow: hidden;
-  }
-  .grid-2x2-item img {
-    display: block;
-    width: auto;
     max-width: 100%;
     max-height: 100%;
-    height: auto;
     object-fit: contain;
-    border-radius: 6px;
   }
-
-  .grid-1x2 {
-    flex: 1;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    width: 100%;
-    min-height: 0;
-    height: calc(100% - 60px);
-    margin: 5px 0;
-  }
-  .grid-1x2-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    min-height: 0;
-    overflow: hidden;
-  }
-  .grid-1x2-item img {
-    display: block;
-    width: auto;
-    max-width: 100%;
-    max-height: 100%;
-    height: auto;
-    object-fit: contain;
-    border-radius: 6px;
-  }
-
-  .single-img-item {
-    display: block;
-    width: auto;
-    max-width: 100%;
-    max-height: 100%;
-    height: auto;
-    object-fit: contain;
-    border-radius: 6px;
-  }
-
-  .caption {
-    font-size: 1.05rem;
-    color: #333;
+  .caption, .source {
     text-align: center;
-    width: 100%;
-    margin-top: auto;
-    padding-top: 6px;
-    flex-shrink: 0;
+    overflow-wrap: anywhere;
+    margin: 0;
   }
-  .source {
-    font-size: 0.8rem;
-    color: #666;
-    text-align: center;
-    width: 100%;
-    margin-top: 2px;
-    flex-shrink: 0;
-  }
+  .caption { font-size: 1.05rem; color: #333; padding-top: 6px; }
+  .source { font-size: 0.8rem; color: #666; padding-top: 2px; }
 ---
 """
 
-    slides = []
-    # Split by level-1 or level-2 headers
-    raw_slides = re.split(r"\n(?=#{1,2}\s)", scratch_text.strip())
 
-    for raw in raw_slides:
-        lines = raw.strip().splitlines()
-        slide_lines = []
-        notes = []
-        captions = []
-        sources = []
-        images_pos = {}
+def update_fence(line: str, fence: str) -> str:
+    """Track Markdown fences so code examples are not interpreted as slide syntax."""
+    marker = re.match(r"^\s{0,3}(`{3,}|~{3,})", line)
+    if marker:
+        run = marker[1]
+        if not fence:
+            if run[0] == "`" and "`" in line[marker.end():]:
+                return ""  # Backticks in the info string make this inline code, not a fence.
+            return run
+        if run[0] == fence[0] and len(run) >= len(fence) and not line[marker.end():].strip():
+            return ""
+    return fence
+
+
+def split_slides(text: str) -> list[list[str]]:
+    slides: list[list[str]] = []
+    lines: list[str] = []
+    fence = ""
+    in_notes = False
+    for line in text.strip().splitlines():
+        if not in_notes:
+            fence = update_fence(line, fence)
+        if not fence and re.match(r"^#{1,2}\s", line) and lines:
+            slides.append(lines)
+            lines = []
+            in_notes = False
+        if not fence and line.strip().startswith("Notes:"):
+            in_notes = True
+        lines.append(line)
+    if lines:
+        slides.append(lines)
+    return slides
+
+
+def render_images(images: dict[str, str]) -> str:
+    layout = next(tags for tags in IMAGE_LAYOUTS if any(tag in images for tag in tags))
+    if not images.keys() <= set(layout):
+        raise ValueError("Do not mix single, left/right, and quadrant image tags on one slide.")
+    cells: list[str] = []
+    for tag in layout:
+        # Empty cells preserve positions when, for example, only IBR or IR is supplied.
+        image = f'<img src="{escape(images[tag], quote=True)}" alt="" />' if tag in images else ""
+        cells.append(f'  <div class="image-cell">{image}</div>')
+    return f'<div class="images images-{len(layout)}">\n' + "\n".join(cells) + "\n</div>"
+
+
+def convert_scratch_to_marp(scratch_text: str) -> str:
+    slides: list[str] = []
+    for lines in split_slides(scratch_text):
+        slide_lines: list[str] = []
+        notes: list[str] = []
+        captions: list[str] = []
+        sources: list[str] = []
+        images: dict[str, str] = {}
         in_notes = False
-
+        fence = ""
         for line in lines:
-            line_str = line.strip()
-
-            # Speaker notes detection
-            if line_str.startswith("Notes:"):
-                in_notes = True
-                continue
-            if line_str.startswith("N: "):
-                notes.append(line_str[3:])
-                continue
+            stripped = line.strip()
             if in_notes:
-                if line_str:
-                    notes.append(line_str)
+                notes.append(line)
                 continue
+            previous_fence = fence
+            fence = update_fence(line, fence)
+            if previous_fence or fence:
+                slide_lines.append(line)
+            elif stripped.startswith("Notes:"):
+                in_notes = True
+                if inline_note := stripped[len("Notes:"):].strip():
+                    notes.append(inline_note)
+            elif stripped.startswith("N: "):
+                notes.append(stripped[3:])
+            elif stripped.startswith("C: "):
+                captions.append(stripped[3:])
+            elif stripped.startswith(("S: ", "R: ")):
+                sources.append(stripped)
+            elif match := re.fullmatch(r"!\[(ITL|ITR|IBL|IBR|IL|IR|I)\]\((.+)\)", stripped):
+                tag, path = match.groups()
+                if tag in images:
+                    raise ValueError(f"Duplicate image tag {tag!r} on one slide.")
+                images[tag] = path
+            else:
+                slide_lines.append(line)
 
-            # Captions & References
-            if line_str.startswith("C: "):
-                captions.append(line_str[3:])
-                continue
-            if line_str.startswith("S: ") or line_str.startswith("R: "):
-                sources.append(line_str)
-                continue
-
-            # Positional image tags: ![ITL](path), ![IL](path), ![I](path)
-            img_match = re.match(r"!\[(ITL|ITR|IBL|IBR|IL|IR|I)\]\((.*?)\)", line_str)
-            if img_match:
-                tag, path = img_match.groups()
-                images_pos[tag] = path
-                continue
-
-            slide_lines.append(line)
-
-        # Reconstruct image containers based on positional tags
-        if any(k in images_pos for k in ["ITL", "ITR", "IBL", "IBR"]):
-            grid_html = ['<div class="grid-2x2">']
-            for tag in ["ITL", "ITR", "IBL", "IBR"]:
-                if tag in images_pos:
-                    img_path = images_pos[tag]
-                    img_style = image_fit_style(
-                        str(Path("presentation/pycon_wroclaw") / img_path.replace("./img/", "img/")),
-                        default_max_height=230,
-                        default_max_width=360,
-                        slide_width=1280,
-                        slide_height=720,
-                    )
-                    grid_html.append(f'  <div class="grid-2x2-item"><img src="{img_path}"{img_style} /></div>')
-            grid_html.append("</div>")
-            slide_lines.append("\n".join(grid_html))
-        elif any(k in images_pos for k in ["IL", "IR"]):
-            grid_html = ['<div class="grid-1x2">']
-            for tag in ["IL", "IR"]:
-                if tag in images_pos:
-                    img_path = images_pos[tag]
-                    img_style = image_fit_style(
-                        str(Path("presentation/pycon_wroclaw") / img_path.replace("./img/", "img/")),
-                        default_max_height=360,
-                        default_max_width=500,
-                        slide_width=1280,
-                        slide_height=720,
-                    )
-                    grid_html.append(f'  <div class="grid-1x2-item"><img src="{img_path}"{img_style} /></div>')
-            grid_html.append("</div>")
-            slide_lines.append("\n".join(grid_html))
-        elif "I" in images_pos:
-            img_path = images_pos["I"]
-            img_style = image_fit_style(
-                str(Path("presentation/pycon_wroclaw") / img_path.replace("./img/", "img/")),
-                default_max_height=520,
-                default_max_width=860,
-                slide_width=1280,
-                slide_height=720,
-            )
-            slide_lines.append(
-                f'<div class="img-container"><img class="single-img-item" src="{img_path}"{img_style} /></div>'
-            )
-
-        # Append captions & sources at the bottom
-        for cap in captions:
-            slide_lines.append(f'<div class="caption">{cap}</div>')
-        for src in sources:
-            slide_lines.append(f'<div class="source">{src}</div>')
-
-        # Append presenter notes
+        # Blank lines keep HTML blocks separate from Markdown and from each other.
+        if images:
+            slide_lines.extend(["", render_images(images), ""])
+        for css_class, values in (("caption", captions), ("source", sources)):
+            for value in values:
+                slide_lines.extend(["", f'<div class="{css_class}">{escape(value)}</div>', ""])
         if notes:
-            slide_lines.append(f"\n<!--\n{chr(10).join(notes)}\n-->")
+            safe_notes = "\n".join(notes).replace("-->", "--&gt;")
+            slide_lines.append(f"\n<!--\n{safe_notes}\n-->")
+        slides.append("\n".join(slide_lines).strip())
+    return MARP_HEADER + "\n\n---\n\n".join(slides) + "\n"
 
-        slides.append("\n".join(slide_lines))
 
-    return marp_header + "\n\n---\n\n".join(slides)
+def build_pdf(source: Path = DEFAULT_SOURCE, *, html_only: bool = False) -> Path:
+    """Write outputs beside the source so relative image URLs work from any cwd."""
+    source = source.resolve()
+    npx = shutil.which("npx.cmd") or shutil.which("npx")
+    if not npx:
+        raise RuntimeError("Node.js and npx are required to build the PDF. Install Node.js and retry.")
+    content = convert_scratch_to_marp(source.read_text(encoding="utf-8"))
+    out_md = source.with_name("slides_marp.md")
+    output = source.with_name("slides_preview.html" if html_only else "slides.pdf")
+    out_md.write_text(content, encoding="utf-8")
+    print(f"Generated Marp Markdown at: {out_md}", flush=True)
+    # HTML is required for our image grids. Only render trusted slide sources.
+    # A preview can be printed manually when browser automation is unavailable.
+    format_args = ["--template", "bare"] if html_only else ["--pdf", "--allow-local-files"]
+    subprocess.run(
+        [npx, "--yes", MARP_PACKAGE, out_md.name, "--html", *format_args, "-o", output.name],
+        check=True,
+        cwd=source.parent,
+    )
+    print(f"Successfully generated: {output}")
+    return output
 
 
 if __name__ == "__main__":
-    src = Path("presentation/pycon_wroclaw/slides_scratch.md")
-    out_md = Path("presentation/pycon_wroclaw/slides_marp.md")
-    out_pdf = Path("presentation/pycon_wroclaw/slides.pdf")
-
-    marp_content = convert_scratch_to_marp(src.read_text())
-    out_md.write_text(marp_content)
-    print(f"Generated Marp Markdown at: {out_md}")
-
-    # Build PDF with Marp CLI
-    cmd = ["npx", "@marp-team/marp-cli", str(out_md), "--pdf", "--allow-local-files", "-o", str(out_pdf)]
-    print(f"Running: {' '.join(cmd)}")
-    subprocess.run(cmd, check=True)
-    print(f"Successfully generated PDF: {out_pdf}")
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("source", nargs="?", type=Path, default=DEFAULT_SOURCE, help="Scratch Markdown to render")
+    parser.add_argument("--html-only", action="store_true", help="Generate a preview for manual browser printing")
+    args = parser.parse_args()
+    build_pdf(args.source, html_only=args.html_only)

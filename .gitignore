@@ -9,4 +9,6 @@ wheels/
 # Virtual environments
 .venv
 
-presentation/pycon_wroclaw/slides_marp.md
+presentation/*/slides_marp.md
+presentation/*/slides_preview.html
+presentation/*/slides.pdf
