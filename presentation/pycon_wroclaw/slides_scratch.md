@@ -232,7 +232,17 @@ C: Transform the content of a book or a course into DefinIT format.
 
 ### DefinIT format
 
-### Statistics
+![I](./img/python.png)
+
+C: Definition as a Python module.
+
+### DSA course statistics
+
+![IL](./img/hist.png)
+
+![IR](./img/non-def.png)
+
+C: 30 levels, 380 definitions, ~1700 unique non-definition words and 1783 references.
 
 ### Issues
 
