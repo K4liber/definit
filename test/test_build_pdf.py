@@ -21,24 +21,61 @@ def body(text: str) -> str:
     return builder.convert_scratch_to_marp(text).removeprefix(builder.MARP_HEADER)
 
 
-def test_headings_split_slides_but_subheadings_do_not():
+def test_heading_levels_split_slides():
     result = body("# Title\n\n## Slide\n### Detail\n\n## End")
-    assert result.count("\n\n---\n\n") == 2
-    assert "## Slide\n### Detail" in result
+    assert result.count("\n\n---\n\n") == 3
+    assert "## Slide\n### Detail" not in result
+
+
+def test_title_and_section_slides_are_unnumbered_content_slides_show_page_numbers():
+    result = body("# Title\n## Section\n### A\n### B\n## Section Two\n### C")
+    slides = result.split("\n\n---\n\n")
+    assert len(slides) == 6
+    assert slides[0].startswith("# Title")
+    assert slides[1].startswith("<!-- _class: section-slide -->\n\n## Section")
+    assert slides[2].startswith(
+        '<div class="slide-section">Section</div>\n<div class="slide-number">1/3</div>\n\n### A'
+    )
+    assert slides[3].startswith(
+        '<div class="slide-section">Section</div>\n<div class="slide-number">2/3</div>\n\n### B'
+    )
+    assert slides[4].startswith("<!-- _class: section-slide -->\n\n## Section Two")
+    assert slides[5].startswith(
+        '<div class="slide-section">Section Two</div>\n<div class="slide-number">3/3</div>\n\n### C'
+    )
+
+
+def test_slides_before_any_section_have_no_section_label():
+    result = body("# Deck\n### Intro slide")
+    assert '<div class="slide-section">' not in result
+    assert '<div class="slide-number">1/1</div>' in result
+
+
+def test_section_label_escapes_html():
+    result = body("## Ørsted <3 & co\n### Slide")
+    assert '<div class="slide-section">Ørsted &lt;3 &amp; co</div>' in result
+
+
+def test_paginate_is_not_used_so_marp_cannot_drop_custom_numbers():
+    # Marp's paginate directive is boolean-only; custom x/y values are silently
+    # ignored, which removed all numbers. We render our own label instead.
+    assert "paginate" not in builder.MARP_HEADER
+    assert '<div class="slide-number">' in body("### Only")
 
 
 @pytest.mark.parametrize("fence", ["```", "~~~~"])
 def test_fenced_code_preserves_headings_and_special_markers(fence: str):
-    code = f'{fence}text\n# Not a slide\n![I](sample.png)\nC: Not a caption\nNotes:\n{fence}'
+    code = f"{fence}text\n# Not a slide\n![I](sample.png)\nC: Not a caption\nNotes:\n{fence}"
     result = body(f"## Code\n{code}\n## Next")
     assert code in result
     assert result.count("\n\n---\n\n") == 1
     assert '<div class="images' not in result
 
 
+@pytest.mark.parametrize("heading", ["##", "###"])
 @pytest.mark.parametrize("tags", builder.IMAGE_LAYOUTS)
-def test_layouts_render_in_positional_order(tags: tuple[str, ...]):
-    result = body("## Images\n" + "\n".join(f"![{tag}]({tag}.png)" for tag in reversed(tags)))
+def test_layouts_render_in_positional_order(heading: str, tags: tuple[str, ...]):
+    result = body(heading + " Images\n" + "\n".join(f"![{tag}]({tag}.png)" for tag in reversed(tags)))
     assert f'class="images images-{len(tags)}"' in result
     assert result.count('class="image-cell"') == len(tags)
     assert [result.index(f'src="{tag}.png"') for tag in tags] == sorted(
@@ -66,10 +103,10 @@ def test_paths_with_parentheses_and_html_characters():
     assert 'src="./img/a (1) &amp; &quot;b&quot;.svg"' in result
 
 
-def test_captions_sources_and_notes():
-    result = body("## Slide\nC: Ørsted <3\nS: https://example.com\nR: Book\nN: First\nNotes:\nSecond\n\nThird")
+def test_captions_references_and_notes():
+    result = body("## Slide\nC: Ørsted <3\nRef: https://example.com\nRef: Book\nN: First\nNotes:\nSecond\n\nThird")
     assert '<div class="caption">Ørsted &lt;3</div>' in result
-    assert result.count('<div class="source">') == 2
+    assert result.count('<div class="reference">') == 2
     assert "<!--\nFirst\nSecond\n\nThird\n-->" in result
 
 
@@ -163,8 +200,9 @@ def test_print_layout_contains_all_images_and_captions(tmp_path: Path):
             synthetic.append(
                 f"## {label}\n"
                 + "\n".join(f"![{tag}]({image.as_uri()})" for tag in tags)
-                + "\nC: " + "A long caption that wraps across lines. " * 5
-                + "\nS: https://example.com"
+                + "\nC: "
+                + "A long caption that wraps across lines. " * 5
+                + "\nRef: https://example.com"
             )
     real_slides = builder.DEFAULT_SOURCE.read_text(encoding="utf-8").replace(
         "./img/", (builder.DEFAULT_SOURCE.parent / "img").as_uri() + "/"
@@ -177,7 +215,9 @@ def test_print_layout_contains_all_images_and_captions(tmp_path: Path):
     assert npx is not None
     subprocess.run(
         [npx, "--yes", builder.MARP_PACKAGE, markdown.name, "--html", "--template", "bare", "-o", html.name],
-        cwd=tmp_path, check=True, timeout=120,
+        cwd=tmp_path,
+        check=True,
+        timeout=120,
     )
     # Use the supported headless print interface, not DevTools (which may be
     # disabled on managed machines). beforeprint measures actual print CSS.
@@ -187,7 +227,7 @@ def test_print_layout_contains_all_images_and_captions(tmp_path: Path):
                 const sections = [...document.querySelectorAll('section')];
                 for (const [index, section] of sections.entries()) {
                     const bounds = section.getBoundingClientRect();
-                    for (const element of section.querySelectorAll('.images, .caption, .source, .image-cell img')) {
+                    for (const element of section.querySelectorAll('.images, .caption, .reference, .image-cell img')) {
                         const rect = element.getBoundingClientRect();
                         if (rect.width <= 0 || rect.height <= 0 || rect.left < bounds.left - 1 ||
                             rect.right > bounds.right + 1 || rect.top < bounds.top - 1 || rect.bottom > bounds.bottom + 1)
@@ -199,7 +239,7 @@ def test_print_layout_contains_all_images_and_captions(tmp_path: Path):
                     const grid = section.querySelector('.images');
                     if (grid) {
                         const heading = section.querySelector('h1, h2');
-                        const caption = section.querySelector('.caption, .source');
+                        const caption = section.querySelector('.caption, .reference');
                         const rect = grid.getBoundingClientRect();
                         if (heading && heading.getBoundingClientRect().bottom > rect.top + 1)
                             errors.push(`Slide ${index + 1}: image overlaps heading`);
@@ -214,11 +254,22 @@ def test_print_layout_contains_all_images_and_captions(tmp_path: Path):
     html.write_text(html.read_text(encoding="utf-8").replace("</body>", probe + "</body>"), encoding="utf-8")
     pdf = tmp_path / "layout.pdf"
     rendered = subprocess.run(
-        [os.environ["MARP_TEST_BROWSER"], "--headless", f"--user-data-dir={tmp_path / 'profile'}",
-         "--no-pdf-header-footer", f"--print-to-pdf={pdf}", "--enable-logging=stderr", html.as_uri()],
-        capture_output=True, text=True, encoding="utf-8", check=True, timeout=60,
+        [
+            os.environ["MARP_TEST_BROWSER"],
+            "--headless",
+            f"--user-data-dir={tmp_path / 'profile'}",
+            "--no-pdf-header-footer",
+            f"--print-to-pdf={pdf}",
+            "--enable-logging=stderr",
+            html.as_uri(),
+        ],
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        check=True,
+        timeout=60,
     )
-    match = re.search(r'DEFINIT_LAYOUT_RESULT=(\{.*\})', rendered.stderr)
+    match = re.search(r"DEFINIT_LAYOUT_RESULT=(\{.*\})", rendered.stderr)
     assert match is not None, rendered.stderr
     result = json.loads(match[1])
     assert result["slides"] == len(builder.split_slides(scratch))

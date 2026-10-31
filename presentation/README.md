@@ -13,12 +13,15 @@ invoked by absolute path from another working directory.
 
 ## Scratch format
 
-- `#` and `##` headings start slides (except inside fenced code blocks).
+- `#`, `##`, and `###` headings start slides (except inside fenced code blocks).
+- `#` makes the title slide and `##` a centered section slide; both are unnumbered.
+- `###` makes a content slide numbered `x/y` in the bottom-right corner, where `y`
+  counts only the `###` slides; the current `##` section name is shown bottom-left.
 - `![I](./img/example.png)` fills the available image area.
 - `IL` / `IR` place images in left/right columns.
 - `ITL` / `ITR` / `IBL` / `IBR` place images in a 2×2 grid.
 - Missing positions stay empty; duplicate tags or mixed layouts are errors.
-- `C: ` adds a plain-text caption; `S: ` / `R: ` add plain-text sources.
+- `C: ` adds a plain-text caption; `Ref: ` adds a plain-text reference/source.
 - `N: ` adds a single note; `Notes:` starts notes until the next slide heading.
 
 Images are centered and scaled to fit without cropping or changing their aspect
