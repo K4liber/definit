@@ -23,7 +23,8 @@ math: katex
 style: |
   section {
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    padding: 30px 40px 38px;
+    /* Bottom padding = footer bar height (34px) + clearance above it. */
+    padding: 30px 40px 58px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -31,17 +32,42 @@ style: |
   }
   section > :not(.images) { flex-shrink: 0; }
   h1 { font-size: 2.2rem; margin: auto 0; text-align: center; }
-  h2, h3 { font-size: 1.8rem; margin: 0 0 10px; }
+  h2 { font-size: 1.8rem; margin: 0 0 10px; }
+  /* The negative margins bleed the title banner over the section padding so it
+     spans the full slide width (keep in sync with the section padding above). */
+  h3 {
+    font-size: 1.8rem;
+    margin: -30px -40px 14px;
+    padding: 8px 0;
+    background: #000;
+    color: #fff;
+    text-align: center;
+  }
   section.section-slide { justify-content: center; align-items: center; }
   section.section-slide h2 { font-size: 2rem; margin: 0; text-align: center; }
-  .slide-number, .slide-section {
+  /* The title slide centers its content group (title + caption) as a whole;
+     h1 auto margins are disabled since they would pin the caption to the bottom. */
+  section.title-slide { justify-content: center; align-items: center; }
+  section.title-slide h1 { margin: 0 0 12px; }
+  /* Full-width black bottom bar with white section/number labels; the section
+     padding-bottom reserves caption space above it. A div, not <footer>, so
+     Marp's theme footer styles cannot interfere. */
+  .slide-footer {
     position: absolute;
-    bottom: 6px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 0 20px;
+    background: #000;
+    color: #fff;
     font-size: 0.9rem;
-    color: #666;
+    box-sizing: border-box;
   }
-  .slide-number { right: 20px; }
-  .slide-section { left: 20px; }
   .images {
     flex: 1 1 0;
     min-height: 0;
@@ -67,12 +93,15 @@ style: |
     object-fit: contain;
   }
   .caption, .reference {
+    display: block;
     text-align: center;
     overflow-wrap: anywhere;
     margin: 0;
   }
+  p:has(> .caption), p:has(> .reference) { margin: 0; }
   .caption { font-size: 1.05rem; color: #333; padding-top: 6px; }
   .reference { font-size: 0.8rem; color: #666; padding-top: 2px; }
+  .katex { font-size: 1em; }
 ---
 """
 
@@ -83,10 +112,10 @@ def update_fence(line: str, fence: str) -> str:
     if marker:
         run = marker[1]
         if not fence:
-            if run[0] == "`" and "`" in line[marker.end():]:
+            if run[0] == "`" and "`" in line[marker.end() :]:
                 return ""  # Backticks in the info string make this inline code, not a fence.
             return run
-        if run[0] == fence[0] and len(run) >= len(fence) and not line[marker.end():].strip():
+        if run[0] == fence[0] and len(run) >= len(fence) and not line[marker.end() :].strip():
             return ""
     return fence
 
@@ -155,7 +184,7 @@ def convert_scratch_to_marp(scratch_text: str) -> str:
                 slide_lines.append(line)
             elif stripped.startswith("Notes:"):
                 in_notes = True
-                if inline_note := stripped[len("Notes:"):].strip():
+                if inline_note := stripped[len("Notes:") :].strip():
                     notes.append(inline_note)
             elif stripped.startswith("N: "):
                 notes.append(stripped[3:])
@@ -176,7 +205,9 @@ def convert_scratch_to_marp(scratch_text: str) -> str:
             slide_lines.extend(["", render_images(images), ""])
         for css_class, values in (("caption", captions), ("reference", references)):
             for value in values:
-                slide_lines.extend(["", f'<div class="{css_class}">{escape(value)}</div>', ""])
+                # Spans (not divs) keep captions inside Markdown processing so
+                # $...$ KaTeX math renders; display:block puts each on its own line.
+                slide_lines.extend(["", f'<span class="{css_class}">{escape(value)}</span>', ""])
         if notes:
             safe_notes = "\n".join(notes).replace("-->", "--&gt;")
             slide_lines.append(f"\n<!--\n{safe_notes}\n-->")
@@ -185,6 +216,8 @@ def convert_scratch_to_marp(scratch_text: str) -> str:
         # corner and the current section name in the bottom-left corner.
         level = heading_level(lines)
         directives: list[str] = []
+        if level == 1:
+            directives.append("<!-- _class: title-slide -->")
         if level == 2:
             directives.append("<!-- _class: section-slide -->")
             words = lines[0].split(None, 1)
@@ -193,11 +226,13 @@ def convert_scratch_to_marp(scratch_text: str) -> str:
         if level not in (1, 2):
             number += 1
             # Marp's paginate directive is boolean-only: a custom x/y value is
-            # silently ignored, so render our own absolutely-positioned labels.
-            corner = [f'<div class="slide-number">{escape(f"{number}/{numbered_total}")}</div>']
+            # silently ignored, so render our own bar with white labels on black.
+            labels = []
             if section_name:
-                corner.insert(0, f'<div class="slide-section">{escape(section_name)}</div>')
-            content = ("\n\n".join(part for part in ("\n".join(corner), content) if part)).strip()
+                labels.append(f'<span class="slide-section">{escape(section_name)}</span>')
+            labels.append(f'<span class="slide-number">{escape(f"{number}/{numbered_total}")}</span>')
+            bar = '<div class="slide-footer">' + "".join(labels) + "</div>"
+            content = ("\n\n".join(part for part in (bar, content) if part)).strip()
         slides.append(("\n".join(directives) + "\n\n" + content).strip() if directives else content)
     return MARP_HEADER + "\n\n---\n\n".join(slides) + "\n"
 

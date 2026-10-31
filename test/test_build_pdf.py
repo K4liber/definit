@@ -31,36 +31,39 @@ def test_title_and_section_slides_are_unnumbered_content_slides_show_page_number
     result = body("# Title\n## Section\n### A\n### B\n## Section Two\n### C")
     slides = result.split("\n\n---\n\n")
     assert len(slides) == 6
-    assert slides[0].startswith("# Title")
+    assert slides[0].startswith("<!-- _class: title-slide -->\n\n# Title")
     assert slides[1].startswith("<!-- _class: section-slide -->\n\n## Section")
     assert slides[2].startswith(
-        '<div class="slide-section">Section</div>\n<div class="slide-number">1/3</div>\n\n### A'
+        '<div class="slide-footer"><span class="slide-section">Section</span>'
+        '<span class="slide-number">1/3</span></div>\n\n### A'
     )
     assert slides[3].startswith(
-        '<div class="slide-section">Section</div>\n<div class="slide-number">2/3</div>\n\n### B'
+        '<div class="slide-footer"><span class="slide-section">Section</span>'
+        '<span class="slide-number">2/3</span></div>\n\n### B'
     )
     assert slides[4].startswith("<!-- _class: section-slide -->\n\n## Section Two")
     assert slides[5].startswith(
-        '<div class="slide-section">Section Two</div>\n<div class="slide-number">3/3</div>\n\n### C'
+        '<div class="slide-footer"><span class="slide-section">Section Two</span>'
+        '<span class="slide-number">3/3</span></div>\n\n### C'
     )
 
 
 def test_slides_before_any_section_have_no_section_label():
     result = body("# Deck\n### Intro slide")
-    assert '<div class="slide-section">' not in result
-    assert '<div class="slide-number">1/1</div>' in result
+    assert '<span class="slide-section">' not in result
+    assert '<span class="slide-number">1/1</span>' in result
 
 
 def test_section_label_escapes_html():
     result = body("## Ørsted <3 & co\n### Slide")
-    assert '<div class="slide-section">Ørsted &lt;3 &amp; co</div>' in result
+    assert '<span class="slide-section">Ørsted &lt;3 &amp; co</span>' in result
 
 
 def test_paginate_is_not_used_so_marp_cannot_drop_custom_numbers():
     # Marp's paginate directive is boolean-only; custom x/y values are silently
-    # ignored, which removed all numbers. We render our own label instead.
+    # ignored, which removed all numbers. We render our own bar instead.
     assert "paginate" not in builder.MARP_HEADER
-    assert '<div class="slide-number">' in body("### Only")
+    assert '<span class="slide-number">' in body("### Only")
 
 
 @pytest.mark.parametrize("fence", ["```", "~~~~"])
@@ -105,9 +108,15 @@ def test_paths_with_parentheses_and_html_characters():
 
 def test_captions_references_and_notes():
     result = body("## Slide\nC: Ørsted <3\nRef: https://example.com\nRef: Book\nN: First\nNotes:\nSecond\n\nThird")
-    assert '<div class="caption">Ørsted &lt;3</div>' in result
-    assert result.count('<div class="reference">') == 2
+    assert '<span class="caption">Ørsted &lt;3</span>' in result
+    assert result.count('<span class="reference">') == 2
     assert "<!--\nFirst\nSecond\n\nThird\n-->" in result
+
+
+def test_caption_math_renders_on_its_own_line():
+    result = body("## Slide\nC: First line\nC: $z_{n+1} = z_n^2 + c$, start $z_0 = 0$")
+    assert '<span class="caption">First line</span>' in result
+    assert '<span class="caption">$z_{n+1} = z_n^2 + c$, start $z_0 = 0$</span>' in result
 
 
 def test_notes_cannot_close_the_html_comment():

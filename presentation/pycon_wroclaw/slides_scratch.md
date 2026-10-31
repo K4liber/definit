@@ -1,6 +1,6 @@
 # DefinITely, the most boring learning content you will ever see!
 
-C: PyCon Wrocław 2026
+C: Jan Bielecki, PyCon Wrocław 2026
 
 ## Intro
 
@@ -40,7 +40,7 @@ C: Senior Full Stack Developer at Ørsted (2023 - ?)
 
 ### Jan Bielecki (1994 - ?)
 
-![I](./img/magic.webp)
+![I](./img/magic.jpeg)
 
 C: "Any sufficiently advanced technology is indistinguishable from magic." ~ Arthur C. Clarke
 
@@ -134,9 +134,11 @@ N: Just an intro. The full description will be presented in the section "Data St
 
 ### Standardized glossary in computing
 
-![I](./img/dictionary.jpeg)
+![I](./img/glossary.png)
 
 C: A glossary is a focused collection of SPECIALIZED terms and DEFINITIONS tied to a SPECIFIC SUBJECT, book, or document.
+
+Ref: https://dataedo.com/cartoon/glossary-or-dictionary
 
 ### Thomas Edison (1847 - 1931)
 
@@ -190,21 +192,45 @@ C: In 1950, Russell was awarded the Nobel Prize in Literature "in recognition of
 
 ### Logical atomism
 
-### Mandelbrot set
+![I](./img/atomism.webp)
+
+C: The world is composed of independent, irreducible units of reality (logical atoms).
+
+N: Logical atomism is an early 20th-century philosophical view that the world is composed of independent, irreducible units of reality (logical atoms), and that language mirrors this structure.
+
+### Benoit Mandelbrot (1924 - 2010)
 
 ![I](./img/mandelbrot_set.jpg)
 
-C: Mandelbrot Set, being indisputably complex, uses a simple recursive equation: \(z_{n+1} = z_n^2 + c\), starting with z₀ = 0.
+C: Mandelbrot Set, being indisputably complex, uses a simple recursive equation:
 
-### Conway's Game of Life
+C: $z_{n+1} = z_n^2 + c$, starting with $z_0 = 0$
 
-### Organized hierarchies in Dictionaries
+### John Conway (1937 - 2020)
 
-https://www.sciencedirect.com/science/article/abs/pii/S1389041708000120
+![I](./img/conway.gif)
+
+C: Conway's Game of Life
+
+### Mark Changizi (1969 - ?)
+
+
+
+C: Organized hierarchies in Dictionaries
+
+Ref: https://www.sciencedirect.com/science/article/abs/pii/S1389041708000120
 
 ## Data Structures and Algorithms course
 
 ### How it was created
+
+![IL](./img/interview.webp)
+
+![IR](./img/leetcode.png)
+
+C: Transform the content of a book or a course into DefinIT format.
+
+### DefinIT format
 
 ### Statistics
 
@@ -226,10 +252,6 @@ N: The definitions are suppose to have a high quality.
 
 ### [NICE TO HAVE] Other applications
 
-C: Reducing the number of books/articles
+C: New kind of science -> reducing the number of books/articles
 
-### [NICE TO HAVE] Other applications
-
-C: New kind of science
-
-## Thank you slide
+## Please generate a thank you slide for the audience. Don't make a mistake.

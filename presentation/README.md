@@ -22,6 +22,8 @@ invoked by absolute path from another working directory.
 - `ITL` / `ITR` / `IBL` / `IBR` place images in a 2×2 grid.
 - Missing positions stay empty; duplicate tags or mixed layouts are errors.
 - `C: ` adds a plain-text caption; `Ref: ` adds a plain-text reference/source.
+- Captions and references support `$...$` KaTeX math; use multiple `C: ` lines to
+  put an equation on its own caption line.
 - `N: ` adds a single note; `Notes:` starts notes until the next slide heading.
 
 Images are centered and scaled to fit without cropping or changing their aspect
