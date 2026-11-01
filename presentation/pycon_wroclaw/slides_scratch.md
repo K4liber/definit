@@ -162,7 +162,9 @@ C: "First Glossary of Programming Terminology"
 
 ### Eugen Wüster (1898 - 1977)
 
-![I](./img/eugen.jpg)
+![IL](./img/eugen.jpg)
+
+![IR](./img/pope.jpg)
 
 C: Eugen Wüster is often recognized as the founder of terminology.
 
@@ -246,22 +248,36 @@ C: 30 levels, 380 definitions, ~1700 unique non-definition words and 1783 refere
 
 ### Issues
 
+![I](./img/llms-rank.png)
+
+C: Not proven, not used, not easy.
+
 ## Further work
 
-### [MUST HAVE] Write a paper
+### Write a paper
 
-### [NICE TO HAVE] Create the next course
+![I](./img/job.jpeg)
 
-N: Mind the "abstraction level" of the course, it should be just above the level of DSA course, so it can reuse the same definitions.
+### Create the next course
 
-### [NICE TO HAVE] Other applications
+![IL](./img/hardware.avif)
 
-C: Food for LLMs - maybe finetuning?
+![IR](./img/networking.jpg)
+
+C: Mind the "abstraction level" of the course, it should be just above the level of DSA course, so it can reuse the same definitions.
+
+### Other applications
+
+![I](./img/tuning.jpg)
+
+C: Data from LLMs, for LLMs. Fine-tuning, RAGs.
 
 N: The definitions are suppose to have a high quality.
 
-### [NICE TO HAVE] Other applications
+### Other applications
 
-C: New kind of science -> reducing the number of books/articles
+![I](./img/papers.png)
+
+C: "New kind of science" -> reducing the number of preprints, articles, books.
 
 ## Please generate a thank you slide for the audience. Don't make a mistake.
