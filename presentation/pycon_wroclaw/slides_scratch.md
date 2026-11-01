@@ -216,9 +216,11 @@ C: Conway's Game of Life
 
 ### Mark Changizi (1969 - ?)
 
+![IL](./img/words1.jpeg)
 
+![IR](./img/words2.jpeg)
 
-C: Organized hierarchies in Dictionaries
+C: Economically organized hierarchies in WordNet and the Oxford English Dictionary
 
 Ref: https://www.sciencedirect.com/science/article/abs/pii/S1389041708000120
 
@@ -264,7 +266,7 @@ C: Not proven, not used, not easy.
 
 ![IR](./img/networking.jpg)
 
-C: Mind the "abstraction level" of the course, it should be just above the level of DSA course, so it can reuse the same definitions.
+C: Mind the "abstraction level" of the course, it should be just above the level of DSA course, so it can reuse the already created definitions.
 
 ### Other applications
 
