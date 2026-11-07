@@ -72,7 +72,7 @@ C: Close friend of a Hans Christian Andersen (1805 - 1875), author of many fairy
 
 ### Hans Christian Ørsted (1777 - 1851)
 
-![I](./img/thought-experiment.jpg)
+![I](./img/wonder.jpg)
 
 C: First to explicitly describe and name the "thought experiment"
 
@@ -86,17 +86,23 @@ Ref: https://subratachak.wordpress.com/2017/12/16/oerstead/
 
 ## DefinIT philosophy
 
+### John Conway (1937 - 2020)
+
+![I](./img/conway.gif)
+
+C: Conway's Game of Life
+
 ### Definitions as "patterns in the universe"
 
 ![I](./img/patterns.jpg)
 
 C: Patterns in math, astronomy, biology.
 
-### Definitions as "patterns in the universe"
+### Pattern in computer science
 
 ![I](./img/adapter.png)
 
-C: A software design pattern.
+C: The adapter design pattern.
 
 Ref: https://thecodinggopher.substack.com/p/the-adapter-design-pattern
 
@@ -162,9 +168,7 @@ C: "First Glossary of Programming Terminology"
 
 ### Eugen Wüster (1898 - 1977)
 
-![IL](./img/eugen.jpg)
-
-![IR](./img/pope.jpg)
+![I](./img/eugen.jpg)
 
 C: Eugen Wüster is often recognized as the founder of terminology.
 
@@ -182,10 +186,6 @@ C: Concepts (or definitions) exist even before they are named - thus naming and 
 
 C: Wüster was a staunch advocate of a single language for scientific and technical communication.
 
-### Philosophy of definitions
-
-![I](./img/philosophers.webp)
-
 ### Bertrand Russell (1872 - 1970)
 
 ![I](./img/russell.jpg)
@@ -199,20 +199,6 @@ C: In 1950, Russell was awarded the Nobel Prize in Literature "in recognition of
 C: The world is composed of independent, irreducible units of reality (logical atoms).
 
 N: Logical atomism is an early 20th-century philosophical view that the world is composed of independent, irreducible units of reality (logical atoms), and that language mirrors this structure.
-
-### Benoit Mandelbrot (1924 - 2010)
-
-![I](./img/mandelbrot_set.jpg)
-
-C: Mandelbrot Set, being indisputably complex, uses a simple recursive equation:
-
-C: $z_{n+1} = z_n^2 + c$, starting with $z_0 = 0$
-
-### John Conway (1937 - 2020)
-
-![I](./img/conway.gif)
-
-C: Conway's Game of Life
 
 ### Mark Changizi (1969 - ?)
 
