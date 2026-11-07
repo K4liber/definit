@@ -10,9 +10,21 @@ Each item should have a title, a description, and a list of tasks to be complete
 
 ## IN PROGRESS
 
-## TODO
-
 ### 7. [docs] Re-do the literature review and update the README with the new references
+
+Survey the literature beyond the historical CS glossaries (Hopper, ACM CCS, IEEE, UML) to position DefinIT against existing concepts, and refresh the README references.
+
+- [x] Review terminology science (Wüster's General Theory of Terminology and later schools).
+- [x] Review philosophy of definitions (SEP: real/nominal, stipulative/descriptive/explicative, conservativeness & eliminability).
+- [x] Review symbol grounding (Harnad; Blondin Massé et al. reachable sets) as the formal basis for roots/kernels.
+- [x] Review prerequisite structures in education (Ausubel, Novak's concept maps, knowledge space theory).
+- [x] Review knowledge organization systems (semantic networks, WordNet, SKOS, Gene Ontology DAG).
+- [x] Review formal mathematics (Metamath) for the axioms/roots analogy.
+- [x] Rewrite the README literature review with thematic subsections and a positioning statement.
+- [x] Extend "Mentioned materials" (refs 7-22) and "Related materials" (IX-XVI).
+- [ ] Review the changes [HUMAN] and update the README accordingly.
+
+## TODO
 
 ### 4. [docs] Update the README to reflect last changes
 
