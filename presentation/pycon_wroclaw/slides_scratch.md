@@ -6,7 +6,7 @@ C: Jan Bielecki, PyCon Wrocław 2026
 
 ### More Philosophy than Python
 
-![I](./img/philosophers.jpeg)
+![I](./img/python.jpg)
 
 ### Learning platform based on DefinIT project
 
@@ -22,11 +22,13 @@ DefinIT learning platform is a web application that allows users to learn specif
 
 ![I](./img/qr-platform.svg)
 
-C: "Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away." ~ Antoine de Saint-Exupéry
+C: "Perfection is achieved, not when there is nothing more to add, but when there is nothing
+
+C:  left to take away." ~ Antoine de Saint-Exupéry
 
 ### Demo
 
-![I](./img/demo.png)
+![I](./img/demo.jpeg)
 
 C: Showcase of http://k4liber.github.io/definit-dsa
 
@@ -42,7 +44,8 @@ C: Senior Full Stack Developer at Ørsted (2023 - ?)
 
 ![I](./img/magic.jpeg)
 
-C: "Any sufficiently advanced technology is indistinguishable from magic." ~ Arthur C. Clarke
+C: "Any sufficiently advanced technology is indistinguishable from magic."
+~ Arthur C. Clarke
 
 Notes:
 
@@ -70,6 +73,8 @@ C: Running, Calistenics, Ping-pong, Foosball, Trekking, Snowboarding
 
 C: Close friend of a Hans Christian Andersen (1805 - 1875), author of many fairy tales, including "The Little Mermaid" and "The Ugly Duckling")
 
+Ref: https://en.wikipedia.org/wiki/Hans_Christian_Andersen
+
 ### Hans Christian Ørsted (1777 - 1851)
 
 ![I](./img/wonder.jpg)
@@ -80,9 +85,11 @@ C: First to explicitly describe and name the "thought experiment"
 
 ![I](./img/orsted-experiment.webp)
 
-C: In 1820, Ørsted published his discovery that a compass needle was deflected from magnetic north by a nearby electric current, confirming a direct relationship between electricity and magnetism.
+C: In 1820, Ørsted published his discovery that a compass needle was deflected from magnetic north by a nearby electric current.
 
 Ref: https://subratachak.wordpress.com/2017/12/16/oerstead/
+
+N: The discovery confirms a direct relationship between electricity and magnetism
 
 ## DefinIT philosophy
 
@@ -92,13 +99,17 @@ Ref: https://subratachak.wordpress.com/2017/12/16/oerstead/
 
 C: Conway's Game of Life
 
+Ref: https://johnhorgan.org/cross-check/quantum-mechanics-free-will-and-the-game-of-life
+
 ### Definitions as "patterns in the universe"
 
 ![I](./img/patterns.jpg)
 
 C: Patterns in math, astronomy, biology.
 
-### Pattern in computer science
+Ref: Ball, P. (2011). The Self-Made Tapestry: Nature's Shapes through Time. Oxford University Press.
+
+### Patterns in computer science
 
 ![I](./img/adapter.png)
 
@@ -111,6 +122,8 @@ Ref: https://thecodinggopher.substack.com/p/the-adapter-design-pattern
 ![I](./img/cell.jpg)
 
 C: The exercise is to describe mitochondria without referring to the cell.
+
+Ref: https://en.wikipedia.org/wiki/Cell_%28biology%29
 
 N: Set of definitions is called terminology. A terminology is acyclic if it does not contain any circular references between definitions.
 
@@ -126,13 +139,15 @@ N: The naming is a seperate exercise. It seems like we can put a boundary betwee
 
 ![I](./img/set.jpg)
 
-C: Even single words can have different meanings.
+C: A single word can have different meanings.
 
 ### An experiment to "prove the theory"
 
 ![I](./img/theory.png)
 
-C: "In theory, there is no difference between theory and practice. But in practice, there is." ~ Benjamin Brewster
+C: "In theory, there is no difference between theory and practice. But in practice, there is."
+
+C: ~ Benjamin Brewster
 
 N: Just an intro. The full description will be presented in the section "Data Structures and Algorithms course".
 
@@ -150,13 +165,13 @@ Ref: https://dataedo.com/cartoon/glossary-or-dictionary
 
 ![I](./img/edison.jpg)
 
-C: "Bugs" - little faults and difficulties
+C: "Bugs" - little faults and difficulties.
 
 ### Grace Hopper (1906 - 1992)
 
 ![I](./img/bug.jpg)
 
-C: "First actual case of bug being found"
+C: "First actual case of bug being found."
 
 N: A popular story from the 1940s is from Admiral Grace Hopper. While she was working on a Mark II computer at Harvard University, her associates discovered a moth stuck in a relay that impeded operation and wrote in a log book "First actual case of a bug being found". Although probably a joke, conflating the two meanings of bug (biological and defect), the story indicates that the term was used in the computer field at that time. She popularized the term debugging to mean fixing a computer program. Similarly, the term debugging was used in aeronautics before entering the world of computers. A letter from J. Robert Oppenheimer, director of the WWII atomic bomb Manhattan Project at Los Alamos, used the term in a letter to Dr. Ernest Lawrence at UC Berkeley, dated October 27, 1944,[2] regarding the recruitment of additional technical staff. The Oxford English Dictionary entry for debug uses the term debugging in reference to airplane engine testing in a 1945 article in the Journal of the Royal Aeronautical Society. An article in "Airforce" (June 1945 p. 50) refers to debugging aircraft cameras.
 
@@ -178,7 +193,7 @@ N: To eliminate ambiguity from technical languages by means of standardisation o
 
 ![I](./img/twitter.jpg)
 
-C: Concepts (or definitions) exist even before they are named - thus naming and it relevance for the terminology field have been neglected."
+C: "Concepts (or definitions) exist even before they are named - thus naming and it relevance for the terminology field have been neglected."
 
 ### Ludwik Zamenhof (1859 - 1917)
 
@@ -190,7 +205,7 @@ C: Wüster was a staunch advocate of a single language for scientific and techni
 
 ![I](./img/russell.jpg)
 
-C: In 1950, Russell was awarded the Nobel Prize in Literature "in recognition of his varied and significant writings in which he champions humanitarian ideals and freedom of thought".
+C: In 1950, Russell was awarded the Nobel Prize in Literature "(...) he champions humanitarian ideals and freedom of thought".
 
 ### Logical atomism
 
@@ -236,9 +251,9 @@ C: 30 levels, 380 definitions, ~1700 unique non-definition words and 1783 refere
 
 ### Issues
 
-![I](./img/llms-rank.png)
+![I](./img/llms.jpeg)
 
-C: Not proven, not used, not easy.
+C: Not easy, not proven, not used.
 
 ## Further work
 
@@ -254,7 +269,7 @@ C: Not proven, not used, not easy.
 
 C: Mind the "abstraction level" of the course, it should be just above the level of DSA course, so it can reuse the already created definitions.
 
-### Other applications
+### High quality dataset for LLMs
 
 ![I](./img/tuning.jpg)
 
@@ -262,10 +277,10 @@ C: Data from LLMs, for LLMs. Fine-tuning, RAGs.
 
 N: The definitions are suppose to have a high quality.
 
-### Other applications
+### "New kind of science"
 
 ![I](./img/papers.png)
 
-C: "New kind of science" -> reducing the number of preprints, articles, books.
+C: Reducing the number of preprints, articles, books.
 
 ## Please generate a thank you slide for the audience. Don't make a mistake.
