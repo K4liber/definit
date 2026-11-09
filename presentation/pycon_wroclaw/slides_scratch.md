@@ -45,7 +45,8 @@ C: Senior Full Stack Developer at Ørsted (2023 - ?)
 ![I](./img/magic.jpeg)
 
 C: "Any sufficiently advanced technology is indistinguishable from magic."
-~ Arthur C. Clarke
+
+C: ~ Arthur C. Clarke
 
 Notes:
 
@@ -61,7 +62,7 @@ Technology/Engineering is kind of a hacking of the universe, a way to understand
 
 ![IBR](./img/trekking.jpeg)
 
-C: Running, Calistenics, Ping-pong, Foosball, Trekking, Snowboarding
+C: Running, Calistenics, Ping-pong, Foosball, Trekking, Snowboarding.
 
 ## About Ørsted
 
@@ -71,7 +72,7 @@ C: Running, Calistenics, Ping-pong, Foosball, Trekking, Snowboarding
 
 ![IR](./img/andersen.jpg)
 
-C: Close friend of a Hans Christian Andersen (1805 - 1875), author of many fairy tales, including "The Little Mermaid" and "The Ugly Duckling")
+C: Close friend of a Hans Christian Andersen (1805 - 1875), author of many fairy tales, including "The Little Mermaid" and "The Ugly Duckling").
 
 Ref: https://en.wikipedia.org/wiki/Hans_Christian_Andersen
 
@@ -79,7 +80,7 @@ Ref: https://en.wikipedia.org/wiki/Hans_Christian_Andersen
 
 ![I](./img/wonder.jpg)
 
-C: First to explicitly describe and name the "thought experiment"
+C: First to explicitly describe and name the "thought experiment".
 
 ### Hans Christian Ørsted (1777 - 1851)
 
@@ -89,7 +90,7 @@ C: In 1820, Ørsted published his discovery that a compass needle was deflected 
 
 Ref: https://subratachak.wordpress.com/2017/12/16/oerstead/
 
-N: The discovery confirms a direct relationship between electricity and magnetism
+N: The discovery confirms a direct relationship between electricity and magnetism.
 
 ## DefinIT philosophy
 
@@ -97,7 +98,7 @@ N: The discovery confirms a direct relationship between electricity and magnetis
 
 ![I](./img/conway.gif)
 
-C: Conway's Game of Life
+C: Conway's Game of Life.
 
 Ref: https://johnhorgan.org/cross-check/quantum-mechanics-free-will-and-the-game-of-life
 
