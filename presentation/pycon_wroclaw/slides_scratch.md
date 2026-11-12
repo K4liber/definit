@@ -12,7 +12,7 @@ C: Jan Bielecki, PyCon Wrocław 2026
 
 ![I](./img/qr-platform.svg)
 
-C: k4liber.github.io/definit-dsa
+C: https://k4liber.github.io/definit-dsa
 
 Notes:
 
@@ -30,7 +30,7 @@ C:  left to take away." ~ Antoine de Saint-Exupéry
 
 ![I](./img/demo.jpeg)
 
-C: Showcase of http://k4liber.github.io/definit-dsa
+C: Showcase of https://k4liber.github.io/definit-dsa
 
 ## About me
 
