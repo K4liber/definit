@@ -104,11 +104,13 @@ Ref: https://johnhorgan.org/cross-check/quantum-mechanics-free-will-and-the-game
 
 ### Definitions as "patterns in the universe"
 
-![I](./img/patterns.jpg)
+![ITL](./img/hydrogen.png)
 
-C: Patterns in math, astronomy, biology.
+![ITR](./img/people.jpg)
 
-Ref: Ball, P. (2011). The Self-Made Tapestry: Nature's Shapes through Time. Oxford University Press.
+![IBL](./img/ecosystem.jpg)
+
+![IBR](./img/milky-way.webp)
 
 ### Patterns in computer science
 
