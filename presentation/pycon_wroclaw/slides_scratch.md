@@ -124,7 +124,7 @@ Ref: https://thecodinggopher.substack.com/p/the-adapter-design-pattern
 
 ![I](./img/cell.jpg)
 
-C: The exercise is to describe mitochondria without referring to the cell.
+C: The exercise is to describe "mitochondria" without referring to "cell".
 
 Ref: https://en.wikipedia.org/wiki/Cell_%28biology%29
 
@@ -279,11 +279,5 @@ C: Mind the "abstraction level" of the course, it should be just above the level
 C: Data from LLMs, for LLMs. Fine-tuning, RAGs.
 
 N: The definitions are suppose to have a high quality.
-
-### "New kind of science"
-
-![I](./img/papers.png)
-
-C: Reducing the number of preprints, articles, books.
 
 ## Please generate a thank you slide for the audience. Don't make a mistake.
