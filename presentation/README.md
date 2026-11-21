@@ -14,9 +14,10 @@ invoked by absolute path from another working directory.
 ## Scratch format
 
 - `#`, `##`, and `###` headings start slides (except inside fenced code blocks).
-- `#` makes the title slide and `##` a centered section slide; both are unnumbered.
-- `###` makes a content slide numbered `x/y` in the bottom-right corner, where `y`
-  counts only the `###` slides; the current `##` section name is shown bottom-left.
+- `#` makes an unnumbered title slide. `##` makes a centered section slide that
+  is unnumbered unless its heading ends with ` <!-- numbered -->`.
+- `###` makes a content slide and shows the current `##` section name bottom-left.
+  Content slides and opted-in section slides share the `x/y` counter bottom-right.
 - `![I](./img/example.png)` fills the available image area.
 - `IL` / `IR` place images in left/right columns.
 - `ITL` / `ITR` / `IBL` / `IBR` place images in a 2×2 grid.

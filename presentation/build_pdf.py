@@ -14,6 +14,7 @@ from pathlib import Path
 DEFAULT_SOURCE = Path(__file__).resolve().parent / "pycon_wroclaw" / "slides_scratch.md"
 MARP_PACKAGE = "@marp-team/marp-cli@4.5.1"
 IMAGE_LAYOUTS = (("ITL", "ITR", "IBL", "IBR"), ("IL", "IR"), ("I",))
+NUMBERED_SECTION_MARKER = " <!-- numbered -->"
 
 MARP_HEADER = """---
 marp: true
@@ -68,6 +69,7 @@ style: |
     font-size: 0.9rem;
     box-sizing: border-box;
   }
+    .slide-number { margin-left: auto; }
   .images {
     flex: 1 1 0;
     min-height: 0;
@@ -160,12 +162,18 @@ def render_images(images: dict[str, str]) -> str:
 
 
 def convert_scratch_to_marp(scratch_text: str) -> str:
-    slide_sources = split_slides(scratch_text)
-    numbered_total = sum(heading_level(lines) not in (1, 2) for lines in slide_sources)
+    slide_sources = []
+    for lines in split_slides(scratch_text):
+        level = heading_level(lines)
+        numbered_section = level == 2 and lines[0].rstrip().endswith(NUMBERED_SECTION_MARKER)
+        if numbered_section:
+            lines[0] = lines[0].rstrip().removesuffix(NUMBERED_SECTION_MARKER).rstrip()
+        slide_sources.append((lines, level, numbered_section or level not in (1, 2)))
+    numbered_total = sum(numbered for _, _, numbered in slide_sources)
     slides: list[str] = []
     number = 0
     section_name = ""
-    for lines in slide_sources:
+    for lines, level, numbered in slide_sources:
         slide_lines: list[str] = []
         notes: list[str] = []
         captions: list[str] = []
@@ -211,10 +219,6 @@ def convert_scratch_to_marp(scratch_text: str) -> str:
         if notes:
             safe_notes = "\n".join(notes).replace("-->", "--&gt;")
             slide_lines.append(f"\n<!--\n{safe_notes}\n-->")
-        # `#` is the title slide and `##` a centered section slide: both stay
-        # unnumbered. Only `###` slides count; they show x/y in the bottom-right
-        # corner and the current section name in the bottom-left corner.
-        level = heading_level(lines)
         directives: list[str] = []
         if level == 1:
             directives.append("<!-- _class: title-slide -->")
@@ -223,12 +227,12 @@ def convert_scratch_to_marp(scratch_text: str) -> str:
             words = lines[0].split(None, 1)
             section_name = words[1].strip() if len(words) > 1 else ""
         content = "\n".join(slide_lines).strip()
-        if level not in (1, 2):
+        if numbered:
             number += 1
             # Marp's paginate directive is boolean-only: a custom x/y value is
             # silently ignored, so render our own bar with white labels on black.
             labels = []
-            if section_name:
+            if section_name and level != 2:
                 labels.append(f'<span class="slide-section">{escape(section_name)}</span>')
             labels.append(f'<span class="slide-number">{escape(f"{number}/{numbered_total}")}</span>')
             bar = '<div class="slide-footer">' + "".join(labels) + "</div>"

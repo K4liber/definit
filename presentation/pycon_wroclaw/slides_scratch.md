@@ -92,7 +92,7 @@ Ref: https://subratachak.wordpress.com/2017/12/16/oerstead/
 
 N: The discovery confirms a direct relationship between electricity and magnetism.
 
-## DefinIT philosophy
+## DefinIT philosophy <!-- numbered -->
 
 ### John Conway (1937 - 2020)
 
@@ -154,7 +154,7 @@ C: ~ Benjamin Brewster
 
 N: Just an intro. The full description will be presented in the section "Data Structures and Algorithms course".
 
-## Literature review
+## Literature review <!-- numbered -->
 
 ### Standardized glossary in computing
 
@@ -166,7 +166,9 @@ Ref: https://dataedo.com/cartoon/glossary-or-dictionary
 
 ### Thomas Edison (1847 - 1931)
 
-![I](./img/edison.jpg)
+![IL](./img/pope.jpg)
+
+![IR](./img/edison.jpg)
 
 C: "Bugs" - little faults and difficulties.
 
@@ -228,7 +230,7 @@ C: Economically organized hierarchies in WordNet and the Oxford English Dictiona
 
 Ref: https://www.sciencedirect.com/science/article/abs/pii/S1389041708000120
 
-## Data Structures and Algorithms course
+## Data Structures and Algorithms course <!-- numbered -->
 
 ### How it was created
 

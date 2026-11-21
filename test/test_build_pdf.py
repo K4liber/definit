@@ -54,6 +54,25 @@ def test_slides_before_any_section_have_no_section_label():
     assert '<span class="slide-number">1/1</span>' in result
 
 
+def test_opted_in_section_is_numbered_without_changing_its_title():
+    result = body("# Title\n### Intro\n## Section <!-- numbered -->\n### Detail\n## End")
+    _, intro, divider, detail, end = result.split("\n\n---\n\n")
+    assert "1/3</span>" in intro
+    assert divider.startswith("<!-- _class: section-slide -->")
+    assert '<span class="slide-number">2/3</span>' in divider
+    assert 'class="slide-section"' not in divider
+    assert divider.endswith("## Section")
+    assert '<span class="slide-section">Section</span>' in detail
+    assert '<span class="slide-number">3/3</span>' in detail
+    assert 'class="slide-number"' not in end
+    assert "<!-- numbered -->" not in result
+
+
+def test_pycon_deck_has_37_consecutively_numbered_slides():
+    result = body(builder.DEFAULT_SOURCE.read_text(encoding="utf-8"))
+    assert re.findall(r'class="slide-number">([^<]+)', result) == [f"{i}/37" for i in range(1, 38)]
+
+
 def test_section_label_escapes_html():
     result = body("## Ørsted <3 & co\n### Slide")
     assert '<span class="slide-section">Ørsted &lt;3 &amp; co</span>' in result
