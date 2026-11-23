@@ -1,12 +1,12 @@
 # Building presentation PDFs
 
-Run `uv run --script presentation/build_pdf.py` from the repository root.
+Run `uv run --script presentation/src/build_pdf.py` from the repository root.
 Requires Node.js/npm and Chrome, Edge, or Firefox. On the first run, `npx`
 downloads the pinned Marp CLI version. The Python script has no dependencies.
 
 The default is the PyCon Wrocław deck. An optional source argument selects
 another deck, for example
-`uv run --script presentation/build_pdf.py presentation/warsaw_python_pizza/slides_scratch.md`.
+`uv run --script presentation/src/build_pdf.py presentation/warsaw_python_pizza/slides_scratch.md`.
 The generated Markdown and PDF are written beside the source, with the names
 slides_marp.md and slides.pdf. The default source also works when the script is
 invoked by absolute path from another working directory.
@@ -44,7 +44,7 @@ remote debugging is disallowed by the system admin”**, the machine policy bloc
 that export (Marp may instead report a misleading “browser is already running”
 error). Do not change the policy to run this script.
 
-Use `uv run --script presentation/build_pdf.py --html-only` instead, then open
+Use `uv run --script presentation/src/build_pdf.py --html-only` instead, then open
 the generated HTML preview beside the source in Chrome/Edge and use Print →
 Save as PDF. Disable browser headers and footers. This does not require remote
 debugging. The `BROWSER_PATH` environment variable can select an executable for
@@ -52,7 +52,7 @@ Marp, but it cannot override an administrator policy.
 
 ## Tests
 
-Run `python -m pytest test/test_build_pdf.py` for the fast regression tests.
+Run `python -m pytest presentation/test/test_build_pdf.py` for the fast regression tests.
 To also exercise actual print layout, set `MARP_TEST_BROWSER` to the full path
 of a Chrome/Edge executable and run the same tests. The opt-in test requires
 Node.js/npm, renders the real deck plus extreme aspect ratios and long captions,

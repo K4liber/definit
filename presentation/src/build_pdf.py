@@ -11,7 +11,7 @@ import subprocess
 from html import escape
 from pathlib import Path
 
-DEFAULT_SOURCE = Path(__file__).resolve().parent / "pycon_wroclaw" / "slides_scratch.md"
+DEFAULT_SOURCE = Path(__file__).resolve().parents[1] / "pycon_wroclaw" / "slides_scratch.md"
 MARP_PACKAGE = "@marp-team/marp-cli@4.5.1"
 IMAGE_LAYOUTS = (("ITL", "ITR", "IBL", "IBR"), ("IL", "IR"), ("I",))
 NUMBERED_SECTION_MARKER = " <!-- numbered -->"
