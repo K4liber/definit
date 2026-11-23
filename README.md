@@ -35,8 +35,6 @@ Figure 1. Circular DAG visualization of `mathematics` definitions.
 
 ## Project rationalization
 
-### Where the idea comes from?
-
 First principles thinking is the act of boiling a process down to the fundamental parts that you know are true and building up from there. It is a way of understanding the world by breaking down complex problems into their most basic elements.
 
 The idea for DefinIT emerged from a desire to represent computer science knowledge in a structured, non-redundant way where each concept builds upon clearly defined, smaller elements. Inspired by first principles thinking, the project seeks to create a hierarchy of definitions that enables learners to progress logically from foundational ideas to advanced concepts. Picking a single definition, the descendent nodes indicate what should be 
@@ -47,9 +45,9 @@ Keeping the DAG structure enforce us to build a definition on top of the more ge
 !['trie' dependencies DAG](./dag_definition_trie.png)  
 Figure 2. 'trie' dependencies DAG.
 
-### Literature Review
+## Literature Review
 
-#### Standardized vocabularies in computing
+### Standardized vocabularies in computing
 
 In the early stages of the field, the importance of a unambiguous expert language has been highlighted. 
 In 1954, Grace Hopper, a pioneer in computer programming, wrote a "First Glossary of Programming Terminology"[2].
@@ -73,31 +71,31 @@ In the 2000s and beyond, the rise of the internet and online resources led to th
 Many universities and organizations began to publish their own glossaries and dictionaries,
 and online platforms like Wikipedia became valuable resources for finding definitions and explanations of computer science terms.
 
-#### Terminology science
+### Terminology science
 
-Terminology science studies concepts, conceptual systems and their labels (terms), in contrast to lexicography, which studies words and their meanings. Its foundation is the General Theory of Terminology of Eugen Wüster [6], which treats a discipline's concepts as a structured system to which terms are then assigned. Later schools — the communicative theory of terminology [7], the sociocognitive approach [8] and frame-based terminology [9] — relativized the ideal of fully crisp, context-independent concepts. DefinIT stands in the concept-first (onomasiological) tradition: the definition object is primary, while its name and aliases are labels attached to it.
+Terminology science studies concepts, conceptual systems and their labels (terms), in contrast to lexicography, which studies words and their meanings. Its foundation is the General Theory of Terminology of Eugen Wüster [6], which treats a discipline's concepts as a structured system to which terms are then assigned. Later schools — the communicative theory of terminology [7], the sociocognitive approach [8] and frame-based terminology [9] — relativized the ideal of fully crisp, context-independent concepts. DefinIT stands in the concept-first (onomasiological) tradition: the definition object is primary, while its name and aliases are labels attached to it. The concept-first program was carried further in knowledge organization by Ingetraut Dahlberg, founding editor of the journal *Knowledge Organization*, whose concept theory and fully-faceted Information Coding Classification organize knowledge as a system of rigorously defined concept units [10].
 
-#### Philosophy of definitions
+### Philosophy of definitions
 
-The philosophy of definition distinguishes real from nominal definitions and stipulative, descriptive, explicative and ostensive definitions, and formulates two classical criteria: conservativeness (a definition should not let us establish new claims) and eliminability (the defined term should be replaceable by its definiens) [10]. It has also long been observed that definitional chains cannot regress forever: ultimately they must terminate in terms that are understood directly — Russell argued that all nominal definitions "must lead ultimately to terms having only ostensive definitions" [10]. DefinIT operationalizes this regress as an explicit data structure: root definitions are such primitives, and the acyclicity constraint rules out definitional circularity by construction.
+The philosophy of definition distinguishes real from nominal definitions and stipulative, descriptive, explicative and ostensive definitions, and formulates two classical criteria: conservativeness (a definition should not let us establish new claims) and eliminability (the defined term should be replaceable by its definiens) [11]. It has also long been observed that definitional chains cannot regress forever: ultimately they must terminate in terms that are understood directly — Russell argued that all nominal definitions "must lead ultimately to terms having only ostensive definitions" [11]. The same question resurfaces in knowledge organization, where Hjørland's review of semantic primitives and compositionality surveys candidate foundational units for knowledge organization systems — while himself remaining skeptical of the ideal of a fixed set of primitives [12]. DefinIT operationalizes this regress as an explicit data structure: root definitions are such primitives, and the acyclicity constraint rules out definitional circularity by construction.
 
-#### Symbol grounding
+### Symbol grounding
 
-The symbol grounding problem is the problem of how the meaning of symbols can be intrinsic to a symbol system rather than "parasitic on the meanings in our heads": a dictionary followed blindly cycles endlessly from one definition to another [11]. Blondin Massé, Harnad et al. formalized dictionary graphs and defined the reachable set of a vocabulary: everything that can be learned through definitions alone once a smaller kernel vocabulary is already grounded [12]. DefinIT's roots play exactly the role of such a kernel[13] (which is an empty set) — they must be understandable without reference to other definitions — and every non-root definition is reachable from them along explicit "is based on" edges.
+The symbol grounding problem is the problem of how the meaning of symbols can be intrinsic to a symbol system rather than "parasitic on the meanings in our heads": a dictionary followed blindly cycles endlessly from one definition to another [13]. Blondin Massé, Harnad et al. formalized dictionary graphs and defined the reachable set of a vocabulary: everything that can be learned through definitions alone once a smaller kernel vocabulary is already grounded [14]. DefinIT's roots play exactly the role of such a kernel[15] (which is an empty set) — they must be understandable without reference to other definitions — and every non-root definition is reachable from them along explicit "is based on" edges.
 
-#### Prerequisite structures in education
+### Prerequisite structures in education
 
-Educational research has long emphasized the role of prior knowledge: in Ausubel's words, "the most important single factor influencing learning is what the learner already knows" [14][15]. Concept maps were developed by Novak to represent meaningful learning as networks of concepts connected by labeled linking phrases [15]. Knowledge space theory, introduced by Doignon and Falmagne [16] and applied in tutoring systems such as ALEKS, models a discipline as a set of concepts ordered by prerequisite relations. The "is based on" DAG of DefinIT is a curated prerequisite structure: given a definition, the definitions it ultimately builds on form a ready-made learning path, and definition levels reflect prerequisite depth.
+Educational research has long emphasized the role of prior knowledge: in Ausubel's words, "the most important single factor influencing learning is what the learner already knows" [16][17]. Concept maps were developed by Novak to represent meaningful learning as networks of concepts connected by labeled linking phrases [17]. Knowledge space theory, introduced by Doignon and Falmagne [18] and applied in tutoring systems such as ALEKS, models a discipline as a set of concepts ordered by prerequisite relations. The "is based on" DAG of DefinIT is a curated prerequisite structure: given a definition, the definitions it ultimately builds on form a ready-made learning path, and definition levels reflect prerequisite depth.
 
-#### Knowledge graphs, thesauri and ontologies
+### Knowledge graphs, thesauri and ontologies
 
-Semantic networks date back at least to Porphyry's commentary on Aristotle's categories and were implemented computationally by Richens (1956) and Quillian in the 1960s [17]. WordNet groups words into synsets linked by relations such as hypernymy and hyponymy [18]. SKOS is the W3C recommendation for publishing thesauri, classifications and controlled vocabularies as linked data [19]. The Gene Ontology organizes tens of thousands of terms covering three domains of biology in a directed acyclic graph using a small set of relations (`is_a`, `part_of`) [20]. What distinguishes DefinIT from these systems is the relation discipline and the role of content: there is exactly one relation type ("is based on"), it is enforced to be acyclic, and each node carries a curated, evolvable definition rather than serving as a label for entities.
+Semantic networks date back at least to Porphyry's commentary on Aristotle's categories and were implemented computationally by Richens (1956) and Quillian in the 1960s [19]. WordNet groups words into synsets linked by relations such as hypernymy and hyponymy [20]. SKOS is the W3C recommendation for publishing thesauri, classifications and controlled vocabularies as linked data [21]. The Gene Ontology organizes tens of thousands of terms covering three domains of biology in a directed acyclic graph using a small set of relations (`is_a`, `part_of`) [22]. Recent work in the knowledge organization community makes this missing structural ingredient explicit: existing systems have been argued to lack a mechanism for expressing asymmetric dependency, with knowledge best organized by ontological dependency rather than disciplinary convention [23], and the principle of cognitive unity ranks knowledge organization systems by their internal cognitive architecture, up to systems built from explicit "cognitive roots" [24]. What distinguishes DefinIT from these systems is the relation discipline and the role of content: there is exactly one relation type ("is based on"), it is enforced to be acyclic, and each node carries a curated, evolvable definition rather than serving as a label for entities.
 
-#### Positioning
+### Positioning
 
-Earlier efforts concentrated on nomenclature within a single field. DefinIT generalizes the approach across disciplines and makes the dependency structure between definitions itself a first-class, versioned, machine-processable artifact constrained to a single acyclic relation.
+Earlier efforts concentrated on nomenclature within a single field. DefinIT generalizes the approach across disciplines and makes the dependency structure between definitions itself a first-class, versioned, machine-processable artifact constrained to a single acyclic relation — the kind of theoretically grounded yet machine-processable knowledge organization system that current field-level debates call for [25].
 
-### Applications of DefinIT
+## Applications of DefinIT
 
 - Learning a new field of knowledge.
 - Deepening understanding of a specific topic/term.
@@ -130,27 +128,37 @@ It is a tedious process to create such knowledge structure. A solid understandin
 
 9. P. Faber et al., "Process-oriented terminology management in the domain of Coastal Engineering", Terminology 12(2), 2006.
 
-10. "Definitions", Stanford Encyclopedia of Philosophy, https://plato.stanford.edu/entries/definitions/
+10. I. Dahlberg, "The Information Coding Classification (ICC): A Modern, Theory-Based Fully-Faceted, Universal System of Knowledge Fields", Axiomathes 18(2), 2008, https://doi.org/10.1007/s10516-007-9026-8
 
-11. S. Harnad, "The Symbol Grounding Problem", Physica D 42(1-3), 1990.
+11. "Definitions", Stanford Encyclopedia of Philosophy, https://plato.stanford.edu/entries/definitions/
 
-12. A. Blondin Massé, G. Chicoisne, Y. Gargouri, S. Harnad, O. Picard, O. Marcotte, "How Is Meaning Grounded in Dictionary Definitions?", TextGraphs-3 at COLING 2008, https://arxiv.org/abs/0806.3710
+12. B. Hjørland, "Semantic primitives and compositionality: An Annual Review of Information Science and Technology (ARIST) paper", Journal of the Association for Information Science and Technology 77(1), 198-223, 2026, https://doi.org/10.1002/asi.70011
 
-13. Olivier Picard, Alexandre Blondin Masse, and others, "Hierarchies in Dictionary Definition Space", 2009, https://arxiv.org/abs/0911.5703v1
+13. S. Harnad, "The Symbol Grounding Problem", Physica D 42(1-3), 1990.
 
-14. D. P. Ausubel, "Educational Psychology: A Cognitive View", Holt, Rinehart and Winston, 1968.
+14. A. Blondin Massé, G. Chicoisne, Y. Gargouri, S. Harnad, O. Picard, O. Marcotte, "How Is Meaning Grounded in Dictionary Definitions?", TextGraphs-3 at COLING 2008, https://arxiv.org/abs/0806.3710
 
-15. J. D. Novak, D. B. Gowin, "Learning How to Learn", Cambridge University Press, 1984.
+15. Olivier Picard, Alexandre Blondin Masse, and others, "Hierarchies in Dictionary Definition Space", 2009, https://arxiv.org/abs/0911.5703v1
 
-16. J.-P. Doignon, J.-C. Falmagne, "Spaces for the assessment of knowledge", International Journal of Man-Machine Studies 29(2), 1985.
+16. D. P. Ausubel, "Educational Psychology: A Cognitive View", Holt, Rinehart and Winston, 1968.
 
-17. J. F. Sowa, "Semantic Networks", Encyclopedia of Artificial Intelligence, Wiley, 1987.
+17. J. D. Novak, D. B. Gowin, "Learning How to Learn", Cambridge University Press, 1984.
 
-18. G. A. Miller, "WordNet: A Lexical Database for English", Communications of the ACM 38(11), 1995.
+18. J.-P. Doignon, J.-C. Falmagne, "Spaces for the assessment of knowledge", International Journal of Man-Machine Studies 29(2), 1985.
 
-19. A. Miles, S. Bechhofer (eds.), "SKOS Simple Knowledge Organization System Reference", W3C Recommendation, 2009, https://www.w3.org/TR/skos-reference/
+19. J. F. Sowa, "Semantic Networks", Encyclopedia of Artificial Intelligence, Wiley, 1987.
 
-20. The Gene Ontology Consortium, "Gene ontology: tool for the unification of biology", Nature Genetics 25(1), 2000.
+20. G. A. Miller, "WordNet: A Lexical Database for English", Communications of the ACM 38(11), 1995.
+
+21. A. Miles, S. Bechhofer (eds.), "SKOS Simple Knowledge Organization System Reference", W3C Recommendation, 2009, https://www.w3.org/TR/skos-reference/
+
+22. The Gene Ontology Consortium, "Gene ontology: tool for the unification of biology", Nature Genetics 25(1), 2000.
+
+23. H. Alwis, "Organizing Knowledge by Constraint and Complexity: A Four-Realm Taxonomy as Diagnostic Overlay for Mapping Human Agency Within Nested Cosmic, Planetary, Ecological, and Civilizational Systems", Knowledge Organization 53(3), 2026, https://doi.org/10.31083/KO50861
+
+24. M. Amirhosseini, "An Introduction to the Principle of Cognitive Unity in the Structure of KOSs", Knowledge Organization 53(3), 2026, https://doi.org/10.31083/KO47986
+
+25. R. Szostak, "Some Reflections on the State of the Field of Knowledge Organization", Knowledge Organization 53(3), 2026, https://doi.org/10.31083/KO51073
 
 ## Related materials/concepts/links (not referenced in the text)
 
@@ -237,16 +245,16 @@ XL.
 
 ## For developers
 
-## Python package
+### Python package
 
-### Installation
+#### Installation
 
 `uv sync --extra dev`
 
-### Build
+#### Build
 
 `uv build`
 
-### Deploy
+#### Deploy
 
 `uv publish --token <pypi_token>`

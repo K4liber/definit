@@ -10,6 +10,19 @@ Each item should have a title, a description, and a list of tasks to be complete
 
 ## IN PROGRESS
 
+## TODO
+
+### 4. [docs] Update the README by:
+
+- [ ] Writing a manuscript of the DefinIT philosophy based on the PyCon Wroclaw presentation
+- [ ] Blending the manuscript with the README "## What is the project about?" and "## Positioning" sections, and the "## Project rationalization" section, to create a coherent narrative about the project and its philosophy."
+
+### 5. [devops] Github Action to deploy the package to PyPI
+
+### 6. [devops] Github Action to deploy the documentation to GitHub Pages
+
+## DONE
+
 ### 7. [docs] Re-do the literature review and update the README with the new references
 
 Survey the literature beyond the historical CS glossaries (Hopper, ACM CCS, IEEE, UML) to position DefinIT against existing concepts, and refresh the README references.
@@ -22,17 +35,7 @@ Survey the literature beyond the historical CS glossaries (Hopper, ACM CCS, IEEE
 - [x] Review formal mathematics (Metamath) for the axioms/roots analogy.
 - [x] Rewrite the README literature review with thematic subsections and a positioning statement.
 - [x] Extend "Mentioned materials" (refs 7-22) and "Related materials" (IX-XVI).
-- [ ] Review the changes [HUMAN] and update the README accordingly.
-
-## TODO
-
-### 4. [docs] Update the README to reflect last changes
-
-### 5. [devops] Github Action to deploy the package to PyPI
-
-### 6. [devops] Github Action to deploy the documentation to GitHub Pages
-
-## DONE
+- [x] Review the changes [HUMAN] and update the README accordingly.
 
 ### 3. [feature] Introduce Definition Groups
 

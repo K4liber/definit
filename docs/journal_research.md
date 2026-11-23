@@ -30,24 +30,11 @@ Suggested framing: *"DefinIT: an operationalization of definitional regress and 
 | *JASIST* | Wiley | Same expectation of empirical information-science evaluation |
 | *International Journal of Lexicography* | OUP | Dictionary-focused; DefinIT is not a lexicographic work |
 
-## Citable works from the KO ecosystem (verified 2026-11-15)
-
-Highly relevant to DefinIT's story; several map directly onto existing README sections:
-
-1. **Hjørland, Birger. 2026. "Semantic primitives and compositionality: An Annual Review of Information Science and Technology (ARIST) paper." *Journal of the Association for Information Science and Technology* 77(1): 198–223. https://doi.org/10.1002/asi.70011** — also in the ISKO Encyclopedia of Knowledge Organization: https://www.isko.org/cyclo/primitives
-   - *The* citation for DefinIT's roots-as-primitives claim: "a set of basic, atomic concepts from which all other (compound) concepts are constructed… candidates for foundational units in knowledge organization systems." Links primitives to facet analysis, semantic factoring, and compositionality — exactly the vocabulary KO reviewers expect. Note: Hjørland is himself skeptical of primitives — engage with his critique rather than only citing approvingly.
-2. **"Organizing Knowledge by Constraint and Complexity: A Four-Realm Taxonomy as Diagnostic Overlay…" *Knowledge Organization* 53(3), 2026. https://doi.org/10.31083/KO50861**
-   - Argues existing systems lack "a mechanism for expressing asymmetric dependency" — precisely DefinIT's single acyclic "is based on" relation. Strong related-work anchor.
-3. **"An Introduction to the Principle of Cognitive Unity in the Structure of KOSs." *Knowledge Organization* 53(3), 2026. https://doi.org/10.31083/KO47986**
-   - Proposes "cognitive roots" and a ranking of KOSs by internal cognitive architecture — DefinIT's root definitions and definition levels slot straight into this debate.
-4. **Dahlberg's KO concept-system program** — the KO journal's founding editor (cf. IEKO entry "Knowledge organization (KO)": https://www.isko.org/cyclo/knowledge_organization; concept theory and the *Information Coding Classification* are cited as Dahlberg 2006/2008 in the KO 53:3 articles above) — the Wüsterian lineage already referenced in the README ([6][7][8][9]).
-5. **Szostak, R. 2026. "Some reflections on the state of the field of KO." *Knowledge Organization* 53(3). https://doi.org/10.31083/KO51073** — useful for positioning DefinIT within current field-level debates.
-
 ## Case study asset: `definit-db`
 
 The "data structures and algorithms" concept database built on DefinIT (~/Desktop/projects/definit-db: `computer_science`/`mathematics` fields, `defs.json`, GUI, word analysis of non-definition words) is a strong asset for this venue — KO values concrete KOS implementations. Consider adding a case-study section demonstrating the `computer_science/data_structure` DAG and the word-analysis workflow.
 
 ## Strategy
 
-1. Submit to *Knowledge Organization* (IMR Press), framing the paper around concept-system theory (definitional regress, symbol grounding kernel, single-relation discipline), citing the works above.
+1. Submit to *Knowledge Organization* (IMR Press), framing the paper around concept-system theory (definitional regress, symbol grounding kernel, single-relation discipline), citing the KO-ecosystem works now blended into the README Literature Review (Hjørland 2026; Alwis 2026; Amirhosseini 2026; Dahlberg; Szostak 2026).
 2. Keep *Terminology* as backup if the framing leans more toward LSP communication and terminological databases.
