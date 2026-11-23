@@ -8,3 +8,7 @@ wheels/
 
 # Virtual environments
 .venv
+
+presentation/*/slides_marp.md
+presentation/*/slides_preview.html
+presentation/*/slides.pdf
