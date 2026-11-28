@@ -15,7 +15,7 @@ Suggested framing: *"DefinIT: an operationalization of definitional regress and 
 
 ### 🥈 Strong alternative: *Terminology* (John Benjamins)
 
-- Website: https://benjamins.com/catalog/term — Editors: Kyo Kageura & Rita Temmerman (Temmerman's sociocognitive approach is reference [8] in the README).
+- Website: https://benjamins.com/catalog/term — Editors: Kyo Kageura & Rita Temmerman (Temmerman's sociocognitive approach is reference [11] in the README).
 - Verified scope (from publisher): "problems of ambiguity, reference… knowledge representation and transfer, information technology tools, expert systems and terminological databases."
 - Metrics: Impact Factor 1.0 (5-year: 1.2), CiteScore 2.2, SJR 0.343.
 - Better fit if the paper frames DefinIT as a *terminological resource / concept-system engineering* contribution rather than a knowledge-organization theory paper. Linguistics-oriented audience.
